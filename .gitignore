@@ -42,3 +42,5 @@ out/
 ### properties
 /src/main/resources/properties/env.properties
 
+### test.http
+/http/test.http
