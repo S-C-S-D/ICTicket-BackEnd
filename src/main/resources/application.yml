@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ICTicket
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+server:
+  port: ${SERVER_PORT}
