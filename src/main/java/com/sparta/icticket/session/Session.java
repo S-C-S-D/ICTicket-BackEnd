@@ -3,11 +3,16 @@ package com.sparta.icticket.session;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "sessions")
 public class Session extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

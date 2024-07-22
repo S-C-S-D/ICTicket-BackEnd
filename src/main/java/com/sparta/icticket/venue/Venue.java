@@ -2,8 +2,13 @@ package com.sparta.icticket.venue;
 
 import com.sparta.icticket.common.Timestamped;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "venues")
 public class Venue extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

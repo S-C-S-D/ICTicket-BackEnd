@@ -5,11 +5,16 @@ import com.sparta.icticket.common.enums.AgeGroup;
 import com.sparta.icticket.common.enums.Genre;
 import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "performances")
 public class Performance extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +50,7 @@ public class Performance extends Timestamped {
     @Column(nullable = false)
     private LocalDate endAt;
 
-    private String image;
+    private String imageUrl;
 
     private Long viewCount;
 

@@ -4,8 +4,13 @@ import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.order.Order;
 import com.sparta.icticket.seat.Seat;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "tickets")
 public class Ticket extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

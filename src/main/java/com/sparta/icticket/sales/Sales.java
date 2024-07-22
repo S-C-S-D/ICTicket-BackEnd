@@ -3,10 +3,15 @@ package com.sparta.icticket.sales;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "sales")
 public class Sales extends Timestamped {
 
     @Id

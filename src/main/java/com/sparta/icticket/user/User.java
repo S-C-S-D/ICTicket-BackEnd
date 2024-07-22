@@ -4,10 +4,15 @@ import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "users")
 public class User extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

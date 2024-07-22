@@ -4,9 +4,14 @@ import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "likes")
 public class Like extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

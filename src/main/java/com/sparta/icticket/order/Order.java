@@ -5,8 +5,13 @@ import com.sparta.icticket.common.enums.OrderStatus;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "orders")
 public class Order extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

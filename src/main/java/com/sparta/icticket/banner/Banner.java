@@ -3,8 +3,13 @@ package com.sparta.icticket.banner;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.BannerType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "banners")
 public class Banner extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
