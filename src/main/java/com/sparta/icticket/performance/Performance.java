@@ -3,6 +3,7 @@ package com.sparta.icticket.performance;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.AgeGroup;
 import com.sparta.icticket.common.enums.Genre;
+import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
