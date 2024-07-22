@@ -28,7 +28,7 @@ public class UserService {
 
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
-        User saveUser = new User(requestDto, requestDto.getPassword());
+        User saveUser = new User(requestDto, encodedPassword);
 
         userRepository.save(saveUser);
     }
