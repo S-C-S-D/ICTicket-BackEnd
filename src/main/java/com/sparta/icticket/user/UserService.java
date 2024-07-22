@@ -1,5 +1,7 @@
 package com.sparta.icticket.user;
 
+import com.sparta.icticket.common.enums.ErrorType;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,6 @@ public class UserService {
 
     private void checkDuplicateEmail(String email) {
         userRepository.findByEmail(email).ifPresent(e -> {
-                throw new IllegalArgumentException("중복된 이메일 입니다.");});
+                throw new CustomException(ErrorType.ALREADY_EXISTS_EMAIL);});
     }
 }
