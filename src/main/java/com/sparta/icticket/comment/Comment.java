@@ -1,13 +1,12 @@
-package com.sparta.icticket.like;
+package com.sparta.icticket.comment;
 
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
 
-
 @Entity
-public class Like extends Timestamped {
+public class Comment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,5 +18,14 @@ public class Like extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performance_id", nullable = false)
     private Performance performance;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private Integer rate;
 
 }
