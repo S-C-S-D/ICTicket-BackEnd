@@ -2,7 +2,7 @@ package com.sparta.icticket.performance;
 
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.AgeGroup;
-import com.sparta.icticket.common.enums.Genre;
+import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public class Performance extends Timestamped {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Genre genre;
+    private GenreType genreType;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
