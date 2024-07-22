@@ -1,0 +1,52 @@
+### 회원가입 (ADMIN)
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "hgh7546@naver.com",
+  "password": "Hgh7546!!!",
+  "name" : "한근형",
+  "userType" : "ADMIN"
+}
+
+### 회원가입 (USER)
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email" : "hgh7546@naver.com",
+  "password" : "password123",
+  "name" : "김예현",
+  "nickName" : "malty",
+  "phoneNumber" : "010-0000-0000",
+  "address" : "경기도 성남시 분당구 정자동"
+}
+
+
+### 로그인 (MANAGER)
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "hgh7546@naver.com",
+  "password": "password123"
+}
+
+> {%
+    client.log(response.headers.valueOf("accessToken"));
+    client.log(response.headers.valueOf("refreshToken"));
+    client.global.set("accessToken", response.headers.valueOf("accessToken"));
+    client.global.set("refreshToken", response.headers.valueOf("refreshToken"));
+%}
+
+
+
+### 로그아웃 (MANAGER)
+POST http://localhost:8080/users/logout
+accessToken: {{accessToken}}
+refreshToken: {{refreshToken}}
+
+> {%
+    client.global.clear("accessToken");
+    client.global.clear("refreshToken");
+%}
