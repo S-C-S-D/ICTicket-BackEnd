@@ -29,6 +29,9 @@ public class LikeService {
 
         Performance findPerformance = findPerformanceById(performanceId);
 
+        likeRepository.findByUserAndPerformance(findUser, findPerformance).ifPresent(l ->{
+            throw new CustomException(ErrorType.ALREADY_LIKED_PERFORMANCE);});
+
         Like saveLike = new Like(findUser, findPerformance);
 
         likeRepository.save(saveLike);
@@ -44,7 +47,7 @@ public class LikeService {
         Performance findPerformance = findPerformanceById(performanceId);
 
         Like findLke = likeRepository.findByUserAndPerformance(findUser, findPerformance).orElseThrow(() ->
-                new CustomException(ErrorType.ALREADY_LIKED_PERFORMANCE));
+                new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
 
         likeRepository.delete(findLke);
     }
