@@ -3,6 +3,7 @@ package com.sparta.icticket.seat;
 import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.SeatGrade;
+import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.session.Session;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class Seat extends Timestamped {
     private SeatGrade seatGrade;
 
     @Column(nullable = false)
-    private boolean isReserved;
+    private SeatStatus seatStatus;
 
     private LocalDateTime reservedAt;
 
@@ -44,7 +45,11 @@ public class Seat extends Timestamped {
         this.price = requestDto.getPrice();
         this.seatNumber = requestDto.getSeatNumber();
         this.seatGrade = requestDto.getSeatGrade();
-        this.isReserved = false;
+        this.seatStatus = SeatStatus.NOT_RESERVED;
     }
 
+    public void updateIsReserved() {
+        this.seatStatus = SeatStatus.PAYING;
+        this.reservedAt = LocalDateTime.now();
+    }
 }
