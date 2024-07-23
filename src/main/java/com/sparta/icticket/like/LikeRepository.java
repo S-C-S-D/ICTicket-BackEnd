@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByUserAndPerformance(User findUser, Performance findPerformance);
+
+    Long countByPerformance(Performance findPerformance);
 }

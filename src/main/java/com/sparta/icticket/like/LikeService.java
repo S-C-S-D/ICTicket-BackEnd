@@ -50,6 +50,17 @@ public class LikeService {
     }
 
     /**
+     * 관심 개수 조회
+     * @param performanceId
+     * @return
+     */
+    public Long getLikesCount(Long performanceId) {
+        Performance findPerformance = findPerformanceById(performanceId);
+
+        return likeRepository.countByPerformance(findPerformance);
+    }
+
+    /**
      * 유저 존재 여부 확인
      * @param email
      * @return
@@ -68,4 +79,5 @@ public class LikeService {
         return performanceRepository.findById(performanceId).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
+
 }

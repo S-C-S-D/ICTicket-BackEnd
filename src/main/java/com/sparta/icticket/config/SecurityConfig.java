@@ -71,6 +71,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers("/users/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/likes-count").permitAll()
                         .anyRequest().authenticated()
         );
 

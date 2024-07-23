@@ -1,6 +1,7 @@
 package com.sparta.icticket.like;
 
 
+import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
@@ -44,5 +45,17 @@ public class LikeController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         likeService.deleteLike(performanceId, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.LIKE_UNLIKE_SUCCESS));
+    }
+
+    /**
+     * 관심 개수 조회 기능
+     * @param performanceId
+     * @return
+     */
+    @GetMapping("/{performanceId}/likes-count")
+    public ResponseEntity<ResponseDataDto<Long>> getLikesCount(
+            @PathVariable Long performanceId) {
+        Long likeCount = likeService.getLikesCount(performanceId);
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.LIKE_GET_COUNT_SUCCESS, likeCount));
     }
 }

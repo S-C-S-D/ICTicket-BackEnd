@@ -89,3 +89,6 @@ RefreshToken: {{RefreshToken}}
 DELETE http://localhost:8080/performances/1/likes
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
+
+### 관심 개수 조회
+GET http://localhost:8080/performances/1/likes-count
