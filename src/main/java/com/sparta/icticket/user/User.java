@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -52,7 +51,7 @@ public class User extends Timestamped {
         this.email = userSignupRequestDto.getEmail();
         this.password = encodedPassword;
         this.name = userSignupRequestDto.getName();
-        this.nickname = userSignupRequestDto.getNickName();
+        this.nickname = userSignupRequestDto.getNickname();
         this.phoneNumber = userSignupRequestDto.getPhoneNumber();
         this.address = userSignupRequestDto.getAddress();
         this.userStatus = UserStatus.ACTIVATE;
@@ -65,5 +64,14 @@ public class User extends Timestamped {
 
     public boolean validateRefreshToken(String refreshToken) {
         return this.refreshToken != null && this.refreshToken.equals(refreshToken);
+    }
+
+    public void updateResignUser() {
+        this.refreshToken = null;
+        this.userStatus = UserStatus.DEACTIVATE;
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
     }
 }
