@@ -58,4 +58,12 @@ public class User extends Timestamped {
         this.userStatus = UserStatus.ACTIVATE;
         this.userRole = UserRole.USER;
     }
+
+    public void saveRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public boolean validateRefreshToken(String refreshToken) {
+        return this.refreshToken != null && this.refreshToken.equals(refreshToken);
+    }
 }
