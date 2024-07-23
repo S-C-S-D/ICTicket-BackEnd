@@ -71,3 +71,9 @@ Content-Type: application/json
   "phoneNumber": "010-1234-5678",
   "address": "서울시 00구 00로"
 }
+
+
+### 프로필 조회
+GET http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
