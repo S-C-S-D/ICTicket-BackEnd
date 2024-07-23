@@ -24,8 +24,8 @@ public class UserSignupRequestDto {
 
     @NotBlank(message = "닉네임을 입력해 주세요.")
     @Pattern(regexp = "^[a-zA-Z]{3,12}$",
-            message = "비밀번호는 영문자만 가능하며, 3자에서 12자 사이여야 합니다.")
-    private String nickName;
+            message = "닉네임은 영문자만 가능하며, 3자에서 12자 사이여야 합니다.")
+    private String nickname;
 
     @NotBlank(message = "전화번호를 입력해 주세요.")
     @Pattern(regexp = "^\\d{3}-\\d{4}-\\d{4}$",
