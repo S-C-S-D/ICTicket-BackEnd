@@ -1,7 +1,6 @@
-package com.sparta.icticket.admin.venue;
+package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.admin.venue.dto.VenueRequestDto;
-import com.sparta.icticket.admin.venue.dto.VenueResponseDto;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.exception.CustomException;
@@ -9,7 +8,6 @@ import com.sparta.icticket.user.User;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
