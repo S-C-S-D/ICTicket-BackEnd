@@ -1,5 +1,6 @@
 package com.sparta.icticket.config;
 
+import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.security.UserDetailsServiceImpl;
 import com.sparta.icticket.security.jwt.*;
 import com.sparta.icticket.user.UserRepository;
