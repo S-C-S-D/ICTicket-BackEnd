@@ -29,4 +29,10 @@ public class Venue extends Timestamped {
         this.location = venueRequestDto.getLocation();
         this.totalSeatCount = venueRequestDto.getTotalSeatCount();
     }
+
+    public void updateVenue(VenueRequestDto venueRequestDto) {
+        this.venueName = venueRequestDto.getVenueName();
+        this.location = venueRequestDto.getLocation();
+        this.totalSeatCount = venueRequestDto.getTotalSeatCount();
+    }
 }

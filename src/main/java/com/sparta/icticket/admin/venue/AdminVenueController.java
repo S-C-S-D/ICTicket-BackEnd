@@ -7,6 +7,7 @@ import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,66 +27,35 @@ public class AdminVenueController {
 
     //공연장 생성
     @PostMapping
-    public ResponseEntity<ResponseDataDto<VenueResponseDto>> createVenue(
+    public ResponseEntity<ResponseMessageDto> createVenue(
             @Valid @RequestBody VenueRequestDto venueRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-
-        // 사용자 권한 검사
-        if (!isAdmin(userDetails)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
-
+        User loginUser = userDetails.getUser();
         // 권한이 있는 경우, 공연장 생성 처리
-        VenueResponseDto venueResponseDto = venueAdminService.createVenue(venueRequestDto);
-        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
+        venueAdminService.createVenue(venueRequestDto, loginUser);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_CREATE_SUCCESS));
     }
 
     //공연장 수정
     @PutMapping("/{venueId}")
-    public ResponseEntity<ResponseDataDto<VenueResponseDto>> updateVenue(
+    public ResponseEntity<ResponseMessageDto> updateVenue(
+            @PathVariable Long venueId,
             @Valid @RequestBody VenueRequestDto venueRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // 사용자 권한 검사
-        if (!isAdmin(userDetails)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
-
+        User loginUser = userDetails.getUser();
         // 권한이 있는 경우, 공연장 수정
-        VenueResponseDto venueResponseDto = venueAdminService.updateVenue(venueRequestDto);
-        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
+        venueAdminService.updateVenue(venueId, venueRequestDto, loginUser);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_UPDATE_SUCCESS));
     }
 
     //공연장 삭제
     @DeleteMapping("/{venueId}")
-    public ResponseEntity<ResponseDataDto<VenueResponseDto>> deleteVenue(
+    public ResponseEntity<ResponseMessageDto> deleteVenue(
             @Valid @RequestBody VenueRequestDto venueRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // 사용자 권한 검사
-        if (!isAdmin(userDetails)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
-
+        User loginUser = userDetails.getUser();
         // 권한이 있는 경우, 공연장 삭제
-        VenueResponseDto venueResponseDto = venueAdminService.deleteVenue(venueRequestDto);
-        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
+        venueAdminService.deleteVenue(venueRequestDto, loginUser);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_DELETE_SUCCESS));
     }
-
-
-    // 권한 검사 메소드
-    private boolean isAdmin(UserDetailsImpl userDetails) {
-        return "ROLE_ADMIN".equals(userDetails.getUser().getUserRole().getAuthority());
-    }
-
-    // 에러 응답 생성 메소드
-    private ResponseEntity<ResponseDataDto<VenueResponseDto>> ErrorResponse(ErrorType errorType) {
-        SuccessStatus status = SuccessStatus.valueOf("ERROR_" + errorType.name());
-        ResponseMessageDto responseMessageDto = new ResponseMessageDto(status);
-        // 에러 응답도 ResponseDataDto 형태로 감싸서 반환
-        return ResponseEntity.status(errorType.getHttpStatus())
-                .body(new ResponseDataDto<>(status, null));
-    }
-
 }
