@@ -59,6 +59,18 @@ public class User extends Timestamped {
         this.userRole = UserRole.USER;
     }
 
+    //[테스트용 어드민]
+    public User(UserSignupRequestDto userSignupRequestDto, String encodedPassword, UserRole userRole) {
+        this.email = userSignupRequestDto.getEmail();
+        this.password = encodedPassword;
+        this.name = userSignupRequestDto.getName();
+        this.nickname = userSignupRequestDto.getNickname();
+        this.phoneNumber = userSignupRequestDto.getPhoneNumber();
+        this.address = userSignupRequestDto.getAddress();
+        this.userStatus = UserStatus.ACTIVATE;
+        this.userRole = userRole;
+    }
+
     public void saveRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
