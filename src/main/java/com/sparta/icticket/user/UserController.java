@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<ResponseMessageDto> updateUser(
             @Valid @RequestBody UserResignRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        userService.deleteUser(requestDto, userDetails.getUser());
+        userService.resignUser(requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_DEACTIVATE_SUCCESS));
     }
 }

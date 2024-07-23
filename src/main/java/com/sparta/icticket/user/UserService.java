@@ -41,7 +41,7 @@ public class UserService {
      * @param loginUser
      */
     @Transactional
-    public void deleteUser(UserResignRequestDto requestDto, User loginUser) {
+    public void resignUser(UserResignRequestDto requestDto, User loginUser) {
         User findUser = findUserByEmail(loginUser.getEmail());
 
         if(!passwordEncoder.matches(requestDto.getPassword(), findUser.getPassword())) {
