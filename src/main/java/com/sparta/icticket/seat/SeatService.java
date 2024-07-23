@@ -46,7 +46,7 @@ public class SeatService {
         }
 
         Integer totalSeatCount = seatRepository.countBySession(findSession);
-        Integer restSeatCount = seatRepository.countBySessionAndReserved(findSession, SeatStatus.NOT_RESERVED);
+        Integer restSeatCount = seatRepository.countBySessionAndSeatStatus(findSession, SeatStatus.NOT_RESERVED);
 
         return new SeatCountResponseDto(totalSeatCount, restSeatCount);
     }

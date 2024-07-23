@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface SeatRepository extends JpaRepository<Seat, Long> {
     Integer countBySession(Session findSession);
 
-    @Query("SELECT count(id) from Seat where session = :findSession and seatStatus = :seatStatus")
-    Integer countBySessionAndReserved(Session findSession, SeatStatus seatStatus);
+    Integer countBySessionAndSeatStatus(Session findSession, SeatStatus seatStatus);
 }
