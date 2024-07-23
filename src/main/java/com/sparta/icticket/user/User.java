@@ -3,6 +3,7 @@ package com.sparta.icticket.user;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
+import com.sparta.icticket.user.dto.UserProfileRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -69,6 +70,12 @@ public class User extends Timestamped {
     public void updateResignUser() {
         this.refreshToken = null;
         this.userStatus = UserStatus.DEACTIVATE;
+    }
+
+    public void updateUserProfile(UserProfileRequestDto requestDto) {
+        this.nickname = requestDto.getNickname();
+        this.phoneNumber = requestDto.getPhoneNumber();
+        this.address = requestDto.getAddress();
     }
 
     public void removeRefreshToken() {
