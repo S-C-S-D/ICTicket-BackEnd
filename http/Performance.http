@@ -16,3 +16,29 @@ Content-Type: application/json
   "startAt" : "2024-07-26",
   "endAt" : "2024-08-06"
 }
+
+### 공연 수정
+PATCH http://localhost:8080/admin/performances/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "title" : "수정된 아이유",
+  "description" : "최고의 뮤지컬입니다.",
+  "venueId": 1,
+  "genreType" : "MUSICAL",
+  "ageGroup" : "ALL",
+  "runTime" : 180,
+  "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
+  "openAt" : "2024-07-24-18:00",
+  "startAt" : "2024-07-26",
+  "endAt" : "2024-08-06"
+}
+
+
+### 공연 삭제
+DELETE http://localhost:8080/admin/performances/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
