@@ -26,6 +26,11 @@ public class UserService {
         userRepository.save(saveUser);
     }
 
+    public void logout(User loginUser) {
+        loginUser.removeRefreshToken();
+        userRepository.save(loginUser);
+    }
+
     private void checkDuplicateEmail(String email) {
         userRepository.findByEmail(email).ifPresent(e -> {
                 throw new CustomException(ErrorType.ALREADY_EXISTS_EMAIL);});
