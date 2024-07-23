@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/venues")
-public class VenueAdminController {
+public class AdminVenueController {
 
-    private final VenueAdminService venueAdminService;
+    private final AdminVenueService venueAdminService;
 
     @Autowired
-    public VenueAdminController(VenueAdminService venueAdminService) {
+    public AdminVenueController(AdminVenueService venueAdminService) {
         this.venueAdminService = venueAdminService;
     }
 
@@ -33,7 +33,7 @@ public class VenueAdminController {
         // 사용자 권한 검사
         if (!isAdmin(userDetails)) {
             // 권한이 없는 경우, 에러 응답 반환
-            return createErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
+            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
         }
 
         // 권한이 있는 경우, 공연장 생성 처리
@@ -41,17 +41,51 @@ public class VenueAdminController {
         return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
     }
 
+    //공연장 수정
+    @PutMapping("/{venueId}")
+    public ResponseEntity<ResponseDataDto<VenueResponseDto>> updateVenue(
+            @Valid @RequestBody VenueRequestDto venueRequestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        // 사용자 권한 검사
+        if (!isAdmin(userDetails)) {
+            // 권한이 없는 경우, 에러 응답 반환
+            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
+        }
+
+        // 권한이 있는 경우, 공연장 수정
+        VenueResponseDto venueResponseDto = venueAdminService.updateVenue(venueRequestDto);
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
+    }
+
+    //공연장 삭제
+    @DeleteMapping("/{venueId}")
+    public ResponseEntity<ResponseDataDto<VenueResponseDto>> deleteVenue(
+            @Valid @RequestBody VenueRequestDto venueRequestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        // 사용자 권한 검사
+        if (!isAdmin(userDetails)) {
+            // 권한이 없는 경우, 에러 응답 반환
+            return ErrorResponse(ErrorType.NOT_AVAILABLE_PERMISSION);
+        }
+
+        // 권한이 있는 경우, 공연장 삭제
+        VenueResponseDto venueResponseDto = venueAdminService.deleteVenue(venueRequestDto);
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.VENUE_CREATE_SUCCESS, venueResponseDto));
+    }
+
+
     // 권한 검사 메소드
     private boolean isAdmin(UserDetailsImpl userDetails) {
         return "ROLE_ADMIN".equals(userDetails.getUser().getUserRole().getAuthority());
     }
 
     // 에러 응답 생성 메소드
-    private ResponseEntity<ResponseDataDto<VenueResponseDto>> createErrorResponse(ErrorType errorType) {
+    private ResponseEntity<ResponseDataDto<VenueResponseDto>> ErrorResponse(ErrorType errorType) {
         SuccessStatus status = SuccessStatus.valueOf("ERROR_" + errorType.name());
         ResponseMessageDto responseMessageDto = new ResponseMessageDto(status);
         // 에러 응답도 ResponseDataDto 형태로 감싸서 반환
         return ResponseEntity.status(errorType.getHttpStatus())
                 .body(new ResponseDataDto<>(status, null));
     }
+
 }
