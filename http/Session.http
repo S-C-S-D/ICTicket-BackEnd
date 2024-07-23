@@ -4,9 +4,9 @@ Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
-  "date" : "2024-08-05",
-  "name" : "B",
-  "time" : "11:00"
+  "date" : "2024-08-04",
+  "name" : "A회차",
+  "time" : "12:00"
 }
 
 ### 세션수정 (ADMIN)
