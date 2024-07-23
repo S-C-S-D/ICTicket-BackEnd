@@ -1,10 +1,8 @@
-package com.sparta.icticket.admin.venue;
+package com.sparta.icticket.admin.controller;
 
-import com.sparta.icticket.admin.venue.dto.VenueRequestDto;
-import com.sparta.icticket.admin.venue.dto.VenueResponseDto;
-import com.sparta.icticket.common.dto.ResponseDataDto;
+import com.sparta.icticket.admin.service.AdminVenueService;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
-import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;

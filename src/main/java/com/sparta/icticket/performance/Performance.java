@@ -3,6 +3,7 @@ package com.sparta.icticket.performance;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.AgeGroup;
 import com.sparta.icticket.common.enums.GenreType;
+import com.sparta.icticket.performance.dto.PerformanceRequestDto;
 import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,7 +40,7 @@ public class Performance extends Timestamped {
     private AgeGroup ageGroup;
 
     @Column(nullable = false)
-    private String runTime;
+    private Integer runTime;
 
     @Column(nullable = false)
     private LocalDateTime openAt;
@@ -54,4 +55,17 @@ public class Performance extends Timestamped {
 
     private Long viewCount;
 
+    public Performance(PerformanceRequestDto requestDto, Venue venue) {
+        this.title = requestDto.getTitle();
+        this.description = requestDto.getDescription();
+        this.venue = venue;
+        this.genreType = requestDto.getGenreType();
+        this.ageGroup = requestDto.getAgeGroup();
+        this.runTime = requestDto.getRunTime();
+        this.openAt = requestDto.getOpenAt();
+        this.startAt = requestDto.getStartAt();
+        this.endAt = requestDto.getEndAt();
+        this.imageUrl = requestDto.getImageUrl();
+        this.viewCount = 0L;
+    }
 }

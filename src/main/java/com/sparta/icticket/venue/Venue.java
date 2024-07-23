@@ -1,6 +1,6 @@
 package com.sparta.icticket.venue;
 
-import com.sparta.icticket.admin.venue.dto.VenueRequestDto;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import jakarta.persistence.*;
 import lombok.Getter;
