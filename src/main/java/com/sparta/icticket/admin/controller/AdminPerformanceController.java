@@ -10,10 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,14 +19,48 @@ public class AdminPerformanceController {
 
     private final AdminPerformanceService adminPerformanceService;
 
+    /**
+     * 공연 등록
+     * @param requestDto
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createPerformance(
-            @Valid @RequestBody PerformanceRequestDto requestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails){
-        User loginUser = userDetails.getUser();
+            @Valid @RequestBody PerformanceRequestDto requestDto){
 
-        adminPerformanceService.createPerformance(requestDto, loginUser);
+        adminPerformanceService.createPerformance(requestDto);
 
         return ResponseEntity.ok().body(new ResponseMessageDto(SuccessStatus.PERFORMANCE_CREATE_SUCCESS));
     }
+
+    /**
+     * 공연 수정
+     * @param performanceId
+     * @param requestDto
+     * @return
+     */
+    @PatchMapping("/{performanceId}")
+    public ResponseEntity<ResponseMessageDto> updatePerformance(
+            @PathVariable Long performanceId,
+            @Valid @RequestBody PerformanceRequestDto requestDto){
+
+        adminPerformanceService.updatePerformance(performanceId, requestDto);
+
+        return ResponseEntity.ok().body(new ResponseMessageDto(SuccessStatus.PERFORMANCE_UPDATE_SUCCESS));
+    }
+
+    /**
+     * 공연 삭제
+     * @param performanceId
+     * @return
+     */
+    @DeleteMapping("/{performanceId}")
+    public ResponseEntity<ResponseMessageDto> deletePerformance(
+            @PathVariable Long performanceId){
+
+        adminPerformanceService.deletePerformance(performanceId);
+
+        return ResponseEntity.ok().body(new ResponseMessageDto(SuccessStatus.PERFORMANCE_DELETE_SUCCESS));
+    }
+
 }
