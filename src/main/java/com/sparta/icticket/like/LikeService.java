@@ -38,18 +38,26 @@ public class LikeService {
     }
 
     /**
-     * 관심 공연 등록 취소
+     * 관심 공연 등록 삭제
      * @param performanceId
+     * @param likeId
      * @param loginUser
      */
-    public void deleteLike(Long performanceId, User loginUser) {
+    public void deleteLike(Long performanceId, Long likeId, User loginUser) {
         User findUser = findUserByEmail(loginUser.getEmail());
         Performance findPerformance = findPerformanceById(performanceId);
 
-        Like findLke = likeRepository.findByUserAndPerformance(findUser, findPerformance).orElseThrow(() ->
+        Like findLike1 = likeRepository.findByUserAndPerformance(findUser, findPerformance).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
 
-        likeRepository.delete(findLke);
+        Like findLike2 = likeRepository.findById(likeId).orElseThrow(() ->
+                new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
+
+        if(!findLike1.equals(findLike2)) {
+            throw new CustomException(ErrorType.CAN_NOT_LIKED_PERFORMANCE);
+        }
+
+        likeRepository.delete(findLike2);
     }
 
     /**
@@ -61,6 +69,19 @@ public class LikeService {
         Performance findPerformance = findPerformanceById(performanceId);
 
         return likeRepository.countByPerformance(findPerformance);
+    }
+
+    /**
+     * 관심 공연 등록 여부 조회
+     * @param performanceId
+     * @param loginUser
+     * @return
+     */
+    public boolean getLike(Long performanceId, User loginUser) {
+        User findUser = findUserByEmail(loginUser.getEmail());
+        Performance findPerformance = findPerformanceById(performanceId);
+
+        return likeRepository.findByUserAndPerformance(findUser, findPerformance).isPresent();
     }
 
     /**
