@@ -1,5 +1,6 @@
 package com.sparta.icticket.config;
 
+import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.security.UserDetailsServiceImpl;
 import com.sparta.icticket.security.jwt.*;
 import com.sparta.icticket.user.UserRepository;
@@ -71,6 +72,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers("/users/login").permitAll()
+                        .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .anyRequest().authenticated()
         );
 
