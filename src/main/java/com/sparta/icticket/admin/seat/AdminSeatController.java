@@ -33,4 +33,20 @@ public class AdminSeatController {
         adminSeatService.createSeat(sessionId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SEAT_CREATE_SUCCESS));
     }
+
+    /**
+     * 좌석 삭제 기능
+     * @param sessionId
+     * @param seatId
+     * @param userDetails
+     * @return
+     */
+    @DeleteMapping("/{sessionId}/seats/{seatId}")
+    public ResponseEntity<ResponseMessageDto> deleteSeat(
+            @PathVariable Long sessionId,
+            @PathVariable Long seatId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        adminSeatService.deleteSeat(sessionId, seatId, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SEAT_DELETE_SUCCESS));
+    }
 }
