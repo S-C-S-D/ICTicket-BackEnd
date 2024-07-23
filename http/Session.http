@@ -5,8 +5,8 @@ Content-Type: application/json
 
 {
   "date" : "2024-08-05",
-  "name" : "A",
-  "time" : "10:00"
+  "name" : "B",
+  "time" : "11:00"
 }
 
 ### 세션수정 (ADMIN)
@@ -16,12 +16,12 @@ Content-Type: application/json
 
 {
   "date" : "2024-08-05",
-  "name" : "A",
+  "name" : "C",
   "time" : "11:00"
 }
 
 ### 세션삭제 (ADMIN)
-DELETE http://localhost:8080/admin/performances/5/sessions/4
+DELETE http://localhost:8080/admin/performances/1/sessions/2
 Authorization: {{Authorization}}
 Content-Type: application/json
 

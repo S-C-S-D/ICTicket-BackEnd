@@ -34,35 +34,31 @@ public class AdminSessionService {
         Performance performance = validatePerformance(performanceId);
         Session session = new Session(performance, createSessionRequestDto);
 
-        validateSessionDate(session);
-        checkSessionExists(session);
-        log.info("유효한 세션");
+        if (isDateAndNameAndTimeAvailable(session)) {
+            log.info("유효한 세션");
+        }
 
         sessionRepository.save(session);
         log.info("세션 저장 완료");
     }
 
+
     /*session 수정*/
     public void updateSession(User loginUser, Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
 
-        isPerformanceExist(performanceId);
         Session session = validateSession(performanceId, sessionId);
-
-        validateSessionDate(session);
-        checkSessionExists(session);
-        log.info("유효한 세션");
-
-
         session.update(updateSessionRequestDto);
+
+        if (isDateAndNameAndTimeAvailable(session)) {
+            log.info("유효한 세션");
+        }
+
         log.info("세션 수정 완료");
 
     }
 
     /*session 삭제*/
     public void deleteSession(User loginUser, Long performanceId, Long sessionId) {
-
-        isPerformanceExist(performanceId);
-
         Session session = validateSession(performanceId, sessionId);
         sessionRepository.deleteById(sessionId);
         log.info("세션 삭제 완료");
@@ -70,10 +66,17 @@ public class AdminSessionService {
 
 
     /*메서드*/
+    private Performance validatePerformance(Long performanceId) {
+        return performanceRepository.findById(performanceId)
+                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
+    }
+
+
     private Session validateSession(Long performanceId, Long sessionId) {
         Session session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_SESSION));
 
+        //유효한 경로인지 확인(session의 performanceId와 경로의 performanceId(Path variable)가 다를수있음)
         boolean isCorrect = session.getPerformance().getId().equals(performanceId);
         if (!isCorrect) {
             throw new CustomException(ErrorType.NOT_VALID_SESSION);
@@ -82,44 +85,33 @@ public class AdminSessionService {
         return session;
     }
 
-    private void isPerformanceExist(Long performanceId) {
-        Boolean exist = performanceRepository.existsById(performanceId);
-        if (!exist) {
-            throw new CustomException(ErrorType.NOT_FOUND_PERFORMANCE);
-        }
-    }
-
-    private Performance validatePerformance(Long performanceId) {
-        return performanceRepository.findById(performanceId)
-                .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
-    }
-
-    private void checkSessionExists(Session session) {
+    private boolean isDateAndNameAndTimeAvailable(Session session) throws CustomException {
         Performance performance = session.getPerformance();
         LocalDate sessionDate = session.getSessionDate();
         LocalTime sessionTime = session.getSessionTime();
         String sessionName = session.getSessionName();
 
-        //입력된 날짜와 시간의 세션이 이미 존재하는 경우
-        boolean isSessionTimeExist = sessionRepository.existsByPerformanceAndSessionDateAndSessionTime(performance, sessionDate, sessionTime);
-        if (isSessionTimeExist) {
+        LocalDate startDate = session.getPerformance().getStartAt();
+        LocalDate endDate = session.getPerformance().getEndAt();
+
+        boolean isDateNotAvailable = sessionDate.isBefore(startDate) || sessionDate.isAfter(endDate);
+        if (isDateNotAvailable) {
+            throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
+        }
+
+
+        boolean isNameNotAvailable = sessionRepository.existsByPerformanceAndSessionDateAndSessionName(performance, sessionDate, sessionName);
+        if (isNameNotAvailable) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_NAME);
+        }
+
+        boolean isTimeNotAvailable = sessionRepository.existsByPerformanceAndSessionDateAndSessionTime(performance, sessionDate, sessionTime);
+        if (isTimeNotAvailable) {
             throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_TIME);
         }
 
-        //입력된 날짜의 세션이름이 이미 존재하는 경우
-        boolean isSessionNameExist = sessionRepository.existsBySessionDateAndSessionName(sessionDate, sessionName);
-        if (isSessionNameExist) {
-            throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_NAME);
-        }
+        return true;
     }
 
-    private void validateSessionDate(Session session) {
-        LocalDate sessionDate = session.getSessionDate();
-        LocalDate startDate = session.getPerformance().getStartAt();
-        LocalDate endDate = session.getPerformance().getEndAt();
-        if (sessionDate.isBefore(startDate) || sessionDate.isAfter(endDate)) {
-            throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
-        }
-    }
 
 }

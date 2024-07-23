@@ -5,9 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public interface SessionRepository extends JpaRepository<Session, Long> {
     boolean existsByPerformanceAndSessionDateAndSessionTime(Performance performance, LocalDate sessionDate, LocalTime sessionTime);
 
-    boolean existsBySessionDateAndSessionName(LocalDate sessionDate,String sessionName);
+    boolean existsByPerformanceAndSessionDateAndSessionName(Performance performance,LocalDate sessionDate,String sessionName);
+
+    boolean existsByIdAndSessionDateAndSessionTime(Long sessionId, LocalDate sessionDate, LocalTime sessionTime);
+
+    boolean existsByIdAndSessionDateAndSessionName(Long sessionId, LocalDate sessionDate, String sessionName);
 }
