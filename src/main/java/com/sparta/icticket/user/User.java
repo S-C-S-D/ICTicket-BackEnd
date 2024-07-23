@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -70,5 +69,9 @@ public class User extends Timestamped {
     public void updateResignUser() {
         this.refreshToken = null;
         this.userStatus = UserStatus.DEACTIVATE;
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
     }
 }

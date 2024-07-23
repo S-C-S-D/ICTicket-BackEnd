@@ -34,6 +34,14 @@ public class UserService {
         userRepository.save(saveUser);
     }
 
+    /**
+     * 로그아웃
+     * @param loginUser
+     */
+    public void logout(User loginUser) {
+        loginUser.removeRefreshToken();
+        userRepository.save(loginUser);
+    }
 
     /**
      * 회원 탈퇴
