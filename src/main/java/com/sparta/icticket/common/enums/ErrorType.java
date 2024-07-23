@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ErrorType {
-    // entry point
-    INVALID_ACCESS(HttpStatus.BAD_REQUEST, "잘못된 접근입니다."),
 
     //[USER]
     ALREADY_EXISTS_EMAIL(HttpStatus.LOCKED, "이미 존재하는 이메일입니다."),
@@ -46,6 +44,7 @@ public enum ErrorType {
 
     //[AUTHENTICATION]
     REQUIRES_LOGIN(HttpStatus.LOCKED, "로그인이 필요한 서비스입니다."),
+    INVALID_ACCESS(HttpStatus.BAD_REQUEST, "잘못된 접근입니다."),
 
     //[JWT]
     INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 리프레시 토큰입니다. 다시 로그인 해주세요."),
