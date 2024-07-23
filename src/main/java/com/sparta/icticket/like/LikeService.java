@@ -27,13 +27,26 @@ public class LikeService {
     public void createLike(Long performanceId, User loginUser) {
         User findUser = findUserByEmail(loginUser.getEmail());
 
-        Performance findPerformance = performanceRepository.findById(performanceId).orElseThrow(() ->
-                new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
+        Performance findPerformance = findPerformanceById(performanceId);
 
         Like saveLike = new Like(findUser, findPerformance);
 
         likeRepository.save(saveLike);
+    }
 
+    /**
+     * 관심 공연 등록 취소
+     * @param performanceId
+     * @param loginUser
+     */
+    public void deleteLike(Long performanceId, User loginUser) {
+        User findUser = findUserByEmail(loginUser.getEmail());
+        Performance findPerformance = findPerformanceById(performanceId);
+
+        Like findLke = likeRepository.findByUserAndPerformance(findUser, findPerformance).orElseThrow(() ->
+                new CustomException(ErrorType.ALREADY_LIKED_PERFORMANCE));
+
+        likeRepository.delete(findLke);
     }
 
     /**
@@ -44,5 +57,15 @@ public class LikeService {
     private User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_USER));
+    }
+
+    /**
+     * 공연 존재 여부 확인
+     * @param performanceId
+     * @return
+     */
+    private Performance findPerformanceById(Long performanceId) {
+        return performanceRepository.findById(performanceId).orElseThrow(() ->
+                new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
 }

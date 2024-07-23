@@ -78,7 +78,14 @@ GET http://localhost:8080/users/profile
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 
+
 ### 관심 공연 등록
 POST http://localhost:8080/performances/1/likes
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 공연 등록 취소
+DELETE http://localhost:8080/performances/1/likes
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}

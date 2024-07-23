@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -33,5 +30,19 @@ public class LikeController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         likeService.createLike(performanceId, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.LIKE_ADD_SUCCESS));
+    }
+
+    /**
+     * 관심 공연 등록 취소 기능
+     * @param performanceId
+     * @param userDetails
+     * @return
+     */
+    @DeleteMapping("/{performanceId}/likes")
+    public ResponseEntity<ResponseMessageDto> deleteLike(
+            @PathVariable Long performanceId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        likeService.deleteLike(performanceId, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.LIKE_UNLIKE_SUCCESS));
     }
 }
