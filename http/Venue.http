@@ -1,0 +1,12 @@
+### 공연장 생성
+POST http://localhost:8080/admin/venues
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "venueName": "Malty hall",
+  "location": "경기 성남시 분당구 정자일로 239 분당현대아이파크 1동1호",
+  "totalSeatCount": 250
+}
+
