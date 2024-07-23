@@ -42,6 +42,19 @@ public class UserController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_SIGN_UP_SUCCESS));
     }
 
+
+    /**
+     * [테스트용]어드민 회원 가입 기능
+     * @param requestDto
+     * @return
+     */
+    @PostMapping("/admin")
+    public ResponseEntity<ResponseMessageDto> createAdminUser(
+            @Valid @RequestBody UserSignupRequestDto requestDto) {
+        userService.createAdminUser(requestDto);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_SIGN_UP_SUCCESS));
+    }
+
     /**
      * 로그아웃 기능
      *

@@ -1,6 +1,7 @@
 package com.sparta.icticket.user;
 
 import com.sparta.icticket.common.enums.ErrorType;
+import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.order.OrderRepository;
@@ -34,6 +35,21 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
         User saveUser = new User(requestDto, encodedPassword);
+
+        userRepository.save(saveUser);
+    }
+
+    /**
+     * [테스트용]어드민 회원 가입
+     * @param requestDto
+     */
+    public void createAdminUser(UserSignupRequestDto requestDto) {
+        checkDuplicateEmail(requestDto.getEmail());
+        checkDuplicateNickname(requestDto.getNickname());
+
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+
+        User saveUser = new User(requestDto, encodedPassword, UserRole.ADMIN);
 
         userRepository.save(saveUser);
     }
