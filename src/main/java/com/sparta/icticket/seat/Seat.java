@@ -1,5 +1,6 @@
 package com.sparta.icticket.seat;
 
+import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.session.Session;
@@ -37,5 +38,13 @@ public class Seat extends Timestamped {
     private boolean isReserved;
 
     private LocalDateTime reservedAt;
+
+    public Seat(Session session, SeatCreateRequestDto requestDto) {
+        this.session = session;
+        this.price = requestDto.getPrice();
+        this.seatNumber = requestDto.getSeatNumber();
+        this.seatGrade = requestDto.getSeatGrade();
+        this.isReserved = false;
+    }
 
 }
