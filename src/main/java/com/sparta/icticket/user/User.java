@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -77,5 +76,9 @@ public class User extends Timestamped {
         this.nickname = requestDto.getNickname();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.address = requestDto.getAddress();
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
     }
 }
