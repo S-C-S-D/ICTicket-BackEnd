@@ -3,6 +3,7 @@ package com.sparta.icticket.user;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.user.dto.UserProfileRequestDto;
 import com.sparta.icticket.user.dto.UserResignRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import jakarta.validation.Valid;
@@ -45,5 +46,19 @@ public class UserController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         userService.resignUser(requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_DEACTIVATE_SUCCESS));
+    }
+
+    /**
+     * 프로필 수정 기능
+     * @param requestDto
+     * @param userDetails
+     * @return
+     */
+    @PatchMapping("/profile")
+    public ResponseEntity<ResponseMessageDto> updateProfile(
+            @Valid @RequestBody UserProfileRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        userService.updateProfile(requestDto, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_UPDATE_SUCCESS));
     }
 }

@@ -59,3 +59,15 @@ Content-Type: application/json
     "password" : "password123"
 }
 
+
+### 프로필 수정
+PATCH http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "nickname": "nick",
+  "phoneNumber": "010-1234-5678",
+  "address": "서울시 00구 00로"
+}
