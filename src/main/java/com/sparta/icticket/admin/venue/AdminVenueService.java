@@ -7,19 +7,17 @@ import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.user.User;
 import com.sparta.icticket.venue.Venue;
+import com.sparta.icticket.venue.VenueRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class AdminVenueService {
 
-    private final AdminVenueRepository venueAdminRepository;
-
-    @Autowired
-    public AdminVenueService(AdminVenueRepository venueAdminRepository) {
-        this.venueAdminRepository = venueAdminRepository;
-    }
+    private final VenueRepository venueRepository;
 
     //생성
     public void createVenue(VenueRequestDto venueRequestDto, User loginUser) {
@@ -30,7 +28,7 @@ public class AdminVenueService {
         }
 
         Venue venue = new Venue(venueRequestDto);
-        venueAdminRepository.save(venue);
+        venueRepository.save(venue);
     }
 
     //수정
@@ -41,14 +39,20 @@ public class AdminVenueService {
             // 권한이 없는 경우, 에러 응답 반환
             throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
         }
-        Venue venue = venueAdminRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));
+        Venue venue = venueRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));
         venue.updateVenue(venueRequestDto);
     }
 
     //삭제
-    public void deleteVenue(VenueRequestDto venueRequestDto, User loginUser) {
-        Venue venue = new Venue(venueRequestDto);
-        venueAdminRepository.save(venue);
+    public void deleteVenue(Long venueId, VenueRequestDto venueRequestDto, User loginUser) {
+        // 사용자 권한 검사
+        if (!isAdmin(loginUser)) {
+            // 권한이 없는 경우, 에러 응답 반환
+            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
+        }
+        Venue venue = venueRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));
+
+        venueRepository.delete(venue);
     }
 
 
