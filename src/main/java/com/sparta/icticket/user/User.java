@@ -3,12 +3,12 @@ package com.sparta.icticket.user;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
+import com.sparta.icticket.user.dto.UserProfileRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -52,11 +52,23 @@ public class User extends Timestamped {
         this.email = userSignupRequestDto.getEmail();
         this.password = encodedPassword;
         this.name = userSignupRequestDto.getName();
-        this.nickname = userSignupRequestDto.getNickName();
+        this.nickname = userSignupRequestDto.getNickname();
         this.phoneNumber = userSignupRequestDto.getPhoneNumber();
         this.address = userSignupRequestDto.getAddress();
         this.userStatus = UserStatus.ACTIVATE;
         this.userRole = UserRole.USER;
+    }
+
+    //[테스트용 어드민]
+    public User(UserSignupRequestDto userSignupRequestDto, String encodedPassword, UserRole userRole) {
+        this.email = userSignupRequestDto.getEmail();
+        this.password = encodedPassword;
+        this.name = userSignupRequestDto.getName();
+        this.nickname = userSignupRequestDto.getNickname();
+        this.phoneNumber = userSignupRequestDto.getPhoneNumber();
+        this.address = userSignupRequestDto.getAddress();
+        this.userStatus = UserStatus.ACTIVATE;
+        this.userRole = userRole;
     }
 
     public void saveRefreshToken(String refreshToken) {
@@ -65,5 +77,20 @@ public class User extends Timestamped {
 
     public boolean validateRefreshToken(String refreshToken) {
         return this.refreshToken != null && this.refreshToken.equals(refreshToken);
+    }
+
+    public void updateResignUser() {
+        this.refreshToken = null;
+        this.userStatus = UserStatus.DEACTIVATE;
+    }
+
+    public void updateUserProfile(UserProfileRequestDto requestDto) {
+        this.nickname = requestDto.getNickname();
+        this.phoneNumber = requestDto.getPhoneNumber();
+        this.address = requestDto.getAddress();
+    }
+
+    public void removeRefreshToken() {
+        this.refreshToken = null;
     }
 }

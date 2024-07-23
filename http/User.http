@@ -17,7 +17,7 @@ Content-Type: application/json
   "email" : "hgh7546@naver.com",
   "password" : "password123",
   "name" : "김예현",
-  "nickName" : "malty",
+  "nickname" : "malty",
   "phoneNumber" : "010-0000-0000",
   "address" : "경기도 성남시 분당구 정자동"
 }
@@ -33,20 +33,47 @@ Content-Type: application/json
 }
 
 > {%
-    client.log(response.headers.valueOf("accessToken"));
-    client.log(response.headers.valueOf("refreshToken"));
-    client.global.set("accessToken", response.headers.valueOf("accessToken"));
-    client.global.set("refreshToken", response.headers.valueOf("refreshToken"));
+    client.log(response.headers.valueOf("Authorization"));
+    client.log(response.headers.valueOf("RefreshToken"));
+    client.global.set("Authorization", response.headers.valueOf("Authorization"));
+    client.global.set("RefreshToken", response.headers.valueOf("RefreshToken"));
 %}
-
-
 
 ### 로그아웃 (MANAGER)
 POST http://localhost:8080/users/logout
-accessToken: {{accessToken}}
-refreshToken: {{refreshToken}}
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
 
 > {%
-    client.global.clear("accessToken");
-    client.global.clear("refreshToken");
+    client.global.clear("Authorization");
+    client.global.clear("RefreshToken");
 %}
+
+### 회원 탈퇴
+PATCH http://localhost:8080/users
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+    "password" : "password123"
+}
+
+
+### 프로필 수정
+PATCH http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "nickname": "nick",
+  "phoneNumber": "010-1234-5678",
+  "address": "서울시 00구 00로"
+}
+
+
+### 프로필 조회
+GET http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
