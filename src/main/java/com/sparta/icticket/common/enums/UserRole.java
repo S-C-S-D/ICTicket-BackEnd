@@ -1,12 +1,14 @@
 package com.sparta.icticket.common.enums;
+import lombok.Getter;
 
+@Getter
 public enum UserRole {
-    ROLE_USER("user"),
-    ROLE_ADMIN("admin");
+    USER("ROLE_USER"),
+    ADMIN("ROLE_ADMIN");
 
-    private final String status;
+    private final String authority;
 
-    UserRole(String status) {
-        this.status = status;
+    UserRole(String role) {
+        this.authority = role;
     }
 }
