@@ -2,13 +2,14 @@ package com.sparta.icticket.user;
 
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
-import com.sparta.icticket.user.dto.UserProfileRequestDto;
+import com.sparta.icticket.security.UserDetailsImpl;
 import com.sparta.icticket.user.dto.UserResignRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -21,6 +22,7 @@ public class UserController {
 
     /**
      * 회원 가입 기능
+     *
      * @param requestDto
      * @return
      */
@@ -31,10 +33,17 @@ public class UserController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_SIGN_UP_SUCCESS));
     }
 
+    /**
+     * 회원 탈퇴 기능
+     * @param requestDto
+     * @param userDetails
+     * @return
+     */
     @PatchMapping
     public ResponseEntity<ResponseMessageDto> updateUser(
-            @Valid @RequestBody UserResignRequestDto requestDto) {
-        userService.deleteUser(requestDto);
+            @Valid @RequestBody UserResignRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        userService.deleteUser(requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_DEACTIVATE_SUCCESS));
     }
 }
