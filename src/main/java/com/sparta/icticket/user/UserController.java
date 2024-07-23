@@ -1,8 +1,11 @@
 package com.sparta.icticket.user;
 
+import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.user.dto.UserProfileRequestDto;
+import com.sparta.icticket.user.dto.UserProfileResponseDto;
 import com.sparta.icticket.security.jwt.JwtUtil;
 import com.sparta.icticket.user.dto.UserResignRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
@@ -29,7 +32,6 @@ public class UserController {
 
     /**
      * 회원 가입 기능
-     *
      * @param requestDto
      * @return
      */
@@ -66,5 +68,32 @@ public class UserController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         userService.resignUser(requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_DEACTIVATE_SUCCESS));
+    }
+
+    /**
+     * 프로필 수정 기능
+     * @param requestDto
+     * @param userDetails
+     * @return
+     */
+    @PatchMapping("/profile")
+    public ResponseEntity<ResponseMessageDto> updateProfile(
+            @Valid @RequestBody UserProfileRequestDto requestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        userService.updateProfile(requestDto, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_UPDATE_SUCCESS));
+    }
+
+    /**
+     * 프로필 조회 기능
+     * @param userDetails
+     * @return
+     */
+    @GetMapping("/profile")
+    public ResponseEntity<ResponseDataDto<UserProfileResponseDto>> getProfile(
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        UserProfileResponseDto responseDto = userService.getProfile(userDetails.getUser());
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.USER_GET_INFO_SUCCESS, responseDto));
     }
 }
