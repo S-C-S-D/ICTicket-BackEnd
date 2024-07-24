@@ -48,7 +48,7 @@ public class LikeService {
     public void deleteLike(Long performanceId, Long likeId, User loginUser) {
         Performance findPerformance = findPerformanceById(performanceId);
 
-        Like findLike = likeRepository.findByIdAndPerformance(likeId, findPerformance).orElseThrow(() ->
+        Like findLike = likeRepository.findByIdAndPerformanceAndUser(likeId, findPerformance, loginUser).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
 
         likeRepository.delete(findLike);
