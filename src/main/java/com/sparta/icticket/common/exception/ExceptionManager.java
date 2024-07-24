@@ -1,5 +1,6 @@
 package com.sparta.icticket.common.exception;
 
+import com.sparta.icticket.common.dto.ResponseMessageDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,4 +28,5 @@ public class ExceptionManager {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(builder.toString());
     }
+
 }
