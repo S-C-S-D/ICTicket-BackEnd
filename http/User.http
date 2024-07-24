@@ -14,12 +14,12 @@ POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "email" : "hgh7546@naver.com",
-  "password" : "password123",
-  "name" : "김예현",
-  "nickname" : "malty",
+  "email" : "example@naver.com",
+  "password" : "qwer1234",
+  "name" : "gg",
+  "nickname" : "baby",
   "phoneNumber" : "010-0000-0000",
-  "address" : "경기도 성남시 분당구 정자동"
+  "address" : "미국"
 }
 
 
@@ -28,8 +28,24 @@ POST http://localhost:8080/users/login
 Content-Type: application/json
 
 {
-  "email": "hgh7546@naver.com",
-  "password": "password123"
+  "email": "example@naver.com",
+  "password": "qwer1234"
+}
+
+> {%
+    client.log(response.headers.valueOf("Authorization"));
+    client.log(response.headers.valueOf("RefreshToken"));
+    client.global.set("Authorization", response.headers.valueOf("Authorization"));
+    client.global.set("RefreshToken", response.headers.valueOf("RefreshToken"));
+%}
+
+### 로그인 (USER)
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "example@naver.com",
+  "password": "qwer1234"
 }
 
 > {%
