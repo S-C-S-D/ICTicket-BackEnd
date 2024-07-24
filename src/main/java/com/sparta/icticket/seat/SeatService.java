@@ -15,6 +15,7 @@ import com.sparta.icticket.session.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,7 @@ public class SeatService {
      * @param requestDto
      * @return
      */
+    @Transactional
     public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto) {
         Session findSession = checkSession(sessionId);
         List<Long> seatIdList = requestDto.getSeatIdList();

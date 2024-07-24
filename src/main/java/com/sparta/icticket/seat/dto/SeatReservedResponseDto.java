@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ public class SeatReservedResponseDto {
     private String title;
     private String imageUrl;
     private LocalDate sessionDate;
-    private Time sessionTime;
+    private LocalTime sessionTime;
     private String sessionName;
     private List<String> seatNumberList;
     private Integer totalPrice;
