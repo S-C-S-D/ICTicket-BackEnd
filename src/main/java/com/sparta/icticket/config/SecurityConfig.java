@@ -75,6 +75,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/performances/**").permitAll() //테스트용 입니다. 추후에 변경해야 합니다.
                         .requestMatchers("/users/login").permitAll()
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
+                        .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions/{sessionId}/seat-count").permitAll()
                         .anyRequest().authenticated()
         );
 
