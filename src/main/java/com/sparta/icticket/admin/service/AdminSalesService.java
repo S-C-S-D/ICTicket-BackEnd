@@ -51,12 +51,26 @@ public class AdminSalesService {
         Sales findSales = findSalesById(salesId);
         checkDate(requestDto.getStartAt(), requestDto.getStartAt());
 
-        if(!findPerformance.equals(findSales.getPerformance())) {
-            throw new CustomException(ErrorType.INVALID_ACCESS);
-        }
+        checkPerformanceAndSales(findPerformance, findSales.getPerformance());
 
         findSales.updateSales(requestDto);
 
+    }
+
+    @Transactional
+    public void deleteSales(Long performanceId, Long salesId) {
+        Performance findPerformance = findPerformanceById(performanceId);
+        Sales findSales = findSalesById(salesId);
+
+        checkPerformanceAndSales(findPerformance, findSales.getPerformance());
+
+        salesRepository.delete(findSales);
+    }
+
+    private void checkPerformanceAndSales(Performance performance1, Performance performance2) {
+        if(!performance1.equals(performance2)) {
+            throw new CustomException(ErrorType.INVALID_ACCESS);
+        }
     }
 
     /**

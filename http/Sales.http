@@ -9,3 +9,20 @@ Content-Type: application/json
   "endAt": "2024-07-29-18:00",
   "discountRate": 30
 }
+
+### 할인 수정(ADMIN)
+PATCH http://localhost:8080/admin/performances/3/sales/8
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "startAt": "2024-07-28-18:30",
+  "endAt": "2024-07-29-12:00",
+  "discountRate": 20
+}
+
+### 할인 삭제(ADMIN)
+DELETE http://localhost:8080/admin/performances/1/sales/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}

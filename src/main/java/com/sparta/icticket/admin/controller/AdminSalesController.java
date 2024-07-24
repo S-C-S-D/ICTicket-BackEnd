@@ -47,4 +47,11 @@ public class AdminSalesController {
         adminSalesService.updateSales(performanceId, salesId, requestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.DISCOUNT_UPDATE_SUCCESS));
     }
+
+    @DeleteMapping("{performanceId}/sales/{salesId}")
+    public ResponseEntity<ResponseMessageDto> deleteSales(
+            @PathVariable Long performanceId, @PathVariable Long salesId) {
+        adminSalesService.deleteSales(performanceId, salesId);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.DISCOUNT_DELETE_SUCCESS));
+    }
 }
