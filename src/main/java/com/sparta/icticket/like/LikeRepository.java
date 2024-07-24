@@ -10,4 +10,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByUserAndPerformance(User findUser, Performance findPerformance);
 
     Long countByPerformance(Performance findPerformance);
+
+    Optional<Like> findByIdAndPerformance(Long likeId, Performance findPerformance);
 }

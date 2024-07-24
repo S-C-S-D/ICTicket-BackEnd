@@ -46,20 +46,12 @@ public class LikeService {
      */
     @Transactional
     public void deleteLike(Long performanceId, Long likeId, User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
         Performance findPerformance = findPerformanceById(performanceId);
 
-        Like findLike1 = likeRepository.findByUserAndPerformance(findUser, findPerformance).orElseThrow(() ->
+        Like findLike = likeRepository.findByIdAndPerformance(likeId, findPerformance).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
 
-        Like findLike2 = likeRepository.findById(likeId).orElseThrow(() ->
-                new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
-
-        if(!findLike1.equals(findLike2)) {
-            throw new CustomException(ErrorType.INVALID_ACCESS);
-        }
-
-        likeRepository.delete(findLike2);
+        likeRepository.delete(findLike);
     }
 
     /**

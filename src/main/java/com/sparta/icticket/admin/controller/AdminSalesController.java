@@ -48,6 +48,12 @@ public class AdminSalesController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.DISCOUNT_UPDATE_SUCCESS));
     }
 
+    /**
+     * 할인 삭제 기능
+     * @param performanceId
+     * @param salesId
+     * @return
+     */
     @DeleteMapping("{performanceId}/sales/{salesId}")
     public ResponseEntity<ResponseMessageDto> deleteSales(
             @PathVariable Long performanceId, @PathVariable Long salesId) {

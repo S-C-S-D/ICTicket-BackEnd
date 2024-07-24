@@ -10,7 +10,6 @@ import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,38 +47,35 @@ public class AdminSalesService {
     @Transactional
     public void updateSales(Long performanceId, Long salesId, SalesUpdateRequestDto requestDto) {
         Performance findPerformance = findPerformanceById(performanceId);
-        Sales findSales = findSalesById(salesId);
+        Sales findSales = checkPerformanceAndSales(salesId, findPerformance);
         checkDate(requestDto.getStartAt(), requestDto.getStartAt());
-
-        checkPerformanceAndSales(findPerformance, findSales.getPerformance());
 
         findSales.updateSales(requestDto);
 
     }
 
+    /**
+     * 할인 삭제
+     * @param performanceId
+     * @param salesId
+     */
     @Transactional
     public void deleteSales(Long performanceId, Long salesId) {
         Performance findPerformance = findPerformanceById(performanceId);
-        Sales findSales = findSalesById(salesId);
 
-        checkPerformanceAndSales(findPerformance, findSales.getPerformance());
+        Sales findSales = checkPerformanceAndSales(salesId, findPerformance);
 
         salesRepository.delete(findSales);
-    }
-
-    private void checkPerformanceAndSales(Performance performance1, Performance performance2) {
-        if(!performance1.equals(performance2)) {
-            throw new CustomException(ErrorType.INVALID_ACCESS);
-        }
     }
 
     /**
      * 할인 검증
      * @param salesId
+     * @param performance
      * @return
      */
-    private Sales findSalesById(Long salesId) {
-        return salesRepository.findById(salesId).orElseThrow(() ->
+    private Sales checkPerformanceAndSales(Long salesId, Performance performance) {
+        return salesRepository.findByIdAndPerformance(salesId, performance).orElseThrow(() ->
                 new CustomException(ErrorType.INVALID_ACCESS));
     }
 
