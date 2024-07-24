@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface PerformanceRepositoryQuery {
     List<Performance> getGenreRankPerformances(GenreType genreType, Pageable pageable);
+
+    List<Performance> getTodayOpenPerformances(Pageable pageable);
 }
 

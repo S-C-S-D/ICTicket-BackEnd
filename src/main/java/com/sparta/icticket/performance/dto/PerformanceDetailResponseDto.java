@@ -1,5 +1,6 @@
 package com.sparta.icticket.performance.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.icticket.common.enums.AgeGroup;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.performance.Performance;
@@ -27,6 +28,7 @@ public class PerformanceDetailResponseDto {
 
     private Integer runTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm")
     private LocalDateTime openAt;
 
     private LocalDate startAt;

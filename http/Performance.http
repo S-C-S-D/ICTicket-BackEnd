@@ -12,7 +12,7 @@ Content-Type: application/json
   "ageGroup" : "ALL",
   "runTime" : 180,
   "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
-  "openAt" : "2024-07-28-18:00",
+  "openAt" : "2024-07-25-21:00",
   "startAt" : "2024-07-29",
   "endAt" : "2024-08-06"
 }
@@ -51,5 +51,16 @@ RefreshToken: {{RefreshToken}}
 
 ### 장르별 랭킹 공연 조회
 GET http://localhost:8080/performances/ranking?genre=MUSICAL&page=1&size=5
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+### 오늘 오픈 공연 조회
+GET http://localhost:8080/performances/today-open?page=1&size=5
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 할인 중인 공연 조회
+GET http://localhost:8080/performances/genre/discount?genre=”MUSICAL”&page=1&size=5
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
