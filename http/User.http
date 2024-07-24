@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 
-### 로그인 (MANAGER)
+### 로그인 (ADMIN)
 POST http://localhost:8080/users/login
 Content-Type: application/json
 
