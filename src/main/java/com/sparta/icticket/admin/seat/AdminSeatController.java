@@ -4,6 +4,7 @@ import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.security.UserDetailsImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AdminSeatController {
     @PostMapping("/{sessionId}/seats")
     public ResponseEntity<ResponseMessageDto> createSeat(
             @PathVariable Long sessionId,
-            @RequestBody SeatCreateRequestDto requestDto,
+            @RequestBody @Valid SeatCreateRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         adminSeatService.createSeat(sessionId, requestDto, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SEAT_CREATE_SUCCESS));

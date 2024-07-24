@@ -57,9 +57,7 @@ public class AdminSeatService {
             throw new CustomException(ErrorType.NOT_FOUND_SEAT);
         }
 
-//        if(findSeat.()) {
-//            throw new CustomException(ErrorType.ALREADY_RESERVED_SEAT);
-//        }
+        seatRepository.delete(findSeat);
 
     }
 

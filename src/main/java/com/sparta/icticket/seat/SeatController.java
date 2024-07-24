@@ -5,6 +5,7 @@ import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.seat.dto.SeatCountResponseDto;
 import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
 import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class SeatController {
      */
     @PatchMapping("/sessions/{sessionId}/seats/reserve")
     public ResponseEntity<ResponseDataDto<SeatReservedResponseDto>> reserveSeat(
-            @PathVariable Long sessionId, @RequestBody SeatReservedRequestDto requestDto) {
+            @PathVariable Long sessionId, @RequestBody @Valid SeatReservedRequestDto requestDto) {
         SeatReservedResponseDto responseDto = seatService.reserveSeat(sessionId, requestDto);
         return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.SEAT_SELECT_SUCCESS, responseDto));
     }
