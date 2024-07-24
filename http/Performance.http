@@ -48,3 +48,8 @@ GET http://localhost:8080/performances/2
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 
+
+### 장르별 랭킹 공연 조회
+GET http://localhost:8080/performances/ranking?genre=MUSICAL&page=1&size=5
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
