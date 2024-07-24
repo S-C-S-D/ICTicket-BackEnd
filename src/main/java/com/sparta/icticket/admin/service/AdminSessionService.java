@@ -91,14 +91,13 @@ public class AdminSessionService {
         LocalTime sessionTime = session.getSessionTime();
         String sessionName = session.getSessionName();
 
-        LocalDate startDate = session.getPerformance().getStartAt();
-        LocalDate endDate = session.getPerformance().getEndAt();
+        LocalDate startDate = performance.getStartAt();
+        LocalDate endDate = performance.getEndAt();
 
         boolean isDateNotAvailable = sessionDate.isBefore(startDate) || sessionDate.isAfter(endDate);
         if (isDateNotAvailable) {
             throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
         }
-
 
         boolean isNameNotAvailable = sessionRepository.existsByPerformanceAndSessionDateAndSessionName(performance, sessionDate, sessionName);
         if (isNameNotAvailable) {
