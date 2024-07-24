@@ -19,9 +19,9 @@ public class CommentService {
     private final PerformanceRepository performanceRepository;
     private final CommentRepository commentRepository;
 
-    public void createComment(Long performanceId, CreateCommentRequestDto createCommentRequestDto, User user) {
+    public void createComment(Long performanceId, CreateCommentRequestDto createCommentRequestDto, User loginUser) {
         Performance performance = validatePerformance(performanceId);
-        Comment comment = new Comment(createCommentRequestDto,user,performance);
+        Comment comment = new Comment(createCommentRequestDto,loginUser,performance);
         commentRepository.save(comment);
     }
 

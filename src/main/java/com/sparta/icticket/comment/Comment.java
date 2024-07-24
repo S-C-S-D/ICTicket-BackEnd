@@ -33,8 +33,8 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private Integer rate;
 
-    public Comment(CreateCommentRequestDto createCommentRequestDto,User user,Performance performance) {
-        this.user = user;
+    public Comment(CreateCommentRequestDto createCommentRequestDto,User loginUser,Performance performance) {
+        this.user = loginUser;
         this.performance = performance;
         this.title = createCommentRequestDto.getTitle();
         this.description = createCommentRequestDto.getDescription();
