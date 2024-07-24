@@ -1,5 +1,6 @@
 package com.sparta.icticket.sales;
 
+import com.sparta.icticket.admin.controller.sales.dto.SalesAddRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
@@ -31,5 +32,10 @@ public class Sales extends Timestamped {
     @Column(nullable = false)
     private LocalDateTime endAt;
 
-
+    public Sales(Performance performance, SalesAddRequestDto requestDto) {
+        this.performance = performance;
+        this.discountRate = requestDto.getDiscountRate();
+        this.startAt = requestDto.getStartAt();
+        this.endAt = requestDto.getEndAt();
+    }
 }

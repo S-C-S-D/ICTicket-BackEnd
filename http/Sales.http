@@ -1,0 +1,11 @@
+### 할인 생성(ADMIN)
+POST http://localhost:8080/admin/performances/3/sales
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "startAt": "2024-07-28-18:00",
+  "endAt": "2024-07-29-18:00",
+  "discountRate": 30
+}
