@@ -82,4 +82,22 @@ public class PerformanceController {
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDtoPage));
     }
+
+    /**
+     * 오픈 예정 공연 조회
+     * @param genre
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/genre/will-be-opened")
+    public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getWillBeOpenedPerformances(
+            @RequestParam(value = "genre") GenreType genre,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
+
+        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getWillBeOpenedPerformances(genre, page-1, size);
+
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_WILL_BE_OPEN_SUCCESS, responseDtoPage));
+    }
 }

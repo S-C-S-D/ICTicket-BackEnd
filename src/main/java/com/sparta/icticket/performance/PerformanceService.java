@@ -75,4 +75,17 @@ public class PerformanceService {
 
         return discountPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
     }
+
+    /**
+     * 곧 오픈할 공연 조회
+     * @param genre
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<PerformanceDetailResponseDto> getWillBeOpenedPerformances(GenreType genre, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size); // Pageable 정의 추가
+        List<Performance> willBeOpenedPerformances = performanceRepository.getWillBeOpenedPerformances(genre, pageable); // 올바른 변수 사용
+        return willBeOpenedPerformances.stream().map(PerformanceDetailResponseDto::new).toList(); // 올바른 변수 사용
+    }
 }

@@ -11,5 +11,7 @@ public interface PerformanceRepositoryQuery {
     List<Performance> getTodayOpenPerformances(Pageable pageable);
 
     List<Performance> getDiscountPerformances(GenreType genreType, Pageable pageable);
+
+    List<Performance> getWillBeOpenedPerformances(GenreType genreType, Pageable pageable);
 }
 
