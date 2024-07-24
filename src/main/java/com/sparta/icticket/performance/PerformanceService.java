@@ -5,7 +5,6 @@ import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,11 @@ import java.util.List;
 public class PerformanceService {
     private final PerformanceRepository performanceRepository;
 
+    /**
+     * 단일 공연 조회
+     * @param performanceId
+     * @return
+     */
     @Transactional
     public PerformanceDetailResponseDto getPerformance(Long performanceId) {
         Performance performance = performanceRepository.findById(performanceId).orElseThrow(
@@ -29,7 +33,13 @@ public class PerformanceService {
         return new PerformanceDetailResponseDto(performance);
     }
 
-
+    /**
+     * 장르별 랭킹 공연 조회
+     * @param genre
+     * @param page
+     * @param size
+     * @return
+     */
     public List<PerformanceDetailResponseDto> getGenreRankPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Performance> genreRankPerformances = performanceRepository.getGenreRankPerformances(genre, pageable);
@@ -37,12 +47,32 @@ public class PerformanceService {
         return genreRankPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
     }
 
-    @Transactional
+    /**
+     * 오늘 오픈 공연 조회
+     * @param page
+     * @param size
+     * @return
+     */
     public List<PerformanceDetailResponseDto> getTodayOpenPerformances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         List<Performance> performanceList = performanceRepository.getTodayOpenPerformances(pageable);
 
         return performanceList.stream().map(PerformanceDetailResponseDto::new).toList();
+    }
+
+    /**
+     * 할인 중인 공연 조회
+     * @param genre
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<PerformanceDetailResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        List<Performance> discountPerformances = performanceRepository.getDiscountPerformances(genre, pageable);
+
+        return discountPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
     }
 }

@@ -5,8 +5,6 @@ import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +42,7 @@ public class PerformanceController {
     public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getGenreRankPerformances(
             @RequestParam(value = "genre") GenreType genre,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size){
+            @RequestParam(value = "size", defaultValue = "10") int size){
 
         List<PerformanceDetailResponseDto> responseDto = performanceService.getGenreRankPerformances(genre, page-1, size);
 
@@ -53,16 +51,35 @@ public class PerformanceController {
 
     /**
      * 오늘 오픈 공연 조회
-     * @param pageable
+     * @param page
+     * @param size
      * @return
      */
     @GetMapping("/today-open")
     public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getTodayOpenPerformances(
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getTodayOpenPerformances(page, size);
+        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getTodayOpenPerformances(page-1, size);
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_TODAY_OPEN_SUCCESS, responseDtoPage));
+    }
+
+    /**
+     * 할인 중인 공연 조회
+     * @param genre
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/genre/discount")
+    public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getDiscountPerformances(
+            @RequestParam(value = "genre") GenreType genre,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size){
+
+        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getDiscountPerformances(genre, page-1, size);
+
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDtoPage));
     }
 }

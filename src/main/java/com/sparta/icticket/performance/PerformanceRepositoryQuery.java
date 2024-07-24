@@ -9,5 +9,7 @@ public interface PerformanceRepositoryQuery {
     List<Performance> getGenreRankPerformances(GenreType genreType, Pageable pageable);
 
     List<Performance> getTodayOpenPerformances(Pageable pageable);
+
+    List<Performance> getDiscountPerformances(GenreType genreType, Pageable pageable);
 }
 
