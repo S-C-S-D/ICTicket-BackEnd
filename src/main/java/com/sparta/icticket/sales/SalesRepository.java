@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface SalesRepository extends JpaRepository<Sales,Long> {
     Optional<Sales> findByPerformance(Performance findPerformance);
+
+    Optional<Sales> findByIdAndPerformance(Long salesId, Performance performance);
 }

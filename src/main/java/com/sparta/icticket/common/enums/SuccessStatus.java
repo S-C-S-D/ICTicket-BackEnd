@@ -64,6 +64,7 @@ public enum SuccessStatus {
     //[DISCOUNT]
     DISCOUNT_CREATE_SUCCESS(HttpStatus.OK, "할인 적용에 성공하였습니다."),
     DISCOUNT_UPDATE_SUCCESS(HttpStatus.OK, "할인 수정에 성공하였습니다."),
+    DISCOUNT_DELETE_SUCCESS(HttpStatus.OK, "할인 삭제에 성공하였습니다."),
 
     //[BANNER]
     BANNER_CREATE_SUCCESS(HttpStatus.OK, "배너 등록에 성공하였습니다."),
