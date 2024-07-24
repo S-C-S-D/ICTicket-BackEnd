@@ -1,4 +1,4 @@
-package com.sparta.icticket.admin.seat;
+package com.sparta.icticket.admin.service;
 
 import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;

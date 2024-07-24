@@ -9,6 +9,7 @@ import com.sparta.icticket.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -43,6 +44,7 @@ public class LikeService {
      * @param likeId
      * @param loginUser
      */
+    @Transactional
     public void deleteLike(Long performanceId, Long likeId, User loginUser) {
         User findUser = findUserByEmail(loginUser.getEmail());
         Performance findPerformance = findPerformanceById(performanceId);
