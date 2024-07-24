@@ -24,7 +24,7 @@ public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
         queryFactory
                 .update(seat)
                 .set(seat.seatStatus, SeatStatus.NOT_RESERVED)
-                .where(seat.seatStatus.eq(SeatStatus.PAYING).and(seat.reservedAt.before(LocalDateTime.now().minusMinutes(10))))
+                .where(seat.seatStatus.eq(SeatStatus.PAYING).and(seat.reservedAt.before(LocalDateTime.now().minusMinutes(1))))
                 .execute();
     }
 
@@ -35,4 +35,5 @@ public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
                 .where(seat.id.in(seatIdList).and(seat.seatStatus.eq(SeatStatus.NOT_RESERVED)))
                 .fetch();
     }
+
 }
