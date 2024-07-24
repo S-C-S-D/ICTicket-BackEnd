@@ -7,11 +7,16 @@ Content-Type: application/json
 {
   "title" : "믿고듣는아이유",
   "description" : "앵앵콜ㅜㅜㅜ짱",
-  "rate": 1
+  "rate": 5
 }
 
 ### 댓글 삭제
 DELETE http://localhost:8080/performances/1/comments/1
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+
+### 단일 공연 댓글 조회
+GET http://localhost:8080/performances/1/comments
 Content-Type: application/json

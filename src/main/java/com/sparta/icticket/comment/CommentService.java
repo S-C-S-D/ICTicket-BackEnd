@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,12 +19,24 @@ public class CommentService {
     private final PerformanceRepository performanceRepository;
     private final CommentRepository commentRepository;
 
+    /**
+     * 댓글 작성
+     * @param performanceId
+     * @param createCommentRequestDto
+     * @param loginUser
+     */
     public void createComment(Long performanceId, CreateCommentRequestDto createCommentRequestDto, User loginUser) {
         Performance performance = validatePerformance(performanceId);
         Comment comment = new Comment(createCommentRequestDto,loginUser,performance);
         commentRepository.save(comment);
     }
 
+    /**
+     * 댓글삭제
+     * @param performanceId
+     * @param commentId
+     * @param loginUser
+     */
     public void deleteComment(Long performanceId, Long commentId,User loginUser) {
         Comment comment = validateComment(commentId);
 
@@ -38,8 +50,22 @@ public class CommentService {
             throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
         }
 
+        commentRepository.delete(comment);
+
     }
 
+    /**
+     * 단일 공연 댓글 조회
+     * @param performanceId
+     * @return
+     */
+    public List<GetCommentResponseDto> getComments(Long performanceId) {
+        Performance performance = validatePerformance(performanceId);
+        return commentRepository.findByPerformance(performance)
+                .stream().map(GetCommentResponseDto::new).toList();
+    }
+
+    /*메서드*/
     private Comment validateComment(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_COMMENT));
@@ -49,5 +75,6 @@ public class CommentService {
        return performanceRepository.findById(performanceId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
+
 
 }
