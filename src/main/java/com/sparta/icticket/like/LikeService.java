@@ -56,7 +56,7 @@ public class LikeService {
                 new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
 
         if(!findLike1.equals(findLike2)) {
-            throw new CustomException(ErrorType.CAN_NOT_LIKED_PERFORMANCE);
+            throw new CustomException(ErrorType.INVALID_ACCESS);
         }
 
         likeRepository.delete(findLike2);

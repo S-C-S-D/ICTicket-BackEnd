@@ -1,6 +1,7 @@
 package com.sparta.icticket.admin.service;
 
 import com.sparta.icticket.admin.controller.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.admin.controller.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
@@ -9,7 +10,9 @@ import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +37,36 @@ public class AdminSalesService {
         Sales saveSales = new Sales(findPerformance, requestDto);
 
         salesRepository.save(saveSales);
+    }
+
+    /**
+     * 할인 수정
+     * @param performanceId
+     * @param salesId
+     * @param requestDto
+     */
+    @Transactional
+    public void updateSales(Long performanceId, Long salesId, SalesUpdateRequestDto requestDto) {
+        Performance findPerformance = findPerformanceById(performanceId);
+        Sales findSales = findSalesById(salesId);
+        checkDate(requestDto.getStartAt(), requestDto.getStartAt());
+
+        if(!findPerformance.equals(findSales.getPerformance())) {
+            throw new CustomException(ErrorType.INVALID_ACCESS);
+        }
+
+        findSales.updateSales(requestDto);
+
+    }
+
+    /**
+     * 할인 검증
+     * @param salesId
+     * @return
+     */
+    private Sales findSalesById(Long salesId) {
+        return salesRepository.findById(salesId).orElseThrow(() ->
+                new CustomException(ErrorType.INVALID_ACCESS));
     }
 
     /**

@@ -27,7 +27,6 @@ public enum ErrorType {
     //[LIKE]
     ALREADY_LIKED_PERFORMANCE(HttpStatus.LOCKED, "이미 관심공연으로 등록한 공연입니다."),
     NOT_LIKED_PERFORMANCE(HttpStatus.LOCKED, "관심공연으로 등록된 공연이 아닙니다."),
-    CAN_NOT_LIKED_PERFORMANCE(HttpStatus.LOCKED, "올바른 요청이 아닙니다."),
 
     //[COMMENT]
     NOT_FOUND_COMMENT(HttpStatus.LOCKED, "존재하지 않는 댓글입니다."),

@@ -1,6 +1,7 @@
 package com.sparta.icticket.admin.controller;
 
 import com.sparta.icticket.admin.controller.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.admin.controller.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.admin.service.AdminSalesService;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
@@ -30,5 +31,20 @@ public class AdminSalesController {
             @RequestBody @Valid SalesAddRequestDto requestDto) {
         adminSalesService.addSales(performanceId, requestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.DISCOUNT_CREATE_SUCCESS));
+    }
+
+    /**
+     * 할인 수정 기능
+     * @param performanceId
+     * @param salesId
+     * @param requestDto
+     * @return
+     */
+    @PatchMapping("/{performanceId}/sales/{salesId}")
+    public ResponseEntity<ResponseMessageDto> updateSales(
+            @PathVariable Long performanceId, @PathVariable Long salesId,
+            @RequestBody @Valid SalesUpdateRequestDto requestDto) {
+        adminSalesService.updateSales(performanceId, salesId, requestDto);
+        return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.DISCOUNT_UPDATE_SUCCESS));
     }
 }
