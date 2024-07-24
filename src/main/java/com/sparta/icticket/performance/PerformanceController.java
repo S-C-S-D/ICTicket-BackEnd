@@ -60,9 +60,9 @@ public class PerformanceController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
 
-        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getTodayOpenPerformances(page-1, size);
+        List<PerformanceDetailResponseDto> responseDto = performanceService.getTodayOpenPerformances(page-1, size);
 
-        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_TODAY_OPEN_SUCCESS, responseDtoPage));
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_TODAY_OPEN_SUCCESS, responseDto));
     }
 
     /**
@@ -78,9 +78,9 @@ public class PerformanceController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "5") int size){
 
-        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getDiscountPerformances(genre, page-1, size);
+        List<PerformanceDetailResponseDto> responseDto = performanceService.getDiscountPerformances(genre, page-1, size);
 
-        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDtoPage));
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDto));
     }
 
     /**
@@ -96,8 +96,24 @@ public class PerformanceController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "5") int size) {
 
-        List<PerformanceDetailResponseDto> responseDtoPage = performanceService.getWillBeOpenedPerformances(genre, page-1, size);
+        List<PerformanceDetailResponseDto> responseDto = performanceService.getWillBeOpenedPerformances(genre, page-1, size);
 
-        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_WILL_BE_OPEN_SUCCESS, responseDtoPage));
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_WILL_BE_OPEN_SUCCESS, responseDto));
+    }
+
+    /**
+     * 전체 공연 랭킹 조회
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/rank-all")
+    public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getRankAllPerformances(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        List<PerformanceDetailResponseDto> responseDto = performanceService.getRankAllPerformances(page-1, size);
+
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_RANK_ALL_SUCCESS, responseDto));
     }
 }

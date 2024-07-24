@@ -88,4 +88,16 @@ public class PerformanceService {
         List<Performance> willBeOpenedPerformances = performanceRepository.getWillBeOpenedPerformances(genre, pageable); // 올바른 변수 사용
         return willBeOpenedPerformances.stream().map(PerformanceDetailResponseDto::new).toList(); // 올바른 변수 사용
     }
+
+    /**
+     * 전체 랭킹 조회
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<PerformanceDetailResponseDto> getRankAllPerformances(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Performance> getRankAllPerformances = performanceRepository.getRankAllPerformances(pageable);
+        return getRankAllPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
+    }
 }

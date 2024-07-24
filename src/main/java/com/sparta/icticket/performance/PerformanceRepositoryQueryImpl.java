@@ -79,4 +79,20 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .limit(pageable.getPageSize())
                 .fetch();
     }
+
+    @Override
+    public List<Performance> getRankAllPerformances(Pageable pageable) {
+        QPerformance qPerformance = QPerformance.performance;
+        QLike qLike = QLike.like;
+
+        return jpaQueryFactory
+                .select(qPerformance)
+                .from(qPerformance)
+                .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
+                .groupBy(qPerformance.id)
+                .orderBy(qLike.id.count().add(qPerformance.viewCount).desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
 }
