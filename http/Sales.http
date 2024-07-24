@@ -1,5 +1,5 @@
 ### 할인 생성(ADMIN)
-POST http://localhost:8080/admin/performances/3/sales
+POST http://localhost:8080/admin/performances/1/sales
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 Content-Type: application/json
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### 할인 수정(ADMIN)
-PATCH http://localhost:8080/admin/performances/3/sales/8
+PATCH http://localhost:8080/admin/performances/2/sales/8
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 Content-Type: application/json
@@ -23,6 +23,6 @@ Content-Type: application/json
 }
 
 ### 할인 삭제(ADMIN)
-DELETE http://localhost:8080/admin/performances/1/sales/1
+DELETE http://localhost:8080/admin/performances/1/sales/8
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}

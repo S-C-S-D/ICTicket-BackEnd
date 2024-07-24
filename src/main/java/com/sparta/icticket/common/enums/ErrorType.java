@@ -55,7 +55,10 @@ public enum ErrorType {
     INVALID_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다. 다시 로그인 해주세요."),
     LOGGED_OUT_TOKEN(HttpStatus.FORBIDDEN, "이미 로그아웃된 토큰입니다."),
     INVALID_JWT(HttpStatus.UNAUTHORIZED, "유효하지 않는 JWT 입니다."),
-    EXPIRED_JWT(HttpStatus.FORBIDDEN, "만료된 JWT 입니다.");
+    EXPIRED_JWT(HttpStatus.FORBIDDEN, "만료된 JWT 입니다."),
+
+    // [DISCOUNT]
+    NOT_FOUND_SALES(HttpStatus.LOCKED, "존재하지 않는 할인 정보입니다.");
 
 
 

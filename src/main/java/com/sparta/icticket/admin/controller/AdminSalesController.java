@@ -1,7 +1,7 @@
 package com.sparta.icticket.admin.controller;
 
-import com.sparta.icticket.admin.controller.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.admin.controller.sales.dto.SalesUpdateRequestDto;
+import com.sparta.icticket.admin.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.admin.service.AdminSalesService;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;

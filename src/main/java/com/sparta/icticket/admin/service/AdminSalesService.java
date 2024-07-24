@@ -1,7 +1,7 @@
 package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.admin.controller.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.admin.controller.sales.dto.SalesUpdateRequestDto;
+import com.sparta.icticket.admin.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
@@ -76,7 +76,7 @@ public class AdminSalesService {
      */
     private Sales checkPerformanceAndSales(Long salesId, Performance performance) {
         return salesRepository.findByIdAndPerformance(salesId, performance).orElseThrow(() ->
-                new CustomException(ErrorType.INVALID_ACCESS));
+                new CustomException(ErrorType.NOT_FOUND_SALES));
     }
 
     /**
