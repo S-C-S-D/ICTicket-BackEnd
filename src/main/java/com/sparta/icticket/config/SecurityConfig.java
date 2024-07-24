@@ -72,6 +72,7 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/admin").permitAll() //테스트용 입니다. 추후에 삭제해야 합니다.
+                        .requestMatchers(HttpMethod.GET, "/performances/**").permitAll() //테스트용 입니다. 추후에 변경해야 합니다.
                         .requestMatchers("/users/login").permitAll()
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .anyRequest().authenticated()
