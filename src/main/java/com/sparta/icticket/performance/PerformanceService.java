@@ -100,4 +100,18 @@ public class PerformanceService {
         List<Performance> getRankAllPerformances = performanceRepository.getRankAllPerformances(pageable);
         return getRankAllPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
     }
+
+
+    /**
+     * 추천 공연 조회 (장르별로 1위, 2위 티켓들)
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<PerformanceDetailResponseDto> getRecommendPerformances(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        List<Performance> performances = performanceRepository.getRecommendPerformances(pageable);
+
+        return performances.stream().map(PerformanceDetailResponseDto::new).toList();
+    }
 }

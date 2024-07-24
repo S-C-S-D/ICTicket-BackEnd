@@ -5,10 +5,10 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "title" : "아이유27",
-  "description" : "최고의 뮤지컬입니다.",
+  "title" : "콘서트2",
+  "description" : "콘서트최고",
   "venueId": 1,
-  "genreType" : "MUSICAL",
+  "genreType" : "CONCERT",
   "ageGroup" : "ALL",
   "runTime" : 180,
   "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
@@ -74,5 +74,16 @@ RefreshToken: {{RefreshToken}}
 
 ### 전체 공연 랭킹 조회
 GET http://localhost:8080/performances/rank-all?page=1&size=10
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 전체 공연 랭킹 조회
+GET http://localhost:8080/performances/rank-all?page=1&size=10
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+### 추천 공연 조회
+GET http://localhost:8080/performances/recommend?page=1&size=4
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}

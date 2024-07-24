@@ -1,5 +1,6 @@
 package com.sparta.icticket.performance;
 
+import com.querydsl.core.Tuple;
 import com.sparta.icticket.common.enums.GenreType;
 
 import org.springframework.data.domain.Pageable;
@@ -15,5 +16,7 @@ public interface PerformanceRepositoryQuery {
     List<Performance> getWillBeOpenedPerformances(GenreType genreType, Pageable pageable);
 
     List<Performance> getRankAllPerformances(Pageable pageable);
+
+    List<Performance> getRecommendPerformances(Pageable pageable);
 }
 

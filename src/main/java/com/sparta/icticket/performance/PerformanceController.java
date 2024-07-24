@@ -116,4 +116,20 @@ public class PerformanceController {
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_RANK_ALL_SUCCESS, responseDto));
     }
+
+    /**
+     * 추천 티켓 조회
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/recommend")
+    public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getRecommendPerformances(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "4") int size) {
+
+        List<PerformanceDetailResponseDto> responseDto = performanceService.getRecommendPerformances(page-1, size);
+
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_RECOMMEND_SUCCESS, responseDto));
+    }
 }
