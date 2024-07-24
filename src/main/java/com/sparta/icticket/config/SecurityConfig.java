@@ -75,6 +75,7 @@ public class SecurityConfig {
                         .requestMatchers("/users/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/likes-count").permitAll()
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/comments").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions").permitAll()
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions/{sessionId}/seat-count").permitAll()
                         .anyRequest().authenticated()

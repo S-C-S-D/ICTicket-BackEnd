@@ -27,8 +27,12 @@ public class AdminSessionService {
     private final SessionRepository sessionRepository;
     private final PerformanceRepository performanceRepository;
 
-
-    /*session 등록*/
+    /**
+     * session 등록
+     * @param loginUser
+     * @param performanceId
+     * @param createSessionRequestDto
+     */
     public void createSession(User loginUser, Long performanceId, CreateSessionRequestDto createSessionRequestDto) {
 
         Performance performance = validatePerformance(performanceId);
@@ -43,7 +47,13 @@ public class AdminSessionService {
     }
 
 
-    /*session 수정*/
+    /**
+     * session 수정
+     * @param loginUser
+     * @param performanceId
+     * @param sessionId
+     * @param updateSessionRequestDto
+     */
     public void updateSession(User loginUser, Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
 
         Session session = validateSession(performanceId, sessionId);
@@ -57,7 +67,12 @@ public class AdminSessionService {
 
     }
 
-    /*session 삭제*/
+    /**
+     * session 삭제
+     * @param loginUser
+     * @param performanceId
+     * @param sessionId
+     */
     public void deleteSession(User loginUser, Long performanceId, Long sessionId) {
         Session session = validateSession(performanceId, sessionId);
         sessionRepository.deleteById(sessionId);
