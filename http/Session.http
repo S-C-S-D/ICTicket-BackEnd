@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
   "date" : "2024-08-04",
-  "name" : "A회차",
+  "name" : "A",
   "time" : "12:00"
 }
 
