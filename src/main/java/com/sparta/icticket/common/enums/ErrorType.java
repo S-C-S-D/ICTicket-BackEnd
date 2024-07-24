@@ -34,6 +34,8 @@ public enum ErrorType {
     NOT_FOUND_SESSION(HttpStatus.LOCKED, "존재하지 않는 세션입니다."),
     NOT_AVAILABLE_DATE(HttpStatus.LOCKED, "유효하지 않은 날짜입니다."),
     ALREADY_EXISTS_SESSION_NAME(HttpStatus.LOCKED, "이미 존재하는 세션 이름입니다."),
+    ALREADY_EXISTS_SESSION_TIME(HttpStatus.LOCKED,"이미 존재하는 세션 시간입니다."),
+    NOT_VALID_SESSION(HttpStatus.LOCKED,"해당 공연의 세션이 아닙니다."),
 
     //[VENUE]
     NOT_FOUND_VENUE(HttpStatus.LOCKED, "존재하지 않는 공연장입니다."),
