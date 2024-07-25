@@ -50,11 +50,10 @@ public class AdminVenueController {
     @DeleteMapping("/{venueId}")
     public ResponseEntity<ResponseMessageDto> deleteVenue(
             @PathVariable Long venueId,
-            @Valid @RequestBody VenueRequestDto venueRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User loginUser = userDetails.getUser();
         // 권한이 있는 경우, 공연장 삭제
-        venueAdminService.deleteVenue(venueId, venueRequestDto, loginUser);
+        venueAdminService.deleteVenue(venueId, loginUser);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_DELETE_SUCCESS));
     }
 }

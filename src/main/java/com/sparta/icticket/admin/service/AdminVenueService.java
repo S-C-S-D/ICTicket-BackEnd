@@ -42,7 +42,7 @@ public class AdminVenueService {
     }
 
     //삭제
-    public void deleteVenue(Long venueId, VenueRequestDto venueRequestDto, User loginUser) {
+    public void deleteVenue(Long venueId, User loginUser) {
         // 사용자 권한 검사
         if (!isAdmin(loginUser)) {
             // 권한이 없는 경우, 에러 응답 반환
