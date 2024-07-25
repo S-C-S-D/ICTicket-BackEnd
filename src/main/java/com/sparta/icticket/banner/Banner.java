@@ -1,5 +1,6 @@
 package com.sparta.icticket.banner;
 
+import com.sparta.icticket.banner.dto.BannerRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.BannerType;
 import jakarta.persistence.*;
@@ -19,7 +20,7 @@ public class Banner extends Timestamped {
     private Integer position;
 
     @Column(nullable = false)
-    private Long linkUrl;
+    private String linkUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -27,4 +28,11 @@ public class Banner extends Timestamped {
 
     @Column(nullable = false)
     private String bannerImageUrl;
+
+    public Banner(BannerRequestDto requestDto) {
+        this.position = requestDto.getPosition();
+        this.linkUrl = requestDto.getLinkUrl();
+        this.bannerType = requestDto.getBannerType();
+        this.bannerImageUrl = requestDto.getBannerImageUrl();
+    }
 }
