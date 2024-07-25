@@ -5,6 +5,7 @@ import com.sparta.icticket.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class SessionService {
 
     private final SessionRepository sessionRepository;
 
+    @Transactional(readOnly = true)
     public List<GetSessionsResponseDto> getSessions(Long performanceId) {
         return validateSession(performanceId).stream().map(GetSessionsResponseDto::new).toList();
     }

@@ -18,7 +18,7 @@ public class ExceptionManager {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleException(MethodArgumentNotValidException e){
+    public ResponseEntity<?> handleException(MethodArgumentNotValidException e) {
         e.printStackTrace();
         BindingResult bindingResult = e.getBindingResult();
         StringBuilder builder = new StringBuilder();
