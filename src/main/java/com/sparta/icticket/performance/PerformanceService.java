@@ -3,6 +3,7 @@ package com.sparta.icticket.performance;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.exception.CustomException;
+import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -68,12 +69,12 @@ public class PerformanceService {
      * @param size
      * @return
      */
-    public List<PerformanceDetailResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
+    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        List<Performance> discountPerformances = performanceRepository.getDiscountPerformances(genre, pageable);
+        List<DiscountPerformanceResponseDto> discountPerformances = performanceRepository.getDiscountPerformances(genre, pageable);
 
-        return discountPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
+        return discountPerformances;
     }
 
     /**

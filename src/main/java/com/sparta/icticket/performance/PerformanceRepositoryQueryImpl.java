@@ -1,8 +1,10 @@
 package com.sparta.icticket.performance;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.like.QLike;
+import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.sales.QSales;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -51,15 +53,21 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
     }
 
     @Override
-    public List<Performance> getDiscountPerformances(GenreType genreType, Pageable pageable) {
+    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
         QSales qSales = QSales.sales;
+        LocalDateTime now = LocalDateTime.now();
 
         return jpaQueryFactory
-                .select(qPerformance)
+                .select(Projections.constructor(DiscountPerformanceResponseDto.class, qPerformance, qSales))
                 .from(qPerformance)
                 .leftJoin(qSales).on(qPerformance.id.eq(qSales.performance.id))
-                .where(qPerformance.genreType.eq(genreType).and(qSales.id.isNotNull()))
+                .where(
+                        qPerformance.genreType.eq(genreType)
+                                .and(qSales.id.isNotNull())
+                                .and(qSales.endAt.after(now))
+                                .and(qPerformance.endAt.after(now.toLocalDate())))
+                .orderBy(qSales.discountRate.desc(), qSales.startAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
