@@ -1,6 +1,7 @@
 package com.sparta.icticket.order.dto;
 
 import com.sparta.icticket.common.enums.GenreType;
+import com.sparta.icticket.common.enums.OrderStatus;
 import com.sparta.icticket.order.Order;
 import lombok.Getter;
 
@@ -20,6 +21,7 @@ public class OrderListResponseDto {
     private LocalDate sessionDate;
     private LocalTime sessionTime;
     private Integer ticketCount;
+    private OrderStatus orderStatus;
 
     public OrderListResponseDto(Order order) {
         this.orderDate = order.getCreatedAt().toLocalDate();
@@ -34,6 +36,7 @@ public class OrderListResponseDto {
         this.sessionDate = order.getSession().getSessionDate();
         this.sessionTime = order.getSession().getSessionTime();
         this.ticketCount = order.getTicketCount();
+        this.orderStatus = order.getOrderStatus();
     }
 
 }
