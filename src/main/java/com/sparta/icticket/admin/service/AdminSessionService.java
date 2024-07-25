@@ -110,17 +110,20 @@ public class AdminSessionService {
         LocalDate startDate = performance.getStartAt();
         LocalDate endDate = performance.getEndAt();
 
+        // 해당 공연기간에서 벗어난 날짜를 입력했을때 예외처리
         boolean isDateNotAvailable = sessionDate.isBefore(startDate) || sessionDate.isAfter(endDate);
         if (isDateNotAvailable) {
             throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
         }
 
+        // 날짜와 이름이 중복인 경우
         List<Session> sessionsWithSameName = sessionRepository
                 .findByPerformanceAndSessionDateAndSessionName(performance, sessionDate, sessionName);
 
-        //수정시 검증해야하는 로직
+
         if (sessionsWithSameName.size()!=0) {
             for (Session existingSession : sessionsWithSameName) {
+                // session 수정에서 호출시 수정하고자하는 세션도 sessionsWithSameName List에 들어가기 때문에 검증처리해주었다.
                 boolean isNameUpdatable=existingSession.getId().equals(session.getId());
                 if (!isNameUpdatable) {
                     throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_NAME);
@@ -128,9 +131,11 @@ public class AdminSessionService {
             }
         }
 
+        // 날짜와 시간이 중복인 경우
         List<Session> sessionsWithSameTime = sessionRepository.findByPerformanceAndSessionDateAndSessionTime(performance, sessionDate, sessionTime);
         if (sessionsWithSameTime.size()!=0) {
             for (Session existingSession : sessionsWithSameTime) {
+                // session 수정에서 호출시 수정하고자하는 세션도 sessionsWithSameTime List에 들어가기 때문에 검증처리해주었다.
                 boolean isTimeUpdatable=existingSession.getId().equals(session.getId());
                 if (!isTimeUpdatable) {
                     throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_TIME);
