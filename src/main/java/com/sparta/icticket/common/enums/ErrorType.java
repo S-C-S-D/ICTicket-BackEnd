@@ -62,6 +62,13 @@ public enum ErrorType {
     NOT_FOUND_SALES(HttpStatus.LOCKED, "존재하지 않는 할인 정보입니다."),
     ALREADY_EXISTS_SALES(HttpStatus.LOCKED, "이미 할인이 적용된 공연입니다."),
 
+    // [ORDER]
+    NOT_YOUR_ORDER(HttpStatus.LOCKED,"예매 취소 권한이 없습니다."),
+    NOT_FOUND_ORDER(HttpStatus.LOCKED,"예매 내역이 존재하지 않습니다"),
+    ALREADY_CANCELED_ORDER(HttpStatus.LOCKED,"이전에 예매 취소한 이력이 있습니다."),
+
+
+
     // [BANNER]
     NOT_FOUND_BANNER(HttpStatus.NOT_FOUND, "존재하지 않는 배너입니다."),
     ALREADY_EXISTS_BANNER_POSITION(HttpStatus.LOCKED, "중복된 배너 위치입니다."),
