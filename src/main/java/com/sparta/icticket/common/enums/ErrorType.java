@@ -74,7 +74,11 @@ public enum ErrorType {
     ALREADY_EXISTS_BANNER_POSITION(HttpStatus.LOCKED, "중복된 배너 위치입니다."),
 
     // [Order]
-    CAN_NOT_LOAD_ORDER_HISTORY(HttpStatus.LOCKED, "예매 내역을 조회할 수 없습니다.");
+    CAN_NOT_LOAD_ORDER_HISTORY(HttpStatus.LOCKED, "예매 내역을 조회할 수 없습니다."),
+
+    // [Ticket]
+    NOT_FOUND_TICKET(HttpStatus.LOCKED,"티켓을 찾을 수 없습니다."),
+    ;
 
     private final HttpStatus httpStatus;
     private final String message;

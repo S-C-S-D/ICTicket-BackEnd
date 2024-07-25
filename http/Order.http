@@ -5,10 +5,10 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [1]
+  "seatIdList":  [3]
 }
 
 ### 예매 내역 조회
-GET http://localhost:8080/users/2/orders
+GET http://localhost:8080/users/1/orders
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}

@@ -57,4 +57,8 @@ public class Seat extends Timestamped {
     public void updateSeatOrder() {
         this.seatStatus = SeatStatus.PAYMENT_COMPLETED;
     }
+
+    public void setSeatStatus(SeatStatus seatStatus) {
+        this.seatStatus = seatStatus;
+    }
 }
