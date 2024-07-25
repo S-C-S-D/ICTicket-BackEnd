@@ -1,5 +1,5 @@
 ### 좌석 생성(ADMIN)
-POST http://localhost:8080/admin/sessions/1/seats
+POST http://localhost:8080/admin/sessions/2/seats
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 Content-Type: application/json

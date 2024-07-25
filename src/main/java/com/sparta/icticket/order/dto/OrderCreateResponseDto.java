@@ -21,7 +21,7 @@ public class OrderCreateResponseDto {
     private LocalDate orderDate;
     private String OrderNumber;
 
-    public OrderCreateResponseDto(Order order, List<String> seatNumberList, Integer discountRate, String orderNumber) {
+    public OrderCreateResponseDto(Order order, List<String> seatNumberList, Integer discountRate) {
         this.title = order.getSession().getPerformance().getTitle();
         this.imageUrl = order.getSession().getPerformance().getImageUrl();
 
@@ -37,6 +37,6 @@ public class OrderCreateResponseDto {
         this.phoneNumber = order.getUser().getPhoneNumber();
 
         this.orderDate = LocalDate.now();
-        this.OrderNumber = orderNumber;
+        this.OrderNumber = order.getOrderNumber();
     }
 }

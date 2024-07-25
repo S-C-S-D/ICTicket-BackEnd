@@ -4,15 +4,15 @@ import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.order.dto.OrderCreateRequestDto;
 import com.sparta.icticket.order.dto.OrderCreateResponseDto;
+import com.sparta.icticket.order.dto.OrderListResponseDto;
 import com.sparta.icticket.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +32,19 @@ public class OrderController {
             @PathVariable Long sessionId, @RequestBody @Valid OrderCreateRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         OrderCreateResponseDto responseDto = orderService.createOrder(sessionId, requestDto, userDetails.getUser());
-        return ResponseEntity.ok(new ResponseDataDto<OrderCreateResponseDto>(SuccessStatus.ORDER_CREATE_SUCCESS, responseDto));
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.ORDER_CREATE_SUCCESS, responseDto));
+    }
+
+    /**
+     * 예매 내역 조회 기능
+     * @param userId
+     * @param userDetails
+     * @return
+     */
+    @GetMapping("/users/{userId}/orders")
+    public ResponseEntity<ResponseDataDto<List<OrderListResponseDto>>> getOrders(
+            @PathVariable Long userId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        List<OrderListResponseDto> responseDto = orderService.getOrders(userId, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.ORDER_GET_INFOS_SUCCESS, responseDto));
     }
 }

@@ -19,22 +19,6 @@ public class OrderRepositoryQueryImpl implements OrderRepositoryQuery {
     }
 
     @Override
-    public List<String> findSeatNumberById(List<Long> seatIdList) {
-        return queryFactory.select(seat.seatNumber)
-                .from(seat)
-                .where(seat.id.in(seatIdList))
-                .fetch();
-    }
-
-    @Override
-    public Integer sumTotalPrice(List<Long> seatIdList) {
-        return queryFactory.select(seat.price.sum())
-                .from(seat)
-                .where(seat.id.in(seatIdList))
-                .fetchOne();
-    }
-
-    @Override
     public List<Seat> findSeatById(List<Long> seatIdList) {
          return queryFactory
                  .selectFrom(seat)

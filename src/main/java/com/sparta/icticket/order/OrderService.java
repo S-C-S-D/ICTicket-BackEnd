@@ -4,6 +4,7 @@ import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.order.dto.OrderCreateRequestDto;
 import com.sparta.icticket.order.dto.OrderCreateResponseDto;
+import com.sparta.icticket.order.dto.OrderListResponseDto;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
@@ -16,7 +17,9 @@ import com.sparta.icticket.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -38,35 +41,54 @@ public class OrderService {
         // 세션 찾기
         Session findSession = findSessionById(sessionId);
 
-        // 좌석 번호 구하기
-        List<String> findSeatNumberList = orderRepository.findSeatNumberById(requestDto.getSeatIdList());
+        List<String> findSeatNumberList = new ArrayList<>();
+        Integer totalPrice = 0;
 
-        // 좌석 총 금액 구하기
-        Integer totalPrice = orderRepository.sumTotalPrice(requestDto.getSeatIdList());
+        List<Seat> findSeatList = orderRepository.findSeatById(requestDto.getSeatIdList());
 
-        // 할인율 구하기
-        Integer discountRate = 0;
-        Sales findSales = findSales(findSession.getPerformance());
-        if(findSales != null) {
-            discountRate = findSales.getDiscountRate();
+        for(Seat seat : findSeatList) {
+            findSeatNumberList.add(seat.getSeatNumber());
+            totalPrice += seat.getPrice();
         }
 
-        // 예매 번호 생성(6자리)
-        String orderNumber = "IC" + ((int)(Math.random() * 899999) + 100000);
+        // 할인율 구하기
+        Integer discountRate = findSales(findSession.getPerformance());
 
         // order 생성
-        Order saveOrder = new Order(loginUser, findSession, orderNumber, requestDto.getSeatIdList().size(), totalPrice);
+        Order saveOrder = new Order(loginUser, findSession, makeOrderNumber(), requestDto.getSeatIdList().size(), totalPrice);
         orderRepository.save(saveOrder);
 
         // Ticket 생성
-        List<Seat> findSeatList = orderRepository.findSeatById(requestDto.getSeatIdList());
-
         for(Seat seat : findSeatList) {
             Ticket saveTicket = new Ticket(saveOrder, seat, seat.getPrice());
             ticketRepository.save(saveTicket);
         }
 
-        return new OrderCreateResponseDto(saveOrder, findSeatNumberList, discountRate, orderNumber);
+        return new OrderCreateResponseDto(saveOrder, findSeatNumberList, discountRate);
+    }
+
+    /**
+     * 예매 내역 조회
+     * @param userId
+     * @param loginUser
+     * @return
+     */
+    public List<OrderListResponseDto> getOrders(Long userId, User loginUser) {
+        if(!Objects.equals(userId, loginUser.getId())) {
+            throw new CustomException(ErrorType.CAN_NOT_LOAD_ORDER_HISTORY);
+        }
+
+        List<Order> orderList = orderRepository.findAllByUserOrderByCreatedAtDesc(loginUser);
+
+        return orderList.stream().map(OrderListResponseDto :: new).toList();
+    }
+
+    /**
+     * 예매 번호 생성
+     * @return
+     */
+    private String makeOrderNumber() {
+        return "IC" + ((int)(Math.random() * 899999) + 100000);
     }
 
     /**
@@ -84,7 +106,7 @@ public class OrderService {
      * @param performance
      * @return
      */
-    private Sales findSales(Performance performance) {
-        return salesRepository.findByPerformance(performance).orElse(null);
+    private Integer findSales(Performance performance) {
+        return salesRepository.findDiscountRateByPerformance(performance).orElse(0);
     }
 }

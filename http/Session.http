@@ -1,12 +1,12 @@
 ### 세션등록 (ADMIN)
-POST http://localhost:8080/admin/performances/1/sessions
+POST http://localhost:8080/admin/performances/2/sessions
 Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
   "date" : "2024-08-03",
   "name" : "A",
-  "time" : "12:00"
+  "time" : "12:30"
 }
 
 ### 세션수정 (ADMIN)
