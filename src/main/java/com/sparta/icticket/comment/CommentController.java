@@ -25,7 +25,7 @@ public class CommentController {
     public ResponseEntity<ResponseMessageDto> createComment(
             @PathVariable Long performanceId,
             @AuthenticationPrincipal UserDetailsImpl userDetails,
-            @RequestBody CreateCommentRequestDto createCommentRequestDto) {
+            @RequestBody @Valid CreateCommentRequestDto createCommentRequestDto) {
         User loginUser = userDetails.getUser();
         commentService.createComment(performanceId, createCommentRequestDto, loginUser);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.COMMENT_CREATE_SUCCESS));
