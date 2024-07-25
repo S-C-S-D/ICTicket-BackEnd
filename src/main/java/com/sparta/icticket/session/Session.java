@@ -5,16 +5,17 @@ import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "sessions")
 public class Session extends Timestamped {
     @Id
