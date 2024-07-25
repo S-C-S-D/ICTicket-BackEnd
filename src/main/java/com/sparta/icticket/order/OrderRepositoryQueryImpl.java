@@ -1,7 +1,9 @@
 package com.sparta.icticket.order;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.seat.Seat;
+import com.sparta.icticket.session.Session;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +21,11 @@ public class OrderRepositoryQueryImpl implements OrderRepositoryQuery {
     }
 
     @Override
-    public List<Seat> findSeatById(List<Long> seatIdList) {
+    public List<Seat> findSeatById(List<Long> seatIdList, Session session) {
          return queryFactory
                  .selectFrom(seat)
-                 .where(seat.id.in(seatIdList))
+                 .where(seat.id.in(seatIdList).and(seat.seatStatus.eq(SeatStatus.PAYING))
+                         .and(seat.session.eq(session)))
                  .fetch();
     }
 }

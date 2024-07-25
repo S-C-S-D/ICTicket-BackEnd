@@ -43,16 +43,25 @@ public class OrderService {
 
         List<String> findSeatNumberList = new ArrayList<>();
         Integer totalPrice = 0;
+        Integer discountRate = 0;
 
-        List<Seat> findSeatList = orderRepository.findSeatById(requestDto.getSeatIdList());
+        List<Seat> findSeatList = orderRepository.findSeatById(requestDto.getSeatIdList(), findSession);
+
+        if(findSeatList.size() != requestDto.getSeatIdList().size()) {
+            throw new CustomException(ErrorType.NOT_FOUND_SEAT);
+        }
 
         for(Seat seat : findSeatList) {
             findSeatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();
+            seat.updateSeatOrder();
         }
 
         // 할인율 구하기
-        Integer discountRate = findSales(findSession.getPerformance());
+        Sales findSales = findSales(findSession.getPerformance());
+        if(findSales !=null) {
+            discountRate = findSales.getDiscountRate();
+        }
 
         // order 생성
         Order saveOrder = new Order(loginUser, findSession, makeOrderNumber(), requestDto.getSeatIdList().size(), totalPrice);
@@ -106,7 +115,7 @@ public class OrderService {
      * @param performance
      * @return
      */
-    private Integer findSales(Performance performance) {
-        return salesRepository.findDiscountRateByPerformance(performance).orElse(0);
+    private Sales findSales(Performance performance) {
+        return salesRepository.findDiscountRateByPerformance(performance).orElse(null);
     }
 }

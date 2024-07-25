@@ -53,4 +53,8 @@ public class Seat extends Timestamped {
         this.seatStatus = SeatStatus.PAYING;
         this.reservedAt = LocalDateTime.now();
     }
+
+    public void updateSeatOrder() {
+        this.seatStatus = SeatStatus.PAYMENT_COMPLETED;
+    }
 }
