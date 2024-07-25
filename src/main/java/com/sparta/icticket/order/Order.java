@@ -38,4 +38,13 @@ public class Order extends Timestamped {
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
+    public Order(User user, Session session, String orderNumber, Integer ticketCount, Integer totalPrice) {
+        this.user = user;
+        this.session = session;
+        this.orderNumber = orderNumber;
+        this.ticketCount = ticketCount;
+        this.totalPrice = totalPrice;
+        this.orderStatus = OrderStatus.SUCCESS;
+    }
+
 }

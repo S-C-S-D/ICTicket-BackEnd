@@ -1,6 +1,7 @@
 package com.sparta.icticket.order;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sparta.icticket.seat.Seat;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
@@ -31,5 +32,13 @@ public class OrderRepositoryQueryImpl implements OrderRepositoryQuery {
                 .from(seat)
                 .where(seat.id.in(seatIdList))
                 .fetchOne();
+    }
+
+    @Override
+    public List<Seat> findSeatById(List<Long> seatIdList) {
+         return queryFactory
+                 .selectFrom(seat)
+                 .where(seat.id.in(seatIdList))
+                 .fetch();
     }
 }

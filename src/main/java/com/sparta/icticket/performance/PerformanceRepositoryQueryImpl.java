@@ -22,7 +22,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
         QPerformance qPerformance = QPerformance.performance;
         QLike qLike = QLike.like;
 
-        return jpaQueryFactory
+        return jpaQueryFactory // join on id=id
                 .select(qPerformance)
                 .from(qPerformance)
                 .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))

@@ -17,8 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
+
     private final OrderService orderService;
 
+    /**
+     * 결제 완료 기능 구현
+     * @param sessionId
+     * @param requestDto
+     * @param userDetails
+     * @return
+     */
     @PostMapping("/sessions/{sessionId}/orders")
     public ResponseEntity<ResponseDataDto<OrderCreateResponseDto>> createOrder(
             @PathVariable Long sessionId, @RequestBody @Valid OrderCreateRequestDto requestDto,

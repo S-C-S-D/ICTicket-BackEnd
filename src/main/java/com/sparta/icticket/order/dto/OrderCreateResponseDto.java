@@ -1,7 +1,6 @@
 package com.sparta.icticket.order.dto;
 
-import com.sparta.icticket.session.Session;
-import com.sparta.icticket.user.User;
+import com.sparta.icticket.order.Order;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -22,16 +21,22 @@ public class OrderCreateResponseDto {
     private LocalDate orderDate;
     private String OrderNumber;
 
-    public OrderCreateResponseDto(Session session, List<String> seatNumberList, Integer totalPrice, Integer discountRate, User user) {
-        this.title = session.getPerformance().getTitle();
-        this.imageUrl = session.getPerformance().getImageUrl();
-        this.sessionDate = session.getSessionDate();
-        this.sessionName = session.getSessionName();
+    public OrderCreateResponseDto(Order order, List<String> seatNumberList, Integer discountRate, String orderNumber) {
+        this.title = order.getSession().getPerformance().getTitle();
+        this.imageUrl = order.getSession().getPerformance().getImageUrl();
+
+        this.sessionDate = order.getSession().getSessionDate();
+        this.sessionName = order.getSession().getSessionName();
+
         this.seatNumberList = seatNumberList;
-        this.totalPrice = totalPrice;
+
+        this.totalPrice = order.getTotalPrice() - (order.getTotalPrice() * (discountRate/100));
         this.discountRate = discountRate;
-        this.address = user.getAddress();
-        this.phoneNumber = user.getPhoneNumber();
+
+        this.address = order.getUser().getAddress();
+        this.phoneNumber = order.getUser().getPhoneNumber();
+
         this.orderDate = LocalDate.now();
+        this.OrderNumber = orderNumber;
     }
 }
