@@ -4,7 +4,7 @@ Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
-  "date" : "2024-08-04",
+  "date" : "2024-08-03",
   "name" : "A",
   "time" : "12:00"
 }
@@ -25,6 +25,9 @@ DELETE http://localhost:8080/admin/performances/1/sessions/2
 Authorization: {{Authorization}}
 Content-Type: application/json
 
+### 세션 조회
+GET http://localhost:8080/performances/1/sessions
+Content-Type: application/json
 
 
 
