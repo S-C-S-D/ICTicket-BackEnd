@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
@@ -114,14 +115,27 @@ public class AdminSessionService {
             throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
         }
 
-        boolean isNameNotAvailable = sessionRepository.existsByPerformanceAndSessionDateAndSessionName(performance, sessionDate, sessionName);
-        if (isNameNotAvailable) {
-            throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_NAME);
+        List<Session> sessionsWithSameName = sessionRepository
+                .findByPerformanceAndSessionDateAndSessionName(performance, sessionDate, sessionName);
+
+        //수정시 검증해야하는 로직
+        if (sessionsWithSameName.size()!=0) {
+            for (Session existingSession : sessionsWithSameName) {
+                boolean isNameUpdatable=existingSession.getId().equals(session.getId());
+                if (!isNameUpdatable) {
+                    throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_NAME);
+                }
+            }
         }
 
-        boolean isTimeNotAvailable = sessionRepository.existsByPerformanceAndSessionDateAndSessionTime(performance, sessionDate, sessionTime);
-        if (isTimeNotAvailable) {
-            throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_TIME);
+        List<Session> sessionsWithSameTime = sessionRepository.findByPerformanceAndSessionDateAndSessionTime(performance, sessionDate, sessionTime);
+        if (sessionsWithSameTime.size()!=0) {
+            for (Session existingSession : sessionsWithSameTime) {
+                boolean isTimeUpdatable=existingSession.getId().equals(session.getId());
+                if (!isTimeUpdatable) {
+                    throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION_TIME);
+                }
+            }
         }
 
         return true;
