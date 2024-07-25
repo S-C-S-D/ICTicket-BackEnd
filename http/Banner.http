@@ -22,7 +22,7 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "position" : 5,
+  "position" : 1,
   "linkUrl" : "https://github.com/S-C-S-D/ICTicket",
   "bannerType": "MAIN",
   "bannerImageUrl": "https://github.com/S-C-S-D/ICTicket"
@@ -30,10 +30,9 @@ Content-Type: application/json
 
 
 ### 배너 조회(타입별 10개)
-GET http://localhost:8080/banners?bannerType="MAIN"
+GET http://localhost:8080/banners?bannerType=MAIN
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
-Content-Type: application/json
 
 
 
