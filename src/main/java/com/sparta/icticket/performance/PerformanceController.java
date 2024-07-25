@@ -3,6 +3,7 @@ package com.sparta.icticket.performance;
 import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.SuccessStatus;
+import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -73,14 +74,14 @@ public class PerformanceController {
      * @return
      */
     @GetMapping("/genre/discount")
-    public ResponseEntity<ResponseDataDto<List<PerformanceDetailResponseDto>>> getDiscountPerformances(
+    public ResponseEntity<ResponseDataDto<List<DiscountPerformanceResponseDto>>> getDiscountPerformances(
             @RequestParam(value = "genre") GenreType genre,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "5") int size){
 
-        List<PerformanceDetailResponseDto> responseDto = performanceService.getDiscountPerformances(genre, page-1, size);
+        List<DiscountPerformanceResponseDto> responseDtoList = performanceService.getDiscountPerformances(genre, page - 1, size);
 
-        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDto));
+        return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_DISCOUNT_SUCCESS, responseDtoList));
     }
 
     /**
