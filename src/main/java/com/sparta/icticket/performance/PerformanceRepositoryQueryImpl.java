@@ -1,8 +1,10 @@
 package com.sparta.icticket.performance;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.like.QLike;
+import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.sales.QSales;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -45,21 +47,28 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                         qPerformance.openAt.year().eq(now.getYear())
                                 .and(qPerformance.openAt.month().eq(now.getMonth().getValue()))
                                 .and(qPerformance.openAt.dayOfMonth().eq(now.getDayOfMonth())))
+                .orderBy(qPerformance.openAt.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
     }
 
     @Override
-    public List<Performance> getDiscountPerformances(GenreType genreType, Pageable pageable) {
+    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
         QSales qSales = QSales.sales;
+        LocalDateTime now = LocalDateTime.now();
 
         return jpaQueryFactory
-                .select(qPerformance)
+                .select(Projections.constructor(DiscountPerformanceResponseDto.class, qPerformance, qSales))
                 .from(qPerformance)
                 .leftJoin(qSales).on(qPerformance.id.eq(qSales.performance.id))
-                .where(qPerformance.genreType.eq(genreType).and(qSales.id.isNotNull()))
+                .where(
+                        qPerformance.genreType.eq(genreType)
+                                .and(qSales.id.isNotNull())
+                                .and(qSales.endAt.after(now))
+                                .and(qPerformance.endAt.after(now.toLocalDate())))
+                .orderBy(qSales.discountRate.desc(), qSales.startAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -74,7 +83,8 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .select(qPerformance)
                 .from(qPerformance)
                 .where(qPerformance.genreType.eq(genreType)
-                        .and(qPerformance.openAt.after(now)))
+                        .and(qPerformance.openAt.after(now))
+                        .and(qPerformance.endAt.after(now.toLocalDate())))
                 .orderBy(qPerformance.openAt.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -90,6 +100,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .select(qPerformance)
                 .from(qPerformance)
                 .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
+                .where(qPerformance.endAt.after(LocalDate.now()))
                 .groupBy(qPerformance.id)
                 .orderBy(qLike.id.count().add(qPerformance.viewCount).desc())
                 .offset(pageable.getOffset())
@@ -110,7 +121,9 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                     .select(qPerformance)
                     .from(qPerformance)
                     .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
-                    .where(qPerformance.genreType.in(value))
+                    .where(
+                            qPerformance.genreType.in(value)
+                                    .and(qPerformance.endAt.after(LocalDate.now())))
                     .groupBy(qPerformance.id)
                     .orderBy(qLike.id.count().add(qPerformance.viewCount).desc())
                     .limit(2)
