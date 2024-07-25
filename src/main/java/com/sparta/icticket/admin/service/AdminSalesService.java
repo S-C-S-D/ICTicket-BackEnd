@@ -31,6 +31,10 @@ public class AdminSalesService {
     public void addSales(Long performanceId, SalesAddRequestDto requestDto) {
         Performance findPerformance = findPerformanceById(performanceId);
 
+        if(salesRepository.existsByPerformance(findPerformance)) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_SALES);
+        }
+
         checkDate(requestDto.getStartAt(), requestDto.getStartAt());
 
         Sales saveSales = new Sales(findPerformance, requestDto);

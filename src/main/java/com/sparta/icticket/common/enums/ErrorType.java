@@ -59,6 +59,7 @@ public enum ErrorType {
 
     // [DISCOUNT]
     NOT_FOUND_SALES(HttpStatus.LOCKED, "존재하지 않는 할인 정보입니다."),
+    ALREADY_EXISTS_SALES(HttpStatus.LOCKED, "이미 할인이 적용된 공연입니다."),
 
     // [BANNER]
     NOT_FOUND_BANNER(HttpStatus.NOT_FOUND, "존재하지 않는 배너입니다."),
