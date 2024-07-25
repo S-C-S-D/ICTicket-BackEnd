@@ -11,4 +11,6 @@ public interface SalesRepository extends JpaRepository<Sales,Long> {
     Optional<Sales> findByIdAndPerformance(Long salesId, Performance performance);
 
     Optional<Integer> findDiscountRateByPerformance(Performance performance);
+
+    boolean existsByPerformance(Performance findPerformance);
 }

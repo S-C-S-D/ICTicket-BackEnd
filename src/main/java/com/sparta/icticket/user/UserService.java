@@ -70,7 +70,7 @@ public class UserService {
      */
     @Transactional
     public void resignUser(UserResignRequestDto requestDto, User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
+        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
 
         if(!passwordEncoder.matches(requestDto.getPassword(), findUser.getPassword())) {
              throw new CustomException(ErrorType.INVALID_PASSWORD);
@@ -86,7 +86,7 @@ public class UserService {
      */
     @Transactional
     public void updateProfile(UserProfileRequestDto requestDto, User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
+        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
 
         checkDuplicateNickname(requestDto.getNickname());
 
@@ -99,7 +99,7 @@ public class UserService {
      * @return
      */
     public UserProfileResponseDto getProfile(User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
+        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
 
         Integer orderCount = orderRepository.countAllByUser(findUser);
 
@@ -133,12 +133,12 @@ public class UserService {
     }
 
     /**
-     * 유저 존재 여부 확인
+     * 유저 권한 확인
      * @param email
      * @return
      */
-    private User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() ->
-                new CustomException(ErrorType.NOT_FOUND_USER));
+    private User findUserByEmailAndStatus(String email) {
+        return userRepository.findByEmailAndUserStatus(email, UserStatus.ACTIVATE).orElseThrow(() ->
+                new CustomException(ErrorType.DEACTIVATE_USER));
     }
 }

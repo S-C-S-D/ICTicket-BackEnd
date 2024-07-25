@@ -1,0 +1,44 @@
+### 로그인 (MANAGER)
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "hgh7546@naver.com",
+  "password": "password123"
+}
+
+> {%
+    client.log(response.headers.valueOf("Authorization"));
+    client.log(response.headers.valueOf("RefreshToken"));
+    client.global.set("Authorization", response.headers.valueOf("Authorization"));
+    client.global.set("RefreshToken", response.headers.valueOf("RefreshToken"));
+%}
+
+
+### 배너 생성
+POST http://localhost:8080/admin/banners
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "position" : 1,
+  "linkUrl" : "https://github.com/S-C-S-D/ICTicket",
+  "bannerType": "MAIN",
+  "bannerImageUrl": "https://github.com/S-C-S-D/ICTicket"
+}
+
+
+### 배너 조회(타입별 10개)
+GET http://localhost:8080/banners?bannerType=MAIN
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+
+### 배너 삭제
+DELETE http://localhost:8080/admin/banners/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
