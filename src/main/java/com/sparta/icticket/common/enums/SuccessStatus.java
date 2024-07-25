@@ -68,7 +68,8 @@ public enum SuccessStatus {
 
     //[BANNER]
     BANNER_CREATE_SUCCESS(HttpStatus.OK, "배너 등록에 성공하였습니다."),
-    BANNER_DELETE_SUCCESS(HttpStatus.OK, "배너 삭제에 성공하였습니다.");
+    BANNER_DELETE_SUCCESS(HttpStatus.OK, "배너 삭제에 성공하였습니다."),
+    BANNER_GET_SUCCESS(HttpStatus.OK, "배너 조회에 성공하였습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

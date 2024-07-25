@@ -58,9 +58,11 @@ public enum ErrorType {
     EXPIRED_JWT(HttpStatus.FORBIDDEN, "만료된 JWT 입니다."),
 
     // [DISCOUNT]
-    NOT_FOUND_SALES(HttpStatus.LOCKED, "존재하지 않는 할인 정보입니다.");
+    NOT_FOUND_SALES(HttpStatus.LOCKED, "존재하지 않는 할인 정보입니다."),
 
-
+    // [BANNER]
+    NOT_FOUND_BANNER(HttpStatus.NOT_FOUND, "존재하지 않는 배너입니다."),
+    ALREADY_EXISTS_BANNER_POSITION(HttpStatus.LOCKED, "중복된 배너 위치입니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
