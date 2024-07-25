@@ -31,6 +31,10 @@ public class AdminSeatService {
 
         Session findSession = findSession(sessionId);
 
+        if(seatRepository.existsBySessionAndSeatGradeAndSeatNumber(findSession, requestDto.getSeatGrade(), requestDto.getSeatNumber())) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_SEAT);
+        }
+
         Seat saveSeat = new Seat(findSession, requestDto);
 
         seatRepository.save(saveSeat);

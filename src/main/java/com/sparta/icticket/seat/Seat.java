@@ -35,6 +35,7 @@ public class Seat extends Timestamped {
     @Column(nullable = false)
     private SeatGrade seatGrade;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SeatStatus seatStatus;
 
