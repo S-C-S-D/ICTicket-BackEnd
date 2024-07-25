@@ -44,6 +44,7 @@ public enum ErrorType {
     //[SEAT]
     NOT_FOUND_SEAT(HttpStatus.LOCKED, "존재하지 않는 좌석입니다."),
     ALREADY_RESERVED_SEAT(HttpStatus.LOCKED, "이미 예약이된 좌석입니다."),
+    ALREADY_EXISTS_SEAT(HttpStatus.LOCKED, "이미 존재하는 좌석 번호입니다."),
 
     //[AUTHENTICATION]
     REQUIRES_LOGIN(HttpStatus.LOCKED, "로그인이 필요한 서비스입니다."),
