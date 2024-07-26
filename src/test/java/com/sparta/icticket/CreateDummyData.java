@@ -816,7 +816,7 @@ public class CreateDummyData {
         // user 7명
         for (int i = 1; i <= 7; i++) {
             UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    userStr + i + "@google.com",
+                    userStr + i + "@gmail.com",
                     "qwer1234",
                     userStr + i,
                     userStr + i,
