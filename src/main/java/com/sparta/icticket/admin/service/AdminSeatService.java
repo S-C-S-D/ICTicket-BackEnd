@@ -27,8 +27,6 @@ public class AdminSeatService {
      */
     public void createSeat(Long sessionId, SeatCreateRequestDto requestDto, User loginUser) {
 
-        checkUserRole(loginUser.getUserRole());
-
         Session findSession = findSession(sessionId);
 
         if(seatRepository.existsBySessionAndSeatGradeAndSeatNumber(findSession, requestDto.getSeatGrade(), requestDto.getSeatNumber())) {
@@ -48,31 +46,14 @@ public class AdminSeatService {
      */
     public void deleteSeat(Long sessionId, Long seatId, User loginUser) {
 
-        checkUserRole(loginUser.getUserRole());
-
         Session findSession = findSession(sessionId);
 
         // 해당 아이디를 가진 좌석이 없으면 예외
-        Seat findSeat = seatRepository.findById(seatId).orElseThrow(() ->
+        Seat findSeat = seatRepository.findByIdAndSession(seatId, findSession).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_SEAT));
-
-        // 경로에 있는 아이디로 찾은 세션과 좌석이 속한 세션이 같지 않을 때(해당 세션의 좌석이 아닐 때) 예외
-        if(!findSession.equals(findSeat.getSession())) {
-            throw new CustomException(ErrorType.NOT_FOUND_SEAT);
-        }
 
         seatRepository.delete(findSeat);
 
-    }
-
-    /**
-     * UserRole 검증
-     * @param role
-     */
-    private void checkUserRole(UserRole role) {
-        if(!role.equals(UserRole.ADMIN)) {
-            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
     }
 
     /**

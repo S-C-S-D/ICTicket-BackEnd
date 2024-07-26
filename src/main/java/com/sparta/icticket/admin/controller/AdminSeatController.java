@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/admin/sessions")
+@RequestMapping("/admin/sessions/{sessionId}")
 public class AdminSeatController {
 
     private final AdminSeatService adminSeatService;
@@ -27,7 +27,7 @@ public class AdminSeatController {
      * @param userDetails
      * @return
      */
-    @PostMapping("/{sessionId}/seats")
+    @PostMapping("/seats")
     public ResponseEntity<ResponseMessageDto> createSeat(
             @PathVariable Long sessionId,
             @RequestBody @Valid SeatCreateRequestDto requestDto,
@@ -43,7 +43,7 @@ public class AdminSeatController {
      * @param userDetails
      * @return
      */
-    @DeleteMapping("/{sessionId}/seats/{seatId}")
+    @DeleteMapping("/seats/{seatId}")
     public ResponseEntity<ResponseMessageDto> deleteSeat(
             @PathVariable Long sessionId,
             @PathVariable Long seatId,
