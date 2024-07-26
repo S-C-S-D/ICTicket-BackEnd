@@ -26,14 +26,13 @@ public class LikeService {
      * @param loginUser
      */
     public void createLike(Long performanceId, User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
 
         Performance findPerformance = findPerformanceById(performanceId);
 
-        likeRepository.findByUserAndPerformance(findUser, findPerformance).ifPresent(l ->{
+        likeRepository.findByUserAndPerformance(loginUser, findPerformance).ifPresent(l ->{
             throw new CustomException(ErrorType.ALREADY_LIKED_PERFORMANCE);});
 
-        Like saveLike = new Like(findUser, findPerformance);
+        Like saveLike = new Like(loginUser, findPerformance);
 
         likeRepository.save(saveLike);
     }
@@ -72,20 +71,9 @@ public class LikeService {
      * @return
      */
     public boolean getLike(Long performanceId, User loginUser) {
-        User findUser = findUserByEmail(loginUser.getEmail());
         Performance findPerformance = findPerformanceById(performanceId);
 
-        return likeRepository.findByUserAndPerformance(findUser, findPerformance).isPresent();
-    }
-
-    /**
-     * 유저 존재 여부 확인
-     * @param email
-     * @return
-     */
-    private User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() ->
-                new CustomException(ErrorType.NOT_FOUND_USER));
+        return likeRepository.findByUserAndPerformance(loginUser, findPerformance).isPresent();
     }
 
     /**

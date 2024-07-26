@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/performances")
+@RequestMapping("/performances/{performanceId}")
 public class LikeController {
 
     private final LikeService likeService;
@@ -25,7 +25,7 @@ public class LikeController {
      * @param userDetails
      * @return
      */
-    @PostMapping("/{performanceId}/likes")
+    @PostMapping("/likes")
     public ResponseEntity<ResponseMessageDto> createLike(
             @PathVariable Long performanceId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -39,7 +39,7 @@ public class LikeController {
      * @param userDetails
      * @return
      */
-    @DeleteMapping("/{performanceId}/likes/{likesId}")
+    @DeleteMapping("/likes/{likesId}")
     public ResponseEntity<ResponseMessageDto> deleteLike(
             @PathVariable Long performanceId,
             @PathVariable Long likesId,
@@ -53,7 +53,7 @@ public class LikeController {
      * @param performanceId
      * @return
      */
-    @GetMapping("/{performanceId}/likes-count")
+    @GetMapping("/likes-count")
     public ResponseEntity<ResponseDataDto<Long>> getLikesCount(
             @PathVariable Long performanceId) {
         Long likeCount = likeService.getLikesCount(performanceId);
@@ -66,7 +66,7 @@ public class LikeController {
      * @param userDetails
      * @return
      */
-    @GetMapping("/{performanceId}/likes")
+    @GetMapping("/likes")
     public ResponseEntity<ResponseDataDto<Boolean>> getLike(
             @PathVariable Long performanceId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
