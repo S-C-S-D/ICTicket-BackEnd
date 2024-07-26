@@ -75,7 +75,7 @@ public class OrderService {
 
         // Ticket 생성
         for(Seat seat : findSeatList) {
-            Ticket saveTicket = new Ticket(saveOrder, seat, seat.getPrice());
+            Ticket saveTicket = new Ticket(saveOrder, seat, seat.getPrice() - (seat.getPrice() * (discountRate / 100)));
             ticketRepository.save(saveTicket);
         }
 
