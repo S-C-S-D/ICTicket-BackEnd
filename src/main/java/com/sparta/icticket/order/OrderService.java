@@ -33,7 +33,6 @@ public class OrderService {
     private final TicketRepository ticketRepository;
     private final SessionRepository sessionRepository;
     private final SalesRepository salesRepository;
-    private final SeatRepository seatRepository;
 
     /**
      * 결제 완료 기능
@@ -69,13 +68,15 @@ public class OrderService {
             discountRate = findSales.getDiscountRate();
         }
 
+        totalPrice = (int) (totalPrice - (totalPrice * (discountRate / 100.0)));
+
         // order 생성
         Order saveOrder = new Order(loginUser, findSession, makeOrderNumber(), requestDto.getSeatIdList().size(), totalPrice);
         orderRepository.save(saveOrder);
 
         // Ticket 생성
         for(Seat seat : findSeatList) {
-            Ticket saveTicket = new Ticket(saveOrder, seat, seat.getPrice() - (seat.getPrice() * (discountRate / 100)));
+            Ticket saveTicket = new Ticket(saveOrder, seat, (int)(seat.getPrice() - (seat.getPrice() * (discountRate / 100.0))));
             ticketRepository.save(saveTicket);
         }
 
