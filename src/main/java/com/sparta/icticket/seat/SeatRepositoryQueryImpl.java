@@ -36,4 +36,5 @@ public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
                 .where(seat.id.in(seatIdList).and(seat.seatStatus.eq(SeatStatus.NOT_RESERVED)))
                 .fetch();
     }
+
 }
