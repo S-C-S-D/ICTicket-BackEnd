@@ -802,7 +802,7 @@ public class CreateDummyData {
         // admin 3명
         for (int i = 1; i <= 3; i++) {
             UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    admin + i + "@google.com",
+                    admin + i + "@gmail.com",
                     "qwer1234",
                     admin + i,
                     admin + i,
