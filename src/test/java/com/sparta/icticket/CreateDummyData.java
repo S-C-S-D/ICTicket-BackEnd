@@ -3,10 +3,13 @@ package com.sparta.icticket;
 import com.sparta.icticket.banner.BannerRepository;
 import com.sparta.icticket.common.enums.AgeGroup;
 import com.sparta.icticket.common.enums.GenreType;
+import com.sparta.icticket.common.enums.SeatGrade;
+import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
+import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
@@ -24,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -714,11 +716,13 @@ public class CreateDummyData {
     void createSessionDummyData(){
         List<Performance> performanceList = performanceRepository.findAll();
         long id = 1;
+        List<Session> sessionList = new ArrayList<>();
         for (int i = 0; i < performanceList.size(); i++) {
             Performance performance = performanceList.get(i);
             LocalDate startAt = performance.getStartAt();
             LocalDate endAt = performance.getEndAt();
             long until = startAt.until(endAt, ChronoUnit.DAYS);
+
 
             for (int j = 0; j <= until; j++) {
                 LocalDate sessionDate = startAt.plusDays(j);
@@ -728,10 +732,54 @@ public class CreateDummyData {
                 // 공연별로, 하루에 세션 2개씩 생성
                 Session aSession = new Session(id++, performance, sessionDate, sessionTime1, "A");
                 Session bSession = new Session(id++, performance, sessionDate, sessionTime2, "B");
-                sessionRepository.save(aSession);
-                sessionRepository.save(bSession);
+                sessionList.add(aSession);
+                sessionList.add(bSession);
             }
         }
+        sessionRepository.saveAll(sessionList);
+    }
+
+
+    @Test
+    @Order(5)
+    @Transactional()
+    @Rollback(value = false)
+    void createSeatDummyData(){
+        // 세션별로, 공연의 공연장 정보를 찾아서, 공연장의 totalSeatCount 만큼 시트를 생성.
+        List<Session> sessionList = sessionRepository.findAll();
+        int[] prices = {150000, 130000, 110000, 90000};
+        SeatGrade[] seatGrades = SeatGrade.values();
+
+
+        List<Seat> seatList = new ArrayList<>();
+        long id = 1;
+        for (Session session : sessionList) {
+            Performance performance = session.getPerformance();
+            Venue venue = performance.getVenue();
+
+            int price = 0;
+            SeatGrade seatGrade = SeatGrade.S;
+            for (int i = 0; i < venue.getTotalSeatCount(); i++) {
+                String seatNumber = "" + (i % (venue.getTotalSeatCount()/4) + 1);
+                double temp = venue.getTotalSeatCount()/4;
+                if(i < temp){
+                    price = prices[0];
+                    seatGrade = seatGrades[0];
+                } else if (i < temp * 2){
+                    price = prices[1];
+                    seatGrade = seatGrades[1];
+                } else if (i < temp * 3) {
+                    price = prices[2];
+                    seatGrade = seatGrades[2];
+                } else {
+                    price = prices[3];
+                    seatGrade = seatGrades[3];
+                }
+
+                seatList.add(new Seat(id++, session, price, seatNumber, seatGrade, SeatStatus.NOT_RESERVED, null));
+            }
+        }
+        seatRepository.saveAll(seatList);
     }
 
 }
