@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 
-### 로그인 (MANAGER)
+### 로그인 (ADMIN)
 POST http://localhost:8080/users/login
 Content-Type: application/json
 
@@ -72,9 +72,13 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-    "password" : "password123"
+    "password" : "qwer1234"
 }
 
+> {%
+    client.global.clear("Authorization");
+    client.global.clear("RefreshToken");
+%}
 
 ### 프로필 수정
 PATCH http://localhost:8080/users/profile
@@ -91,5 +95,27 @@ Content-Type: application/json
 
 ### 프로필 조회
 GET http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 공연 등록
+POST http://localhost:8080/performances/1/likes
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 공연 등록 취소
+DELETE http://localhost:8080/performances/1/likes/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 개수 조회
+GET http://localhost:8080/performances/1/likes-count
+
+
+### 관심 공연 등록 여부 조회
+GET http://localhost:8080/performances/1/likes
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}

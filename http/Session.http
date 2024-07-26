@@ -4,20 +4,20 @@ Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
-  "date" : "2024-08-04",
-  "name" : "A",
-  "time" : "12:00"
+  "date" : "2024-09-02",
+  "name" : "C",
+  "time" : "14:00"
 }
 
 ### 세션수정 (ADMIN)
-PATCH http://localhost:8080/admin/performances/1/sessions/2
+PATCH http://localhost:8080/admin/performances/1/sessions/1
 Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
-  "date" : "2024-08-05",
-  "name" : "C",
-  "time" : "11:00"
+  "date" : "2024-08-01",
+  "name" : "A",
+  "time" : "14:00"
 }
 
 ### 세션삭제 (ADMIN)
@@ -25,6 +25,9 @@ DELETE http://localhost:8080/admin/performances/1/sessions/2
 Authorization: {{Authorization}}
 Content-Type: application/json
 
+### 세션 조회
+GET http://localhost:8080/performances/1/sessions
+Content-Type: application/json
 
 
 

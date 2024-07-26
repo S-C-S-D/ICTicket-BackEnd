@@ -35,6 +35,7 @@ public class Seat extends Timestamped {
     @Column(nullable = false)
     private SeatGrade seatGrade;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SeatStatus seatStatus;
 
@@ -51,5 +52,13 @@ public class Seat extends Timestamped {
     public void updateIsReserved() {
         this.seatStatus = SeatStatus.PAYING;
         this.reservedAt = LocalDateTime.now();
+    }
+
+    public void updateSeatOrder() {
+        this.seatStatus = SeatStatus.PAYMENT_COMPLETED;
+    }
+
+    public void setSeatStatus(SeatStatus seatStatus) {
+        this.seatStatus = seatStatus;
     }
 }

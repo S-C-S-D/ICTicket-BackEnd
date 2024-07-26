@@ -77,9 +77,10 @@ public class UserController {
      */
     @PatchMapping
     public ResponseEntity<ResponseMessageDto> updateUser(
-            @Valid @RequestBody UserResignRequestDto requestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+            @Valid @RequestBody UserResignRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails,
+            HttpServletResponse response) {
         userService.resignUser(requestDto, userDetails.getUser());
+        response.setHeader(JwtUtil.AUTH_ACCESS_HEADER, "");
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.USER_DEACTIVATE_SUCCESS));
     }
 

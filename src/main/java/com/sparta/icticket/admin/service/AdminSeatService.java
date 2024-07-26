@@ -1,4 +1,4 @@
-package com.sparta.icticket.admin.seat;
+package com.sparta.icticket.admin.service;
 
 import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
@@ -30,6 +30,10 @@ public class AdminSeatService {
         checkUserRole(loginUser.getUserRole());
 
         Session findSession = findSession(sessionId);
+
+        if(seatRepository.existsBySessionAndSeatGradeAndSeatNumber(findSession, requestDto.getSeatGrade(), requestDto.getSeatNumber())) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_SEAT);
+        }
 
         Seat saveSeat = new Seat(findSession, requestDto);
 

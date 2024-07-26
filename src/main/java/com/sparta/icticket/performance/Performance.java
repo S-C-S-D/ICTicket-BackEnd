@@ -81,4 +81,8 @@ public class Performance extends Timestamped {
         this.endAt = requestDto.getEndAt();
         this.imageUrl = requestDto.getImageUrl();
     }
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 }

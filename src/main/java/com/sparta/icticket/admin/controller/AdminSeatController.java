@@ -1,5 +1,6 @@
-package com.sparta.icticket.admin.seat;
+package com.sparta.icticket.admin.controller;
 
+import com.sparta.icticket.admin.service.AdminSeatService;
 import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
