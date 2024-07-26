@@ -31,8 +31,6 @@ Content-Type: application/json
 
 ### 배너 조회(타입별 10개)
 GET http://localhost:8080/banners?bannerType=MAIN
-Authorization: {{Authorization}}
-RefreshToken: {{RefreshToken}}
 
 
 

@@ -3,11 +3,13 @@ package com.sparta.icticket.venue;
 import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "venues")
 public class Venue extends Timestamped {

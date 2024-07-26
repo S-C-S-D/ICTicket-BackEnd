@@ -5,6 +5,7 @@ import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "sales")
 public class Sales extends Timestamped {
 

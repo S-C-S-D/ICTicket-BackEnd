@@ -6,6 +6,7 @@ import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.session.Session;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "seats")
 public class Seat extends Timestamped {

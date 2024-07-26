@@ -6,6 +6,7 @@ import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.performance.dto.PerformanceRequestDto;
 import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "performances")
 public class Performance extends Timestamped {
     @Id
@@ -28,7 +30,7 @@ public class Performance extends Timestamped {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String description;
 
     @Enumerated(EnumType.STRING)
