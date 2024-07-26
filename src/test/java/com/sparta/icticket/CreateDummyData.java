@@ -1,10 +1,7 @@
 package com.sparta.icticket;
 
 import com.sparta.icticket.banner.BannerRepository;
-import com.sparta.icticket.common.enums.AgeGroup;
-import com.sparta.icticket.common.enums.GenreType;
-import com.sparta.icticket.common.enums.SeatGrade;
-import com.sparta.icticket.common.enums.SeatStatus;
+import com.sparta.icticket.common.enums.*;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.sales.Sales;
@@ -13,6 +10,9 @@ import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
+import com.sparta.icticket.user.User;
+import com.sparta.icticket.user.UserRepository;
+import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
 import org.junit.jupiter.api.MethodOrderer;
@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,8 @@ public class CreateDummyData {
     SeatRepository seatRepository;
     @Autowired
     BannerRepository bannerRepository;
+    @Autowired
+    UserRepository userRepository;
 
     // 공연장 - 공연 - 세일 - 세션 - 시트
     // 유저 - 배너
@@ -54,7 +58,7 @@ public class CreateDummyData {
     @Order(1)
     @Transactional()
     @Rollback(value = false)
-    void createVenueDummyData(){
+    void createVenueDummyData() {
         Venue venue = new Venue(1L, "서울숲씨어터", "서울특별시 성동구 서울숲2길 32-14", 80L);
         Venue venue1 = new Venue(2L, "수원월드컵경기장 주경기장", "경기 수원시 팔달구 월드컵로 310", 80L);
 
@@ -657,7 +661,7 @@ public class CreateDummyData {
             String description = descriptions[i];
             Long viewCount = viewCounts[i];
 
-            LocalDateTime openAt = ((i / 10) % 2 == 0) ?  todayTime : todayTime.plusDays(1);
+            LocalDateTime openAt = ((i / 10) % 2 == 0) ? todayTime : todayTime.plusDays(1);
             LocalDate startAt = openAt.toLocalDate().plusDays(7);
             LocalDate endAt = startAt.plusDays(1);
 
@@ -671,12 +675,11 @@ public class CreateDummyData {
     }
 
 
-
     @Test
     @Order(3)
     @Transactional()
     @Rollback(value = false)
-    void createSalesDummyData(){
+    void createSalesDummyData() {
         // 1~10, 21~30, 41~50
         List<Long> performanceIdList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
@@ -688,10 +691,10 @@ public class CreateDummyData {
         List<Performance> performanceList = performanceRepository.findAllById(performanceIdList);
 
         for (int i = 0; i < performanceList.size(); i++) {
-            int discountRate = switch(i%10){
-                case 0,1,2 -> 10;
-                case 3,4,5 -> 20;
-                case 6,7,8 -> 30;
+            int discountRate = switch (i % 10) {
+                case 0, 1, 2 -> 10;
+                case 3, 4, 5 -> 20;
+                case 6, 7, 8 -> 30;
                 default -> 40;
             };
 
@@ -713,7 +716,7 @@ public class CreateDummyData {
     @Order(4)
     @Transactional()
     @Rollback(value = false)
-    void createSessionDummyData(){
+    void createSessionDummyData() {
         List<Performance> performanceList = performanceRepository.findAll();
         long id = 1;
         List<Session> sessionList = new ArrayList<>();
@@ -744,7 +747,7 @@ public class CreateDummyData {
     @Order(5)
     @Transactional()
     @Rollback(value = false)
-    void createSeatDummyData(){
+    void createSeatDummyData() {
         // 세션별로, 공연의 공연장 정보를 찾아서, 공연장의 totalSeatCount 만큼 시트를 생성.
         List<Session> sessionList = sessionRepository.findAll();
         int[] prices = {150000, 130000, 110000, 90000};
@@ -760,12 +763,12 @@ public class CreateDummyData {
             int price = 0;
             SeatGrade seatGrade = SeatGrade.S;
             for (int i = 0; i < venue.getTotalSeatCount(); i++) {
-                String seatNumber = "" + (i % (venue.getTotalSeatCount()/4) + 1);
-                double temp = venue.getTotalSeatCount()/4;
-                if(i < temp){
+                String seatNumber = "" + (i % (venue.getTotalSeatCount() / 4) + 1);
+                double temp = venue.getTotalSeatCount() / 4;
+                if (i < temp) {
                     price = prices[0];
                     seatGrade = seatGrades[0];
-                } else if (i < temp * 2){
+                } else if (i < temp * 2) {
                     price = prices[1];
                     seatGrade = seatGrades[1];
                 } else if (i < temp * 3) {
@@ -782,5 +785,48 @@ public class CreateDummyData {
         seatRepository.saveAll(seatList);
     }
 
-}
+    @Test
+    @Order(6)
+    @Transactional()
+    @Rollback(value = false)
+    void createUserDummyData() {
+        String userStr = "user";
+        String admin = "admin";
+        String password = "qwer1234";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
 
+        List<User> userList = new ArrayList<>();
+
+        // admin 3명
+        for (int i = 1; i <= 3; i++) {
+            UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
+                    admin + i + "@google.com",
+                    "qwer1234",
+                    admin + i,
+                    admin + i,
+                    "010-0000-0000",
+                    "서울특별시 강남구 테헤란로44길 8"
+            );
+
+            userList.add(new User(userSignupRequestDto, encodedPassword, UserRole.ADMIN));
+        }
+
+        // user 7명
+        for (int i = 1; i <= 7; i++) {
+            UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
+                    userStr + i + "@google.com",
+                    "qwer1234",
+                    userStr + i,
+                    userStr + i,
+                    "010-0000-0000",
+                    "서울특별시 강남구 테헤란로44길 8"
+            );
+
+            userList.add(new User(userSignupRequestDto, encodedPassword, UserRole.USER));
+
+        }
+        userRepository.saveAll(userList);
+        System.out.println();
+    }
+}
