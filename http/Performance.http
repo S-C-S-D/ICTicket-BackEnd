@@ -12,9 +12,9 @@ Content-Type: application/json
   "ageGroup" : "ALL",
   "runTime" : 180,
   "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
-  "openAt" : "2024-07-25-15:00",
-  "startAt" : "2024-07-29",
-  "endAt" : "2024-08-06"
+  "openAt" : "2024-08-25-15:00",
+  "startAt" : "2024-08-29",
+  "endAt" : "2024-09-06"
 }
 
 ### 공연 수정

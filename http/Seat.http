@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
   "price": 100000,
-  "seatNumber": "2",
+  "seatNumber": "1",
   "seatGrade":"VIP"
 }
 
@@ -28,5 +28,5 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [1,2]
+  "seatIdList":  [1]
 }
