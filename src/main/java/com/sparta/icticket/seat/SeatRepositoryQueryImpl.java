@@ -3,6 +3,7 @@ package com.sparta.icticket.seat;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.SeatStatus;
 import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
 
     private final JPAQueryFactory queryFactory;
 
-    public SeatRepositoryQueryImpl(EntityManager em, JPAQueryFactory queryFactory) {
+    public SeatRepositoryQueryImpl(JPAQueryFactory queryFactory) {
         this.queryFactory = queryFactory;
     }
 

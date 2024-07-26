@@ -28,5 +28,5 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [3]
+  "seatIdList":  [1]
 }

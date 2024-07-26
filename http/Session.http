@@ -4,7 +4,7 @@ Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
-  "date" : "2024-08-02",
+  "date" : "2024-09-02",
   "name" : "C",
   "time" : "14:00"
 }
