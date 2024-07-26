@@ -134,7 +134,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
         List<Performance> paged = new ArrayList<>();
         long offset = pageable.getOffset();
         int pageSize = pageable.getPageSize();
-        long endIndex = Math.min(result.size(), pageSize + (offset * pageSize));
+        long endIndex = Math.min(result.size(), pageSize + (offset));
         // 0~4, 4~8 , 8~12, 12~16 ...
         for (long i = offset; i < endIndex; i++) {
             paged.add(result.get((int) i));
