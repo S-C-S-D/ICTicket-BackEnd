@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BannerRepository extends JpaRepository<Banner, Long> {
-    List<Banner> findTop10ByBannerTypeOrderByPosition(BannerType bannerType);
+    List<Banner> findTop10ByBannerTypeOrderByPositionDesc(BannerType bannerType);
 
     Optional<Banner> findByPosition(Integer position);
 }

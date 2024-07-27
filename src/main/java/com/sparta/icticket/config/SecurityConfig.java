@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,7 +28,8 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final UserRepository userRepository;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -73,17 +73,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/admin").permitAll() //테스트용 입니다. 추후에 삭제해야 합니다.
                         .requestMatchers(HttpMethod.GET, "/performances/**").permitAll() //테스트용 입니다. 추후에 변경해야 합니다.
-                        .requestMatchers(HttpMethod.GET, "/banner/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/banners/**").permitAll()
                         .requestMatchers("/users/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/likes-count").permitAll()
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/comments").permitAll()
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions").permitAll()
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions/{sessionId}/seat-count").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
         );
 
-        http.exceptionHandling((exception) -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint));
+        http.exceptionHandling(exception ->
+                exception
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
+        );
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

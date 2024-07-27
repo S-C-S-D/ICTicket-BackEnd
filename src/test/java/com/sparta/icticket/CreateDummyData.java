@@ -1,5 +1,6 @@
 package com.sparta.icticket;
 
+import com.sparta.icticket.banner.Banner;
 import com.sparta.icticket.banner.BannerRepository;
 import com.sparta.icticket.common.enums.*;
 import com.sparta.icticket.performance.Performance;
@@ -801,7 +802,7 @@ public class CreateDummyData {
         // admin 3명
         for (int i = 1; i <= 3; i++) {
             UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    admin + i + "@google.com",
+                    admin + i + "@gmail.com",
                     "qwer1234",
                     admin + i,
                     admin + i,
@@ -815,7 +816,7 @@ public class CreateDummyData {
         // user 7명
         for (int i = 1; i <= 7; i++) {
             UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    userStr + i + "@google.com",
+                    userStr + i + "@gmail.com",
                     "qwer1234",
                     userStr + i,
                     userStr + i,
@@ -828,5 +829,22 @@ public class CreateDummyData {
         }
         userRepository.saveAll(userList);
         System.out.println();
+    }
+
+    @Test
+    @Order(7)
+    @Transactional()
+    @Rollback(value = false)
+    void createBannerDummyData(){
+        List<Banner> bannerList = new ArrayList<>();
+        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75"));
+        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75"));
+        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75"));
+        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75"));
+        bannerList.add(new Banner(5L, 1, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/DG5q0N.png"));
+        bannerList.add(new Banner(6L, 2, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/Bc5XCX.png"));
+        bannerList.add(new Banner(7L, 1, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/dHgYbn.png"));
+        bannerList.add(new Banner(8L, 2, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/0vo3Tm.png"));
+        bannerRepository.saveAll(bannerList);
     }
 }
