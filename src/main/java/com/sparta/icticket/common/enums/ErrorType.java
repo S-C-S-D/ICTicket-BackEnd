@@ -59,6 +59,8 @@ public enum ErrorType {
     NOT_YOUR_ORDER(HttpStatus.LOCKED,"예매 취소 권한이 없습니다."),
     NOT_FOUND_ORDER(HttpStatus.LOCKED,"예매 내역이 존재하지 않습니다"),
     ALREADY_CANCELED_ORDER(HttpStatus.LOCKED,"이전에 예매 취소한 이력이 있습니다."),
+    TIME_OUT(HttpStatus.LOCKED, "결제 시간이 초과 되었습니다."),
+
 
     // [BANNER]
     NOT_FOUND_BANNER(HttpStatus.NOT_FOUND, "존재하지 않는 배너입니다."),

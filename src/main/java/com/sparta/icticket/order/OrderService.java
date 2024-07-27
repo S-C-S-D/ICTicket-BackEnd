@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,6 +44,13 @@ public class OrderService {
      */
     @Transactional
     public OrderCreateResponseDto createOrder(Long sessionId, OrderCreateRequestDto requestDto, User loginUser) {
+
+        LocalDateTime reservedAt = requestDto.getModifiedAtList().get(0);
+
+        if(reservedAt.isBefore(LocalDateTime.now().minusMinutes(10))) {
+            throw new CustomException(ErrorType.TIME_OUT);
+        }
+
         // 세션 찾기
         Session findSession = findSessionById(sessionId);
 
