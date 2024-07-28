@@ -13,8 +13,9 @@ import java.time.LocalTime;
 @Getter
 public class CreateSessionRequestDto {
     @NotNull(message = "날짜를 입력해 주세요.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+
 
     @NotBlank(message = "세션 이름을 입력해 주세요.")
     @Pattern(regexp = "[A-Z]+")

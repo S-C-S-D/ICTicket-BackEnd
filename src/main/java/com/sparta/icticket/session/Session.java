@@ -3,6 +3,8 @@ package com.sparta.icticket.session;
 import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
 import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.common.enums.ErrorType;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,6 +13,8 @@ import lombok.NoArgsConstructor;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import static com.sparta.icticket.session.QSession.session;
 
 @Entity
 @Getter
@@ -47,4 +51,20 @@ public class Session extends Timestamped {
         this.sessionTime = updateSessionRequestDto.getTime();
         this.sessionName= updateSessionRequestDto.getName();
     }
+
+    // 해당 공연기간에서 벗어난 날짜를 입력했을때 예외처리
+    public void checkDate() {
+        if (this.sessionDate.isBefore(this.performance.getStartAt()) ||
+                this.sessionDate.isAfter(this.performance.getEndAt())) {
+            throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
+        }
+    }
+
+    public void checkPerformance(Long performanceId) {
+        if (!this.performance.getId().equals(performanceId)) {
+            throw new CustomException(ErrorType.NOT_VALID_SESSION);
+        }
+    }
+
+
 }

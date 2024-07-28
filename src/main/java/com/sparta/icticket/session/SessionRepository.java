@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SessionRepository extends JpaRepository<Session, Long> {
-    List<Session> findByPerformanceAndSessionDateAndSessionTime(Performance performance, LocalDate sessionDate, LocalTime sessionTime);
+    boolean existsByPerformanceAndSessionDateAndSessionTime(Performance performance, LocalDate sessionDate, LocalTime sessionTime);
 
-    List<Session> findByPerformanceAndSessionDateAndSessionName(Performance performance,LocalDate sessionDate,String sessionName);
+    boolean existsByPerformanceAndSessionDateAndSessionName(Performance performance, LocalDate sessionDate, String sessionName);
 
     boolean existsByIdAndSessionDateAndSessionTime(Long sessionId, LocalDate sessionDate, LocalTime sessionTime);
 
@@ -21,4 +21,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     Optional<List<Session>> findByPerformanceId(Long performanceId, Sort sort);
 
+    List<Session> findByPerformanceAndSessionDateAndSessionName(Performance performance, LocalDate sessionDate, String sessionName);
+    List<Session> findByPerformanceAndSessionDateAndSessionTime(Performance performance, LocalDate sessionDate, LocalTime sessionTime);
 }
