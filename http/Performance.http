@@ -1,0 +1,74 @@
+### 공연 생성
+POST http://localhost:8080/admin/performances
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "title" : "클래식3",
+  "description" : "최고의 클래식",
+  "venueId": 1,
+  "genreType" : "CLASSIC",
+  "ageGroup" : "ALL",
+  "runTime" : 180,
+  "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
+  "openAt" : "2024-08-25-15:00",
+  "startAt" : "2024-08-29",
+  "endAt" : "2024-09-06"
+}
+
+### 공연 수정
+PATCH http://localhost:8080/admin/performances/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "title" : "수정된 아이유",
+  "description" : "최고의 뮤지컬입니다.",
+  "venueId": 1,
+  "genreType" : "MUSICAL",
+  "ageGroup" : "ALL",
+  "runTime" : 180,
+  "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
+  "openAt" : "2024-07-24-18:00",
+  "startAt" : "2024-07-26",
+  "endAt" : "2024-08-06"
+}
+
+
+### 공연 삭제
+DELETE http://localhost:8080/admin/performances/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 단일 공연 조회
+GET http://localhost:8080/performances/2
+
+
+### 장르별 랭킹 공연 조회
+GET http://localhost:8080/performances/ranking?genre=MUSICAL&page=1&size=5
+
+
+### 오늘 오픈 공연 조회
+GET http://localhost:8080/performances/today-open?page=1&size=5
+
+
+### 할인 중인 공연 조회
+GET http://localhost:8080/performances/genre/discount?genre=MUSICAL&page=1&size=5
+
+
+
+### 오픈 예정 공연 조회
+GET http://localhost:8080/performances/genre/will-be-opened?genre=MUSICAL&page=1&size=5
+
+
+
+### 전체 공연 랭킹 조회
+GET http://localhost:8080/performances/rank-all?page=1&size=10
+
+
+
+### 추천 공연 조회
+GET http://localhost:8080/performances/recommend?page=1&size=4

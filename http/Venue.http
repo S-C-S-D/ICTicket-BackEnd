@@ -1,0 +1,32 @@
+### 공연장 생성
+POST http://localhost:8080/admin/venues
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "venueName": "Malty hall",
+  "location": "잠실 주경기장",
+  "totalSeatCount": 250
+}
+
+
+### 공연장 수정
+PUT http://localhost:8080/admin/venues/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "venueName": "Malty hall",
+  "location": "잠실 주경기장",
+  "totalSeatCount": 250
+}
+
+
+### 공연장 삭제
+DELETE http://localhost:8080/admin/venues/3
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+

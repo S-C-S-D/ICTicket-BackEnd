@@ -1,0 +1,121 @@
+### 회원가입 (ADMIN)
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "hgh7546@naver.com",
+  "password": "Hgh7546!!!",
+  "name" : "한근형",
+  "userType" : "ADMIN"
+}
+
+### 회원가입 (USER)
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email" : "example@naver.com",
+  "password" : "qwer1234",
+  "name" : "gg",
+  "nickname" : "baby",
+  "phoneNumber" : "010-0000-0000",
+  "address" : "미국"
+}
+
+
+### 로그인 (ADMIN)
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "example@naver.com",
+  "password": "qwer1234"
+}
+
+> {%
+    client.log(response.headers.valueOf("Authorization"));
+    client.log(response.headers.valueOf("RefreshToken"));
+    client.global.set("Authorization", response.headers.valueOf("Authorization"));
+    client.global.set("RefreshToken", response.headers.valueOf("RefreshToken"));
+%}
+
+### 로그인 (USER)
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "example@naver.com",
+  "password": "qwer1234"
+}
+
+> {%
+    client.log(response.headers.valueOf("Authorization"));
+    client.log(response.headers.valueOf("RefreshToken"));
+    client.global.set("Authorization", response.headers.valueOf("Authorization"));
+    client.global.set("RefreshToken", response.headers.valueOf("RefreshToken"));
+%}
+
+### 로그아웃 (MANAGER)
+POST http://localhost:8080/users/logout
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+> {%
+    client.global.clear("Authorization");
+    client.global.clear("RefreshToken");
+%}
+
+### 회원 탈퇴
+PATCH http://localhost:8080/users
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+    "password" : "qwer1234"
+}
+
+> {%
+    client.global.clear("Authorization");
+    client.global.clear("RefreshToken");
+%}
+
+### 프로필 수정
+PATCH http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "nickname": "nick",
+  "phoneNumber": "010-1234-5678",
+  "address": "서울시 00구 00로"
+}
+
+
+### 프로필 조회
+GET http://localhost:8080/users/profile
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 공연 등록
+POST http://localhost:8080/performances/1/likes
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 공연 등록 취소
+DELETE http://localhost:8080/performances/1/likes/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 관심 개수 조회
+GET http://localhost:8080/performances/1/likes-count
+
+
+### 관심 공연 등록 여부 조회
+GET http://localhost:8080/performances/1/likes
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}

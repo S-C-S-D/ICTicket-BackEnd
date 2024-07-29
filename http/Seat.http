@@ -1,0 +1,32 @@
+### 좌석 생성(ADMIN)
+POST http://localhost:8080/admin/sessions/1/seats
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "price": 100000,
+  "seatNumber": "1",
+  "seatGrade":"VIP"
+}
+
+
+### 좌석 삭제(ADMIN)
+DELETE http://localhost:8080/admin/sessions/1/seats/1
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+
+
+### 잔여 좌석 조회(USER)
+GET http://localhost:8080/performances/1/sessions/1/seat-count
+
+
+### 좌석 선택 완료(USER)
+PATCH http://localhost:8080/sessions/1/seats/reserve
+Authorization: {{Authorization}}
+RefreshToken: {{RefreshToken}}
+Content-Type: application/json
+
+{
+  "seatIdList":  [1]
+}
