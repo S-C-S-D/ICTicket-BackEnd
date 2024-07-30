@@ -35,9 +35,12 @@ public enum ErrorType {
     NOT_FOUND_SESSION(HttpStatus.BAD_REQUEST, "존재하지 않는 세션입니다."),
     NOT_AVAILABLE_DATE(HttpStatus.BAD_REQUEST, "유효하지 않은 날짜입니다."),
     ALREADY_EXISTS_SESSION_NAME(HttpStatus.BAD_REQUEST, "이미 존재하는 세션 이름입니다."),
-    ALREADY_EXISTS_SESSION_TIME(HttpStatus.BAD_REQUEST,"이미 존재하는 세션 시간입니다."),
+    ALREADY_EXISTS_SESSION_TIME(HttpStatus.BAD_REQUEST, "이미 존재하는 세션 시간입니다."),
+    ALREADY_EXISTS_SESSION(HttpStatus.BAD_REQUEST,"해당 날짜,이름,시간을 가진 세션이 존재합니다"),
     NOT_VALID_SESSION(HttpStatus.BAD_REQUEST,"해당 공연의 세션이 아닙니다."),
-    WRONG_DATE_FORMAT(HttpStatus.BAD_REQUEST,"날짜 혹은 시간을 올바른 형식으로 입력해 주십시오. "),
+    WRONG_DATE_FORMAT(HttpStatus.BAD_REQUEST,"날짜 혹은 시간을 올바른 형식으로 입력해 주십시오."),
+    NOT_FOUND_MODIFICATIONS(HttpStatus.BAD_REQUEST,"수정사항이 발견되지 않았습니다"),
+
 
     //[VENUE]
     NOT_FOUND_VENUE(HttpStatus.BAD_REQUEST, "존재하지 않는 공연장입니다."),

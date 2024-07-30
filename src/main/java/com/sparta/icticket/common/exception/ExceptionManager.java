@@ -33,11 +33,7 @@ public class ExceptionManager {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(builder.toString());
     }
 
-    @ExceptionHandler(DateTimeParseException.class)
-    public ResponseEntity<?> handleException(DateTimeParseException e) {
-        e.printStackTrace();
-        return ResponseEntity.status(ErrorType.WRONG_DATE_FORMAT.getHttpStatus()).body(ErrorType.WRONG_DATE_FORMAT.getMessage());
-    }
+
 
 
 }

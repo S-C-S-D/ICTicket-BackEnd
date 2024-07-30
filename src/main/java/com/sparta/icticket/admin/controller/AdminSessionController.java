@@ -1,5 +1,6 @@
 package com.sparta.icticket.admin.controller;
 
+import com.sparta.icticket.admin.service.AdminSessionService;
 import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
 import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/performances/{performanceId}/sessions")
 public class AdminSessionController {
 
-//    private final AdminSessionService adminSessionService;
+    private final AdminSessionService adminSessionService;
 
     /*session 등록*/
     @PostMapping
@@ -27,7 +28,7 @@ public class AdminSessionController {
             @PathVariable Long performanceId,
             @RequestBody @Valid CreateSessionRequestDto createSessionRequestDto
     ) {
-//        adminSessionService.createSession(performanceId, createSessionRequestDto);
+        adminSessionService.createSession(performanceId, createSessionRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_CREATE_SUCCESS));
     }
 
@@ -38,7 +39,7 @@ public class AdminSessionController {
             @PathVariable Long sessionId,
             @RequestBody @Valid UpdateSessionRequestDto updateSessionRequestDto
     ) {
-//        adminSessionService.updateSession(performanceId,sessionId, updateSessionRequestDto);
+        adminSessionService.updateSession(performanceId,sessionId, updateSessionRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_UPDATE_SUCCESS));
     }
 
@@ -48,7 +49,7 @@ public class AdminSessionController {
             @PathVariable Long performanceId,
             @PathVariable Long sessionId
     ) {
-//        adminSessionService.deleteSession(performanceId, sessionId);
+        adminSessionService.deleteSession(performanceId, sessionId);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_DELETE_SUCCESS));
     }
 
