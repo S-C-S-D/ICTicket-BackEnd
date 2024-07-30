@@ -7,10 +7,10 @@ import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -19,6 +19,7 @@ import static com.sparta.icticket.session.QSession.session;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "sessions")
 public class Session extends Timestamped {
     @Id

@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +34,6 @@ public class OrderService {
     private final TicketRepository ticketRepository;
     private final SessionRepository sessionRepository;
     private final SalesRepository salesRepository;
-    private final SeatRepository seatRepository;
 
     /**
      * 결제 완료 기능
@@ -44,6 +44,13 @@ public class OrderService {
      */
     @Transactional
     public OrderCreateResponseDto createOrder(Long sessionId, OrderCreateRequestDto requestDto, User loginUser) {
+
+        LocalDateTime reservedAt = requestDto.getModifiedAtList().get(0);
+
+        if(reservedAt.isBefore(LocalDateTime.now().minusMinutes(10))) {
+            throw new CustomException(ErrorType.TIME_OUT);
+        }
+
         // 세션 찾기
         Session findSession = findSessionById(sessionId);
 
@@ -69,13 +76,15 @@ public class OrderService {
             discountRate = findSales.getDiscountRate();
         }
 
+        totalPrice = (int) (totalPrice - (totalPrice * (discountRate / 100.0)));
+
         // order 생성
         Order saveOrder = new Order(loginUser, findSession, makeOrderNumber(), requestDto.getSeatIdList().size(), totalPrice);
         orderRepository.save(saveOrder);
 
         // Ticket 생성
         for(Seat seat : findSeatList) {
-            Ticket saveTicket = new Ticket(saveOrder, seat, seat.getPrice() - (seat.getPrice() * (discountRate / 100)));
+            Ticket saveTicket = new Ticket(saveOrder, seat, (int)(seat.getPrice() - (seat.getPrice() * (discountRate / 100.0))));
             ticketRepository.save(saveTicket);
         }
 

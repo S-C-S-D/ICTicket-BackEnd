@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.format.DateTimeParseException;
 
+import java.io.IOException;
+
 @RestControllerAdvice
 public class ExceptionManager {
     @ExceptionHandler(CustomException.class)
@@ -33,7 +35,10 @@ public class ExceptionManager {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(builder.toString());
     }
 
-
-
-
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) throws IOException {
+        e.printStackTrace();
+        int i = e.hashCode();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

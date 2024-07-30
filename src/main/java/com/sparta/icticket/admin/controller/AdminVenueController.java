@@ -35,7 +35,7 @@ public class AdminVenueController {
     }
 
     //공연장 수정
-    @PutMapping("/{venueId}")
+    @PatchMapping("/{venueId}")
     public ResponseEntity<ResponseMessageDto> updateVenue(
             @PathVariable Long venueId,
             @Valid @RequestBody VenueRequestDto venueRequestDto,
