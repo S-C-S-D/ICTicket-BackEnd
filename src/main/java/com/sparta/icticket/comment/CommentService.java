@@ -61,7 +61,7 @@ public class CommentService {
      */
     public List<GetCommentResponseDto> getComments(Long performanceId) {
         Performance performance = validatePerformance(performanceId);
-        List<Comment> comments= (List<Comment>) commentRepository.findByPerformance(performance)
+        List<Comment> comments= commentRepository.findByPerformanceOrderByCreatedAtDesc(performance)
                 .orElseThrow(()-> new CustomException(ErrorType.NOT_FOUND_COMMENT));
                 return comments.stream().map(GetCommentResponseDto::new).toList();
     }
