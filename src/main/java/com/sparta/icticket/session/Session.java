@@ -52,9 +52,9 @@ public class Session extends Timestamped {
     }
 
     // 해당 공연기간에서 벗어난 날짜를 입력했을때 예외처리
-    public void checkDate() {
-        if (this.sessionDate.isBefore(this.performance.getStartAt()) ||
-                this.sessionDate.isAfter(this.performance.getEndAt())) {
+    public void checkDate(LocalDate date) {
+        if (date.isBefore(this.performance.getStartAt()) ||
+                date.isAfter(this.performance.getEndAt())) {
             throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
         }
     }
