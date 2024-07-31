@@ -1,7 +1,7 @@
 package com.sparta.icticket.sales;
 
-import com.sparta.icticket.admin.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
+import com.sparta.icticket.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.sparta.icticket.security.jwt;
+package com.sparta.icticket.common.security.jwt;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

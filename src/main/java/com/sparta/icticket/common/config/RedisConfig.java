@@ -1,4 +1,4 @@
-package com.sparta.icticket.config;
+package com.sparta.icticket.common.config;
 
 import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
 import com.sparta.icticket.seat.dto.SeatReservedResponseDto;

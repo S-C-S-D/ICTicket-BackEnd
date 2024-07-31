@@ -1,14 +1,13 @@
-package com.sparta.icticket.security.jwt;
+package com.sparta.icticket.common.security.jwt;
 
 
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.exception.CustomException;
-import com.sparta.icticket.security.UserDetailsImpl;
-import com.sparta.icticket.security.UserDetailsServiceImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsServiceImpl;
 import com.sparta.icticket.user.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

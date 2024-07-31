@@ -1,4 +1,4 @@
-package com.sparta.icticket.admin.session.dto;
+package com.sparta.icticket.session.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

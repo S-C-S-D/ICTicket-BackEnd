@@ -1,4 +1,4 @@
-package com.sparta.icticket.config;
+package com.sparta.icticket.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -6,7 +6,7 @@ import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.order.dto.OrderCreateRequestDto;
 import com.sparta.icticket.order.dto.OrderCreateResponseDto;
 import com.sparta.icticket.order.dto.OrderListResponseDto;
-import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

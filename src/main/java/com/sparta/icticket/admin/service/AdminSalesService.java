@@ -1,7 +1,7 @@
 package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.admin.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
+import com.sparta.icticket.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;

@@ -1,8 +1,7 @@
 package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
-import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
@@ -23,9 +22,8 @@ public class AdminSeatService {
      * 좌석 생성
      * @param sessionId
      * @param requestDto
-     * @param loginUser
      */
-    public void createSeat(Long sessionId, SeatCreateRequestDto requestDto, User loginUser) {
+    public void createSeat(Long sessionId, SeatCreateRequestDto requestDto) {
 
         Session findSession = findSession(sessionId);
 
@@ -42,9 +40,8 @@ public class AdminSeatService {
      * 좌석 삭제
      * @param sessionId
      * @param seatId
-     * @param loginUser
      */
-    public void deleteSeat(Long sessionId, Long seatId, User loginUser) {
+    public void deleteSeat(Long sessionId, Long seatId) {
 
         Session findSession = findSession(sessionId);
 
