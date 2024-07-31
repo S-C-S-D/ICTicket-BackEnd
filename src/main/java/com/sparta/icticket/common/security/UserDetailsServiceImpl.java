@@ -1,4 +1,4 @@
-package com.sparta.icticket.security;
+package com.sparta.icticket.common.security;
 
 
 import com.sparta.icticket.user.User;

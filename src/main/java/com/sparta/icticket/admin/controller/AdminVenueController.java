@@ -4,7 +4,7 @@ import com.sparta.icticket.admin.service.AdminVenueService;
 import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
-import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

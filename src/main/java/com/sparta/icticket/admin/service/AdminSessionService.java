@@ -14,7 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+
+import static com.sparta.icticket.performance.QPerformance.performance;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
@@ -148,17 +152,17 @@ public class AdminSessionService {
                 updateSessionRequestDto.getTime()
         );
         for (Session findSession : sessions) {
-            if (sessions!=null&&sessionId.equals(findSession.getId())) {
+            if (!sessions.isEmpty()&&sessionId.equals(findSession.getId())) {
                 throw new CustomException(ErrorType.NOT_FOUND_MODIFICATIONS);
             }
         }
-        if (sessions.size() != 0) {
+        if (!sessions.isEmpty()) {
             throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION);
         }
     }
 
     private void checkValidSessionName(Session session, UpdateSessionRequestDto updateSessionRequestDto) {
-        if (!updateSessionRequestDto.equals(session.getSessionName())) {
+        if (!updateSessionRequestDto.getName().equals(session.getSessionName())) {
             List<Session> sessions = sessionRepository.findByPerformanceAndSessionDateAndSessionName(
                     session.getPerformance(),
                     updateSessionRequestDto.getDate(),
@@ -173,7 +177,7 @@ public class AdminSessionService {
     }
 
     private void checkValidSessionTime(Session session, UpdateSessionRequestDto updateSessionRequestDto) {
-        if (!updateSessionRequestDto.equals(session.getSessionTime())) {
+        if (!updateSessionRequestDto.getTime().equals(session.getSessionTime())) {
             boolean result = sessionRepository.existsByPerformanceAndSessionDateAndSessionTime(
                     session.getPerformance(),
                     updateSessionRequestDto.getDate(),

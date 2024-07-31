@@ -1,4 +1,4 @@
-package com.sparta.icticket.security.jwt;
+package com.sparta.icticket.common.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
@@ -8,7 +8,7 @@ import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.common.exception.ExceptionDto;
-import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import com.sparta.icticket.user.UserRepository;
 import com.sparta.icticket.user.dto.LoginRequestDto;

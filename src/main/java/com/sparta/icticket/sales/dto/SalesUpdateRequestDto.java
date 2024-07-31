@@ -1,4 +1,4 @@
-package com.sparta.icticket.admin.sales.dto;
+package com.sparta.icticket.sales.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;

@@ -4,7 +4,7 @@ package com.sparta.icticket.like;
 import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
-import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

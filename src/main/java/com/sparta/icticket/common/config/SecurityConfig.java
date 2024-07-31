@@ -1,8 +1,8 @@
-package com.sparta.icticket.config;
+package com.sparta.icticket.common.config;
 
 import com.sparta.icticket.common.enums.UserRole;
-import com.sparta.icticket.security.UserDetailsServiceImpl;
-import com.sparta.icticket.security.jwt.*;
+import com.sparta.icticket.common.security.UserDetailsServiceImpl;
+import com.sparta.icticket.common.security.jwt.*;
 import com.sparta.icticket.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;

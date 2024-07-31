@@ -1,6 +1,6 @@
 package com.sparta.icticket.seat;
 
-import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
@@ -51,16 +51,12 @@ public class Seat extends Timestamped {
         this.seatStatus = SeatStatus.NOT_RESERVED;
     }
 
-    public void updateIsReserved() {
+    public void updateSeatStatusToPaying() {
         this.seatStatus = SeatStatus.PAYING;
         this.reservedAt = LocalDateTime.now();
     }
 
-    public void updateSeatOrder() {
-        this.seatStatus = SeatStatus.PAYMENT_COMPLETED;
-    }
-
-    public void setSeatStatus(SeatStatus seatStatus) {
+    public void updateSeatStatus(SeatStatus seatStatus) {
         this.seatStatus = seatStatus;
     }
 }

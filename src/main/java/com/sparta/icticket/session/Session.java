@@ -1,7 +1,7 @@
 package com.sparta.icticket.session;
 
-import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;

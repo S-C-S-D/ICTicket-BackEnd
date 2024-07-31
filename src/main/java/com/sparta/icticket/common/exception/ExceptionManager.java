@@ -36,7 +36,7 @@ public class ExceptionManager {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) throws IOException {
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         e.printStackTrace();
         int i = e.hashCode();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
