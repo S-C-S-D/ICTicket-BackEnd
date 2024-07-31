@@ -14,11 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-
-import static com.sparta.icticket.performance.QPerformance.performance;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
@@ -45,12 +41,12 @@ public class AdminSessionService {
     public void createSession(Long performanceId, CreateSessionRequestDto createSessionRequestDto) {
         Performance performance = validatePerformance(performanceId);
         Session session = new Session(performance, createSessionRequestDto);
-        session.checkDate();
+        session.checkDate(createSessionRequestDto.getDate());
 
         checkSameSession(session,createSessionRequestDto);
         // 이름을 수정하는 경우
         checkSessionName(session, createSessionRequestDto);
-        // 시간울 수정하는 경우
+        // 시간을 수정하는 경우
         checkSessionTime(session, createSessionRequestDto);
         // 날짜를 수정하는 경우
         checkSessionDate(session, createSessionRequestDto);
@@ -66,16 +62,12 @@ public class AdminSessionService {
      * @param updateSessionRequestDto
      */
     public void updateSession(Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
-        Performance performance = validatePerformance(performanceId);
         Session session = validateSession(performanceId, sessionId);
-        LocalDate newDate = updateSessionRequestDto.getDate();
-        String newName = updateSessionRequestDto.getName();
-        LocalTime newTime = updateSessionRequestDto.getTime();
-        session.checkDate();
+        session.checkDate(updateSessionRequestDto.getDate());
         checkSameSession(sessionId,session, updateSessionRequestDto);
         // 이름을 수정하는 경우
         checkValidSessionName(session,updateSessionRequestDto);
-        // 시간울 수정하는 경우
+        // 시간을 수정하는 경우
         checkValidSessionTime(session,updateSessionRequestDto);
         // 날짜를 수정하는 경우
         checkValidSessionDate(session,updateSessionRequestDto);
@@ -210,7 +202,6 @@ public class AdminSessionService {
 
         //유효한 경로인지 확인(session의 performanceId와 경로의 performanceId(Path variable)가 다를수있음)
         session.checkPerformance(performanceId);
-        session.checkDate();
 
         return session;
     }

@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
   "price": 100000,
-  "seatNumber": "1",
+  "seatNumber": "3",
   "seatGrade":"VIP"
 }
 
