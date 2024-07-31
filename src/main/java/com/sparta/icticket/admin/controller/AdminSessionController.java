@@ -26,11 +26,9 @@ public class AdminSessionController {
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createSession(
             @PathVariable Long performanceId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
             @RequestBody @Valid CreateSessionRequestDto createSessionRequestDto
     ) {
-        User loginUser = userDetails.getUser();
-        adminSessionService.createSession(loginUser,performanceId, createSessionRequestDto);
+        adminSessionService.createSession(performanceId, createSessionRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_CREATE_SUCCESS));
     }
 
@@ -39,11 +37,9 @@ public class AdminSessionController {
     public ResponseEntity<ResponseMessageDto> updateSession(
             @PathVariable Long performanceId,
             @PathVariable Long sessionId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails,
             @RequestBody @Valid UpdateSessionRequestDto updateSessionRequestDto
     ) {
-        User loginUser = userDetails.getUser();
-        adminSessionService.updateSession(loginUser,performanceId,sessionId, updateSessionRequestDto);
+        adminSessionService.updateSession(performanceId,sessionId, updateSessionRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_UPDATE_SUCCESS));
     }
 
@@ -51,11 +47,9 @@ public class AdminSessionController {
     @DeleteMapping("/{sessionId}")
     public ResponseEntity<ResponseMessageDto> deleteSession(
             @PathVariable Long performanceId,
-            @PathVariable Long sessionId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails
+            @PathVariable Long sessionId
     ) {
-        User loginUser = userDetails.getUser();
-        adminSessionService.deleteSession(loginUser, performanceId, sessionId);
+        adminSessionService.deleteSession(performanceId, sessionId);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_DELETE_SUCCESS));
     }
 
