@@ -28,8 +28,7 @@ public class PerformanceController {
     @GetMapping("/{performanceId}")
     public ResponseEntity<ResponseDataDto<PerformanceDetailResponseDto>> getPerformance(
             @PathVariable Long performanceId) {
-
-        PerformanceDetailResponseDto responseDto = performanceService.getPerformance(performanceId);
+        PerformanceDetailResponseDto responseDto = performanceService.getPerformanceWithRetries(performanceId);
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_INFO_SUCCESS, responseDto));
     }
