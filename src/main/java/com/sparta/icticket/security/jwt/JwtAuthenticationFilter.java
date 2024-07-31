@@ -72,6 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.addHeader(JwtUtil.AUTH_ACCESS_HEADER, accessToken);
         response.addHeader(JwtUtil.AUTH_REFRESH_HEADER, refreshToken);
+        response.setHeader("Access-Control-Expose-Headers", "Authorization, RefreshToken");
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
