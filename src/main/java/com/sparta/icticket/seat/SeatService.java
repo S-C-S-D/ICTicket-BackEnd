@@ -3,6 +3,7 @@ package com.sparta.icticket.seat;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.common.exception.CustomException;
+import com.sparta.icticket.config.DistributedLock;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.sales.Sales;
@@ -29,7 +30,7 @@ public class SeatService {
     private final PerformanceRepository performanceRepository;
     private final SessionRepository sessionRepository;
     private final SalesRepository salesRepository;
-    private final SeatRepositoryQuery seatRepositoryQuery;
+
 
     /**
      * 세션별 잔여 좌석 조회
@@ -58,7 +59,7 @@ public class SeatService {
      * @param requestDto
      * @return
      */
-    @Transactional
+    @DistributedLock(key = "seat")
     public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto) {
         Session findSession = checkSession(sessionId);
         List<Long> seatIdList = requestDto.getSeatIdList();
@@ -67,7 +68,7 @@ public class SeatService {
         Integer discountRate = 0;
 
 
-        List<Seat> seatList = seatRepositoryQuery.findSeatsByIdList(seatIdList);
+        List<Seat> seatList = seatRepository.findSeatsByIdList(seatIdList);
 
         if(seatList.size() < seatIdList.size()) {
             throw new CustomException(ErrorType.ALREADY_RESERVED_SEAT);
@@ -87,7 +88,6 @@ public class SeatService {
         if(sales != null) {
             discountRate = sales.getDiscountRate();
         }
-
 
         return new SeatReservedResponseDto(findPerformance, findSession, seatNumberList, totalPrice, discountRate);
     }

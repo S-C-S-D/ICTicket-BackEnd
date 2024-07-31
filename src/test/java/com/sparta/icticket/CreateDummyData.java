@@ -669,7 +669,7 @@ public class CreateDummyData {
             Venue venue = ((i / 20) % 2 == 0) ? venue1 : venue2;
             GenreType genreType = genreValues[i / 20];
             Long id = Long.valueOf((long) i) + 1L;
-            performanceList.add(new Performance(id, venue, title, description, genreType, ageGroup, runTime, openAt, startAt, endAt, imageUrl, viewCount));
+            performanceList.add(new Performance(id, venue, title, description, genreType, ageGroup, runTime, openAt, startAt, endAt, imageUrl, viewCount, 0L));
 
         }
         performanceRepository.saveAll(performanceList);

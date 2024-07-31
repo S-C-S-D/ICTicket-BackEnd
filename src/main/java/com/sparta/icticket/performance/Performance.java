@@ -57,6 +57,10 @@ public class Performance extends Timestamped {
 
     private Long viewCount;
 
+    @Version
+    private Long version;
+
+
     public Performance(PerformanceRequestDto requestDto, Venue venue) {
         this.title = requestDto.getTitle();
         this.description = requestDto.getDescription();

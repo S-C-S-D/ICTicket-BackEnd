@@ -6,16 +6,18 @@ import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PerformanceService {
     private final PerformanceRepository performanceRepository;
 
@@ -24,14 +26,36 @@ public class PerformanceService {
      * @param performanceId
      * @return
      */
-    @Transactional
-    public PerformanceDetailResponseDto getPerformance(Long performanceId) {
-        Performance performance = performanceRepository.findById(performanceId).orElseThrow(
-                () -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
+    public PerformanceDetailResponseDto getPerformanceWithRetries(Long performanceId) {
+        int retryCount = 0;
+        boolean flag = false;
+        Performance performance = null;
+
+        while(retryCount < 10 && !flag) {
+            try {
+                performance = getPerformance(performanceId);
+                flag = true;
+
+            } catch (ObjectOptimisticLockingFailureException e) {
+                retryCount++;
+            }
+        }
+
+        return new PerformanceDetailResponseDto(performance);
+    }
+
+    /**
+     * ViewCount를 올리는 메서드
+     * @param performanceId
+     * @return
+     */
+    public Performance getPerformance(Long performanceId) {
+        Performance performance = performanceRepository.findById(performanceId).orElseThrow(() ->
+                new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
 
         performance.addViewCount();
 
-        return new PerformanceDetailResponseDto(performance);
+        return performanceRepository.save(performance);
     }
 
     /**
