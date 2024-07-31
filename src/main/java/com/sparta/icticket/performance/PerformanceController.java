@@ -1,6 +1,7 @@
 package com.sparta.icticket.performance;
 
 import com.sparta.icticket.common.dto.ResponseDataDto;
+import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.ResponseCache;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,7 @@ public class PerformanceController {
     @GetMapping("/{performanceId}")
     public ResponseEntity<ResponseDataDto<PerformanceDetailResponseDto>> getPerformance(
             @PathVariable Long performanceId) {
-
-        PerformanceDetailResponseDto responseDto = performanceService.getPerformance(performanceId);
+        PerformanceDetailResponseDto responseDto = performanceService.getPerformanceWithRetries(performanceId);
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_INFO_SUCCESS, responseDto));
     }

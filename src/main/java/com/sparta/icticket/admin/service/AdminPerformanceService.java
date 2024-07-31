@@ -71,7 +71,7 @@ public class AdminPerformanceService {
         // 오픈 일이 현재보다 과거인 경우
         if(requestDto.getOpenAt().isBefore(now)){
             throw new CustomException(ErrorType.NOT_AVAILABLE_DATE);
-        };
+        }
 
         // 공연 시작일이 현재보다 과거인 경우
         if(requestDto.getStartAt().isBefore(now.toLocalDate())){
