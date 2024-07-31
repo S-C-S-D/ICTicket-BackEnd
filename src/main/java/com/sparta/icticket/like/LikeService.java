@@ -2,6 +2,7 @@ package com.sparta.icticket.like;
 
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
+import com.sparta.icticket.like.dto.IsLikeResponseDto;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.user.User;
@@ -70,10 +71,11 @@ public class LikeService {
      * @param loginUser
      * @return
      */
-    public boolean getLike(Long performanceId, User loginUser) {
+    public IsLikeResponseDto getLike(Long performanceId, User loginUser) {
         Performance findPerformance = findPerformanceById(performanceId);
-
-        return likeRepository.findByUserAndPerformance(loginUser, findPerformance).isPresent();
+        Like like = likeRepository.findLikeIdByPerformanceIdAndUserId(performanceId, loginUser.getId()).orElse(null);
+        IsLikeResponseDto isLikeResponseDto = new IsLikeResponseDto(like, likeRepository.findByUserAndPerformance(loginUser, findPerformance).isPresent());
+        return isLikeResponseDto;
     }
 
     /**
