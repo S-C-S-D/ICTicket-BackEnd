@@ -25,9 +25,8 @@ public enum ErrorType {
     NOT_FOUND_GENRE(HttpStatus.BAD_REQUEST, "존재하지 않는 장르입니다."),
 
     //[LIKE]
-    ALREADY_LIKED_PERFORMANCE(HttpStatus.BAD_REQUEST, "이미 관심공연으로 등록한 공연입니다."),
-    NOT_LIKED_PERFORMANCE(HttpStatus.BAD_REQUEST, "관심공연으로 등록된 공연이 아닙니다."),
-    CAN_NOT_LIKED_PERFORMANCE(HttpStatus.BAD_REQUEST,"" ),
+    ALREADY_LIKED_PERFORMANCE(HttpStatus.LOCKED, "이미 관심공연으로 등록한 공연입니다."),
+    NOT_LIKED_PERFORMANCE(HttpStatus.LOCKED, "관심공연으로 등록된 공연이 아닙니다."),
 
     //[COMMENT]
     NOT_FOUND_COMMENT(HttpStatus.NOT_FOUND, "해당 공연의 댓글이 없습니다."),
@@ -73,6 +72,7 @@ public enum ErrorType {
     ALREADY_CANCELED_ORDER(HttpStatus.BAD_REQUEST, "이전에 예매 취소한 이력이 있습니다."),
     TIME_OUT(HttpStatus.LOCKED, "결제 시간이 초과 되었습니다."),
 
+
     // [BANNER]
     NOT_FOUND_BANNER(HttpStatus.NOT_FOUND, "존재하지 않는 배너입니다."),
     ALREADY_EXISTS_BANNER_POSITION(HttpStatus.BAD_REQUEST, "중복된 배너 위치입니다."),
@@ -84,7 +84,6 @@ public enum ErrorType {
     NOT_FOUND_TICKET(HttpStatus.BAD_REQUEST,"티켓을 찾을 수 없습니다."),
 
     ;
-
 
     private final HttpStatus httpStatus;
     private final String message;
