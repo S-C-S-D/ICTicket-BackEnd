@@ -116,10 +116,4 @@ public class PerformanceService {
 
         return performances.stream().map(PerformanceDetailResponseDto::new).toList();
     }
-
-    @DistributedLock(key = "lock")
-    public void redisTest(){
-        Performance performance = performanceRepository.findById(1L).get();
-        performance.addViewCount();
-    }
 }

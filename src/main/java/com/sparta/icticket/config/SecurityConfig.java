@@ -81,8 +81,6 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                         .requestMatchers(HttpMethod.GET, "/performances/{performanceId}/sessions/{sessionId}/seat-count").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers(HttpMethod.PATCH,"/sessions/{sessionId}/seats/reserve").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "performances/redis").permitAll()
                         .anyRequest().authenticated()
         );
 

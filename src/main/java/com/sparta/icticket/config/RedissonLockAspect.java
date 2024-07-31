@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j(topic = "Redisson Lock")
 @RequiredArgsConstructor
 public class RedissonLockAspect {
-    private static final String LOCK_KEY = "lock";
+    private static final String REDISSON_LOCK_PREFIX = "LOCK:";
 
     private final RedissonClient redissonClient;
     private final AopForTransaction aopForTransaction;
@@ -34,23 +34,17 @@ public class RedissonLockAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         DistributedLock distributedLock = method.getAnnotation(DistributedLock.class);
-        for(int i = 0; i < signature.getParameterNames().length; i++){
-            log.info("test1: " + signature.getParameterNames()[i]);
-            log.info("test2: " + joinPoint.getArgs()[i]);
-        }
-//        log.info("test다" + getDynamicValue(signature.getParameterNames(), joinPoint.getArgs(), distributedLock.key()).toString());
-        List<Long> seatIdList = ((SeatReservedRequestDto) joinPoint.getArgs()[1]).getSeatIdList();
 
+        // ex) LOCK:seat-sessionId-1
+        String key = distributedLock.key() + "-" + signature.getParameterNames()[0] + "-" + joinPoint.getArgs()[0];
+        log.info("키 이름: " + key);
 
-
-//        String key = distributedLock.key() + ;
-
-        RLock lock = redissonClient.getFairLock(LOCK_KEY);
+        RLock lock = redissonClient.getFairLock(key);
 
         try {
             boolean isLocked = lock.tryLock(10, 60, TimeUnit.SECONDS);
             if (!isLocked) {
-                log.info("Lock 획득 실패={}", LOCK_KEY);
+                log.info("Lock 획득 실패={}", key);
                 return null;
             }
             log.info("로직 수행");
@@ -63,18 +57,5 @@ public class RedissonLockAspect {
             log.info("락 해제");
             lock.unlock();
         }
-    }
-
-    public static Object getDynamicValue(String[] parameterNames, Object[] args, String key) {
-        ExpressionParser parser = new SpelExpressionParser();
-        StandardEvaluationContext context = new StandardEvaluationContext();
-
-        for (int i = 0; i < parameterNames.length; i++) {
-            context.setVariable(parameterNames[i], args[i]);
-        }
-
-        return parser.parseExpression(key).getValue(context, Object.class);
-        // lock + sessionId + 1 + requestDto + com.sparta.icticket.seat.dto.SeatReservedRequestDto@7446776e 1
-        // lock + sessionId + 1 + requestDto + com.sparta.icticket.seat.dto.SeatReservedRequestDto@7446776e 2
     }
 }

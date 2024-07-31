@@ -135,10 +135,4 @@ public class PerformanceController {
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_RECOMMEND_SUCCESS, responseDto));
     }
-
-    @PatchMapping("/redis")
-    public ResponseEntity<String> redisTest(){
-        performanceService.redisTest();
-        return ResponseEntity.ok().body("테스트 성공");
-    }
 }

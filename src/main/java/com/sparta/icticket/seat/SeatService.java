@@ -59,7 +59,7 @@ public class SeatService {
      * @param requestDto
      * @return
      */
-
+    @DistributedLock(key = "seat")
     public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto) {
         Session findSession = checkSession(sessionId);
         List<Long> seatIdList = requestDto.getSeatIdList();
@@ -90,15 +90,6 @@ public class SeatService {
         }
 
         return new SeatReservedResponseDto(findPerformance, findSession, seatNumberList, totalPrice, discountRate);
-    }
-
-    @DistributedLock(key = "lock")
-    public void updateSeatStatus(Long seatId){
-        Seat seat = seatRepository.findById(seatId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_SEAT));
-        if(!seat.getSeatStatus().equals(SeatStatus.NOT_RESERVED)){
-            throw new CustomException(ErrorType.ALREADY_RESERVED_SEAT);
-        }
-        seat.updateIsReserved();
     }
 
     /**
