@@ -4,12 +4,9 @@ import com.sparta.icticket.admin.service.AdminPerformanceService;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.performance.dto.PerformanceRequestDto;
-import com.sparta.icticket.security.UserDetailsImpl;
-import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

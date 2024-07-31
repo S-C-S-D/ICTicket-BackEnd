@@ -11,7 +11,6 @@ import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import com.sparta.icticket.seat.Seat;
-import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
 import com.sparta.icticket.ticket.Ticket;
@@ -67,7 +66,7 @@ public class OrderService {
         for(Seat seat : findSeatList) {
             findSeatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();
-            seat.updateSeatOrder();
+            seat.updateSeatStatus(SeatStatus.PAYMENT_COMPLETED);
         }
 
         // 할인율 구하기
@@ -130,11 +129,11 @@ public class OrderService {
         //order 상태변경 후 seat 상태변경 후 ticket 삭제
 
         // (1) Order 상태변경
-        order.setOrderStatus(OrderStatus.CANCEL);
+        order.updateOrderStatusToCancel();
         List<Ticket> tickets = validateTicket(order);
         // (2) Seat 상태변경,ticket 삭제
         for (Ticket ticket : tickets) {
-            ticket.getSeat().setSeatStatus(SeatStatus.NOT_RESERVED);
+            ticket.getSeat().updateSeatStatus(SeatStatus.NOT_RESERVED);
             ticketRepository.delete(ticket);
         }
 

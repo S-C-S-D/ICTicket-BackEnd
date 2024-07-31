@@ -12,13 +12,10 @@ import java.util.List;
 import static com.sparta.icticket.seat.QSeat.seat;
 
 @Repository
+@RequiredArgsConstructor
 public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
 
     private final JPAQueryFactory queryFactory;
-
-    public SeatRepositoryQueryImpl(JPAQueryFactory queryFactory) {
-        this.queryFactory = queryFactory;
-    }
 
     @Override
     public void findSeatsBySeatStatus() {

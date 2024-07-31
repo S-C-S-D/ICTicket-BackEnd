@@ -3,7 +3,7 @@ package com.sparta.icticket.comment;
 import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
-import com.sparta.icticket.security.UserDetailsImpl;
+import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

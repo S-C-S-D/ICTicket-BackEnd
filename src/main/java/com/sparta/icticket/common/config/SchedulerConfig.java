@@ -1,4 +1,4 @@
-package com.sparta.icticket.config;
+package com.sparta.icticket.common.config;
 
 import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.seat.SeatRepositoryQuery;

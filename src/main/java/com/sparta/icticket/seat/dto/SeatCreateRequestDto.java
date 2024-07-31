@@ -1,4 +1,4 @@
-package com.sparta.icticket.admin.seat.dto;
+package com.sparta.icticket.seat.dto;
 
 import com.sparta.icticket.common.enums.SeatGrade;
 import jakarta.validation.constraints.NotNull;

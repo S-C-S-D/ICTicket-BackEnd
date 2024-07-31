@@ -1,4 +1,4 @@
-package com.sparta.icticket.config;
+package com.sparta.icticket.common.config;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;

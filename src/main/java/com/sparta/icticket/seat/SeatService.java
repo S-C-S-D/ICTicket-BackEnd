@@ -3,7 +3,7 @@ package com.sparta.icticket.seat;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.common.exception.CustomException;
-import com.sparta.icticket.config.DistributedLock;
+import com.sparta.icticket.common.config.DistributedLock;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.sales.Sales;
@@ -16,7 +16,6 @@ import com.sparta.icticket.session.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +74,7 @@ public class SeatService {
         }
 
         for(Seat seat : seatList) {
-            seat.updateIsReserved();
+            seat.updateSeatStatusToPaying();
             seatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();
         }

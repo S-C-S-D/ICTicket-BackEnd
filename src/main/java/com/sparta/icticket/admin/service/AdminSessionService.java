@@ -1,8 +1,8 @@
 package com.sparta.icticket.admin.service;
 
 
-import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import static com.sparta.icticket.performance.QPerformance.performance;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
@@ -66,11 +64,8 @@ public class AdminSessionService {
      * @param updateSessionRequestDto
      */
     public void updateSession(Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
-        Performance performance = validatePerformance(performanceId);
         Session session = validateSession(performanceId, sessionId);
-        LocalDate newDate = updateSessionRequestDto.getDate();
-        String newName = updateSessionRequestDto.getName();
-        LocalTime newTime = updateSessionRequestDto.getTime();
+
         session.checkDate();
         checkSameSession(sessionId,session, updateSessionRequestDto);
         // 이름을 수정하는 경우
@@ -156,17 +151,17 @@ public class AdminSessionService {
                 updateSessionRequestDto.getTime()
         );
         for (Session findSession : sessions) {
-            if (sessions!=null&&sessionId.equals(findSession.getId())) {
+            if (!sessions.isEmpty()&&sessionId.equals(findSession.getId())) {
                 throw new CustomException(ErrorType.NOT_FOUND_MODIFICATIONS);
             }
         }
-        if (sessions.size() != 0) {
+        if (!sessions.isEmpty()) {
             throw new CustomException(ErrorType.ALREADY_EXISTS_SESSION);
         }
     }
 
     private void checkValidSessionName(Session session, UpdateSessionRequestDto updateSessionRequestDto) {
-        if (!updateSessionRequestDto.equals(session.getSessionName())) {
+        if (!updateSessionRequestDto.getName().equals(session.getSessionName())) {
             List<Session> sessions = sessionRepository.findByPerformanceAndSessionDateAndSessionName(
                     session.getPerformance(),
                     updateSessionRequestDto.getDate(),
@@ -181,7 +176,7 @@ public class AdminSessionService {
     }
 
     private void checkValidSessionTime(Session session, UpdateSessionRequestDto updateSessionRequestDto) {
-        if (!updateSessionRequestDto.equals(session.getSessionTime())) {
+        if (!updateSessionRequestDto.getTime().equals(session.getSessionTime())) {
             boolean result = sessionRepository.existsByPerformanceAndSessionDateAndSessionTime(
                     session.getPerformance(),
                     updateSessionRequestDto.getDate(),
