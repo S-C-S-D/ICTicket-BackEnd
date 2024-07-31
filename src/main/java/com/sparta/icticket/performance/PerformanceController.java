@@ -1,6 +1,7 @@
 package com.sparta.icticket.performance;
 
 import com.sparta.icticket.common.dto.ResponseDataDto;
+import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.ResponseCache;
 import java.util.List;
 
 @RestController
@@ -132,5 +134,11 @@ public class PerformanceController {
         List<PerformanceDetailResponseDto> responseDto = performanceService.getRecommendPerformances(page-1, size);
 
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.PERFORMANCE_GET_RECOMMEND_SUCCESS, responseDto));
+    }
+
+    @PatchMapping("/redis")
+    public ResponseEntity<String> redisTest(){
+        performanceService.redisTest();
+        return ResponseEntity.ok().body("테스트 성공");
     }
 }

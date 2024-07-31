@@ -3,6 +3,7 @@ package com.sparta.icticket.performance;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.exception.CustomException;
+import com.sparta.icticket.config.DistributedLock;
 import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -114,5 +115,11 @@ public class PerformanceService {
         List<Performance> performances = performanceRepository.getRecommendPerformances(pageable);
 
         return performances.stream().map(PerformanceDetailResponseDto::new).toList();
+    }
+
+    @DistributedLock(key = "lock")
+    public void redisTest(){
+        Performance performance = performanceRepository.findById(1L).get();
+        performance.addViewCount();
     }
 }

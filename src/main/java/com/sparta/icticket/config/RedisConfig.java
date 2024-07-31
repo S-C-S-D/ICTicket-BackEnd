@@ -1,6 +1,9 @@
 package com.sparta.icticket.config;
 
+import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
+import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
 import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;

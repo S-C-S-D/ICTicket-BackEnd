@@ -1,5 +1,6 @@
 package com.sparta.icticket.config;
 
+import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.seat.SeatRepositoryQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SchedulerConfig {
 
-    private final SeatRepositoryQuery seatRepositoryQuery;
+    private final SeatRepository seatRepository;
 
     @Transactional
 //    @Scheduled(cron = "0 0/5 * * * ?") 필요 시 해제
     public void scheduled() {
-        seatRepositoryQuery.findSeatsBySeatStatus();
+        seatRepository.findSeatsBySeatStatus();
     }
 }
