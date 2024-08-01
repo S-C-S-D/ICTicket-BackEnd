@@ -1,5 +1,6 @@
 package com.sparta.icticket.admin.service;
 
+
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
@@ -13,11 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-
-import static com.sparta.icticket.performance.QPerformance.performance;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
