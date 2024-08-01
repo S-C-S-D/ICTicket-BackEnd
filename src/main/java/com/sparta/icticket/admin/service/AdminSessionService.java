@@ -1,14 +1,13 @@
 package com.sparta.icticket.admin.service;
 
-
-import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
