@@ -38,7 +38,7 @@ public class Seat extends Timestamped {
     private SeatGrade seatGrade;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false,name = "seat_status")
     private SeatStatus seatStatus;
 
     private LocalDateTime reservedAt;

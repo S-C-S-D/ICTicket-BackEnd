@@ -1,24 +1,20 @@
 package com.sparta.icticket.admin.service;
 
 
-import com.sparta.icticket.admin.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.admin.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-
-import static com.sparta.icticket.performance.QPerformance.performance;
 
 @Slf4j(topic = "AdminSessionService")
 @Service
