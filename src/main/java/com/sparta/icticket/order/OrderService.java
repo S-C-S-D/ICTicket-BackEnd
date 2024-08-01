@@ -44,7 +44,7 @@ public class OrderService {
     @Transactional
     public OrderCreateResponseDto createOrder(Long sessionId, OrderCreateRequestDto requestDto, User loginUser) {
 
-        LocalDateTime reservedAt = requestDto.getModifiedAtList().get(0);
+        LocalDateTime reservedAt = requestDto.getModifiedAt();
 
         if(reservedAt.isBefore(LocalDateTime.now().minusMinutes(10))) {
             throw new CustomException(ErrorType.TIME_OUT);
