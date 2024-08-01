@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "orders")
+@Table(name = "orders", indexes = @Index(name = "Idx_orders", columnList = "createdAt"))
 public class Order extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
