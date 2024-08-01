@@ -23,3 +23,5 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     boolean existsByPerformanceAndSessionDateAndSessionNameAndSessionTime(Performance performance, LocalDate date, String name, LocalTime time);
 
 }
+
+

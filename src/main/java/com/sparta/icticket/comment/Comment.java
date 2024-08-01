@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "comments")
+@Table(name = "comments",
+        indexes = @Index(name = "Idx_comments",columnList = "created_at"))
 public class Comment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

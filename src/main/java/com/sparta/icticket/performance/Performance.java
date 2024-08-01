@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "performances")
+@Table(name = "performances", indexes = @Index(name = "Idx_performances", columnList = "openAt"))
 public class Performance extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class Performance extends Timestamped {
     @Column(nullable = false)
     private Integer runTime;
 
-    @Column(nullable = false)
+    @Column(name = "openAt", nullable = false)
     private LocalDateTime openAt;
 
     @Column(nullable = false)

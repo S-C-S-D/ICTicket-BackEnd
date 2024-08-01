@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "banners")
+@Table(name = "banners", indexes = @Index(name = "Idx_banners", columnList = "position"))
 public class Banner extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "position", nullable = false)
     private Integer position;
 
     @Column(nullable = false)
