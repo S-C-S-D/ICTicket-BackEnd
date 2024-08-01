@@ -5,6 +5,7 @@ import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.common.security.UserDetailsImpl;
+import com.sparta.icticket.like.dto.IsLikeResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class LikeController {
 
     /**
      * 관심 공연 등록 기능
+     *
      * @param performanceId
      * @param userDetails
      * @return
@@ -35,6 +37,7 @@ public class LikeController {
 
     /**
      * 관심 공연 등록 취소 기능
+     *
      * @param performanceId
      * @param userDetails
      * @return
@@ -44,12 +47,13 @@ public class LikeController {
             @PathVariable Long performanceId,
             @PathVariable Long likesId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        likeService.deleteLike(performanceId,likesId, userDetails.getUser());
+        likeService.deleteLike(performanceId, likesId, userDetails.getUser());
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.LIKE_UNLIKE_SUCCESS));
     }
 
     /**
      * 관심 개수 조회 기능
+     *
      * @param performanceId
      * @return
      */
@@ -62,16 +66,17 @@ public class LikeController {
 
     /**
      * 관심 공연 등록 여부 조회 기능
+     *
      * @param performanceId
      * @param userDetails
      * @return
      */
     @GetMapping("/likes")
-    public ResponseEntity<ResponseDataDto<Boolean>> getLike(
+    public ResponseEntity<ResponseDataDto<IsLikeResponseDto>> getLike(
             @PathVariable Long performanceId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        boolean isLike = likeService.getLike(performanceId, userDetails.getUser());
-        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.LIKE_GET_ISLIKED_SUCCESS, isLike));
+        IsLikeResponseDto isLikeResponseDto = likeService.getLike(performanceId, userDetails.getUser());
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.LIKE_GET_ISLIKED_SUCCESS, isLikeResponseDto));
     }
 
 }
