@@ -10,7 +10,9 @@ import java.time.LocalTime;
 
 @Getter
 public class OrderListResponseDto {
-
+    private Long performanceId;
+    private Long orderId;
+    private String imageUrl;
     private LocalDate orderDate;
     private GenreType genreType;
     private String title;
@@ -24,6 +26,10 @@ public class OrderListResponseDto {
     private OrderStatus orderStatus;
 
     public OrderListResponseDto(Order order) {
+        this.performanceId = order.getSession().getPerformance().getId();
+        this.orderId = order.getId();
+
+        this.imageUrl = order.getSession().getPerformance().getImageUrl();
         this.orderDate = order.getCreatedAt().toLocalDate();
 
         this.genreType = order.getSession().getPerformance().getGenreType();

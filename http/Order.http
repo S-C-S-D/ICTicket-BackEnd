@@ -5,7 +5,7 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [1, 2],
+  "seatIdList":  [5, 6],
   "modifiedAt" : "2024-08-14-20:29"
 }
 
