@@ -27,7 +27,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
         return jpaQueryFactory // join on id=id
                 .select(qPerformance)
                 .from(qPerformance)
-                .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
+                .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id)).fetchJoin()
                 .where(qPerformance.genreType.eq(genreType))
                 .groupBy(qPerformance.id)
                 .orderBy(qLike.id.count().add(qPerformance.viewCount).desc())
@@ -99,7 +99,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
         return jpaQueryFactory
                 .select(qPerformance)
                 .from(qPerformance)
-                .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
+                .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id)).fetchJoin()
                 .where(qPerformance.endAt.after(LocalDate.now()))
                 .groupBy(qPerformance.id)
                 .orderBy(qLike.id.count().add(qPerformance.viewCount).desc())
@@ -120,7 +120,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
             List<Performance> fetch = jpaQueryFactory
                     .select(qPerformance)
                     .from(qPerformance)
-                    .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id))
+                    .leftJoin(qLike).on(qPerformance.id.eq(qLike.performance.id)).fetchJoin()
                     .where(
                             qPerformance.genreType.in(value)
                                     .and(qPerformance.endAt.after(LocalDate.now())))

@@ -72,7 +72,7 @@ public class LikeService {
      */
     public IsLikeResponseDto getLike(Long performanceId, User loginUser) {
         Performance findPerformance = findPerformanceById(performanceId);
-        Like like = likeRepository.findLikeIdByPerformanceIdAndUserId(performanceId, loginUser.getId()).orElse(null);
+        Like like = likeRepository.findByPerformanceIdAndUserId(performanceId, loginUser.getId()).orElse(null);
         IsLikeResponseDto isLikeResponseDto = new IsLikeResponseDto(like, likeRepository.findByUserAndPerformance(loginUser, findPerformance).isPresent());
         return isLikeResponseDto;
     }

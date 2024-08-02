@@ -174,6 +174,6 @@ public class OrderService {
      * @return
      */
     private Sales findSales(Performance performance) {
-        return salesRepository.findDiscountRateByPerformance(performance).orElse(null);
+        return salesRepository.findByPerformance(performance).orElse(null);
     }
 }

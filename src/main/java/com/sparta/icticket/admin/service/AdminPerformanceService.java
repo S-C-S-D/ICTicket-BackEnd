@@ -5,7 +5,6 @@ import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.performance.dto.PerformanceRequestDto;
-import com.sparta.icticket.user.User;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
 import lombok.RequiredArgsConstructor;

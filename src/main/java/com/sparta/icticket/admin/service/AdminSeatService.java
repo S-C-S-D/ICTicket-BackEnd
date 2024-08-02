@@ -1,13 +1,12 @@
 package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
-import com.sparta.icticket.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

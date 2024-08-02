@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "orders", indexes = @Index(name = "Idx_orders", columnList = "create_at"))
+@Table(name = "orders") //페이징 처리 후 로딩 해결
 public class Order extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

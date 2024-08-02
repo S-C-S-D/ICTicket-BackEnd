@@ -2,7 +2,7 @@ package com.sparta.icticket.seat;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.SeatStatus;
-import jakarta.persistence.EntityManager;
+import com.sparta.icticket.session.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +31,15 @@ public class SeatRepositoryQueryImpl implements SeatRepositoryQuery {
         return queryFactory
                 .selectFrom(seat)
                 .where(seat.id.in(seatIdList).and(seat.seatStatus.eq(SeatStatus.NOT_RESERVED)))
+                .fetch();
+    }
+
+    @Override
+    public List<Seat> findSeatById(List<Long> seatIdList, Session session) {
+        return queryFactory
+                .selectFrom(seat)
+                .where(seat.id.in(seatIdList).and(seat.seatStatus.eq(SeatStatus.PAYING))
+                        .and(seat.session.eq(session)))
                 .fetch();
     }
 

@@ -16,16 +16,16 @@ class RedisConfig {
     private String host;
     @Value("${REDIS_PORT}")
     private int port;
-    @Value("${REDIS_PASSWORD}")
-    private String password;
+//    @Value("${REDIS_PASSWORD}")
+//    private String password;
     private static final String REDISSON_PREFIX = "redis://";
 
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
         config.useSingleServer()
-                .setAddress(REDISSON_PREFIX + host + ":" + port)
-                .setPassword(password);
+                .setAddress(REDISSON_PREFIX + host + ":" + port);
+//                .setPassword(password);
 
         return Redisson.create(config);
     }

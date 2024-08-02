@@ -1,8 +1,10 @@
 package com.sparta.icticket.session;
 
 import com.sparta.icticket.performance.Performance;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +24,8 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     boolean existsByPerformanceAndSessionDateAndSessionNameAndSessionTime(Performance performance, LocalDate date, String name, LocalTime time);
 
+    @Query("select s from Session s join fetch s.performance where s.id = :sessionId")
+    Optional<Session> findById(@Param("sessionId") Long sessionId);
 }
 
 
