@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("select c from Comment c join fetch c.user where c.performance =: performance")
+    @Query("select c from Comment c join fetch c.user where c.performance = :performance")
     Optional<List<Comment>> findByPerformanceOrderByCreatedAtDesc(@Param("performance") Performance performance);
 
 }

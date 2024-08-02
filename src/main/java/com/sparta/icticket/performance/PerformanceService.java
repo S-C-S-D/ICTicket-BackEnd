@@ -50,7 +50,7 @@ public class PerformanceService {
      * @return
      */
     public Performance getPerformance(Long performanceId) {
-        Performance performance = performanceRepository.findById(performanceId).orElseThrow(() ->
+        Performance performance = performanceRepository.getByIdCustom(performanceId).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
 
         performance.addViewCount();

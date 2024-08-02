@@ -8,10 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 public interface PerformanceRepository extends JpaRepository<Performance, Long>, PerformanceRepositoryQuery {
 
-    @Override
+
     @Lock(LockModeType.OPTIMISTIC)
-    @Query("select p from Performance p join fetch p.venue where p.id =: id")
-    Optional<Performance> findById(@Param("id") Long id);
+    @Query(value = "select p from Performance p where p.id =:id")
+    Optional<Performance> getByIdCustom(@Param("id") Long id);
+
+
 }

@@ -57,20 +57,24 @@ public class AdminSessionService {
 
     /**
      * session 수정
+     *
      * @param performanceId
      * @param sessionId
      * @param updateSessionRequestDto
      */
     public void updateSession(Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
+        log.info("=============performance와 함께 session 이 불러와짐 ==============");
         Session session = validateSession(performanceId, sessionId);
+        log.info("=============여기사이에 session 관련 쿼리가 없어야함==============");
         session.checkDate(updateSessionRequestDto.getDate());
-        checkSameSession(sessionId,session, updateSessionRequestDto);
+        log.info("=============여기사이에 session 관련 쿼리가 없어야함==============");
+        checkSameSession(sessionId, session, updateSessionRequestDto);
         // 이름을 수정하는 경우
-        checkValidSessionName(session,updateSessionRequestDto);
+        checkValidSessionName(session, updateSessionRequestDto);
         // 시간을 수정하는 경우
-        checkValidSessionTime(session,updateSessionRequestDto);
+        checkValidSessionTime(session, updateSessionRequestDto);
         // 날짜를 수정하는 경우
-        checkValidSessionDate(session,updateSessionRequestDto);
+        checkValidSessionDate(session, updateSessionRequestDto);
 
         session.update(updateSessionRequestDto);
         log.info("세션 수정 완료");
@@ -205,7 +209,6 @@ public class AdminSessionService {
 
         return session;
     }
-
 
 
 

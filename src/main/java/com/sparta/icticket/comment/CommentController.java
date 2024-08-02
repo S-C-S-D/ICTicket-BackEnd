@@ -7,12 +7,13 @@ import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j(topic = "CommentController")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/performances/{performanceId}/comments")
@@ -46,6 +47,7 @@ public class CommentController {
     @GetMapping
     public ResponseEntity<ResponseDataDto<List<GetCommentResponseDto>>> getComments(@PathVariable @Valid Long performanceId) {
         List<GetCommentResponseDto> commentsResponseDtoList = commentService.getComments(performanceId);
+        log.info("=============여기사이에 user 관련 쿼리가 없어야함==============");
         return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.COMMENT_GET_INFOS_SUCCESS, commentsResponseDtoList));
     }
 }

@@ -1,11 +1,11 @@
 package com.sparta.icticket.session;
 
-import com.sparta.icticket.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 @Entity
 @Getter
 @NoArgsConstructor

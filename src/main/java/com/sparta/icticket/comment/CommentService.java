@@ -6,11 +6,12 @@ import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.user.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Slf4j(topic = "CommentService")
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -21,14 +22,16 @@ public class CommentService {
 
     /**
      * 댓글 작성
+     *
      * @param performanceId
      * @param createCommentRequestDto
      * @param loginUser
      */
     public void createComment(Long performanceId, CreateCommentRequestDto createCommentRequestDto, User loginUser) {
         Performance performance = validatePerformance(performanceId);
-        Comment comment = new Comment(createCommentRequestDto,loginUser,performance);
+        Comment comment = new Comment(createCommentRequestDto, loginUser, performance);
         commentRepository.save(comment);
+
     }
 
     /**
@@ -61,9 +64,12 @@ public class CommentService {
      */
     public List<GetCommentResponseDto> getComments(Long performanceId) {
         Performance performance = validatePerformance(performanceId);
+        log.info("=============comment를 불러올때 user도 페치조인이 되는지==============");
         List<Comment> comments= commentRepository.findByPerformanceOrderByCreatedAtDesc(performance)
                 .orElseThrow(()-> new CustomException(ErrorType.NOT_FOUND_COMMENT));
+        log.info("=============여기사이에 user 관련 쿼리가 없어야함==============");
                 return comments.stream().map(GetCommentResponseDto::new).toList();
+
     }
 
     /*메서드*/
@@ -73,7 +79,7 @@ public class CommentService {
     }
 
     private Performance validatePerformance(Long performanceId) {
-       return performanceRepository.findById(performanceId)
+       return performanceRepository.findById(performanceId) // query만 적용시 여기서 invocationTargetException 오류 발생
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
 
