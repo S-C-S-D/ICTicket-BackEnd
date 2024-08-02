@@ -14,7 +14,9 @@ public interface PerformanceRepository extends JpaRepository<Performance, Long>,
 
 
     @Lock(LockModeType.OPTIMISTIC)
-    @Query(value = "select p from Performance p where p.id = :id")
-    Optional<Performance> getByIdCustom(@Param("id") Long id);
+    Optional<Performance> findById(Long id);
+
+    @Query("select p from Performance p join fetch p.venue where p.id = :id")
+    Optional<Performance> findByIdCustom(@Param("id") Long id);
 
 }

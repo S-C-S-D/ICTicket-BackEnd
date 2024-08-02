@@ -84,7 +84,7 @@ public class AdminPerformanceService {
     }
 
     private Performance findPerformanceById(Long performanceId){
-        return performanceRepository.findById(performanceId).orElseThrow(
+        return performanceRepository.findByIdCustom(performanceId).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
 }
