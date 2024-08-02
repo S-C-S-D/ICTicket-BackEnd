@@ -5,12 +5,12 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [1, 2],
+  "seatIdList":  [1],
   "modifiedAt" : "2024-08-14-20:29"
 }
 
 ### 예매 내역 조회
-GET http://localhost:8080/users/1/orders
+GET http://localhost:8080/users/11/orders
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 

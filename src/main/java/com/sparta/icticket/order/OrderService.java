@@ -17,6 +17,7 @@ import com.sparta.icticket.ticket.Ticket;
 import com.sparta.icticket.ticket.TicketRepository;
 import com.sparta.icticket.user.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -100,9 +101,9 @@ public class OrderService {
         if(!Objects.equals(userId, loginUser.getId())) {
             throw new CustomException(ErrorType.CAN_NOT_LOAD_ORDER_HISTORY);
         }
-
+        log.info("===============order에서 session,performance,venue entity 페치조인해야함================");
         List<Order> orderList = orderRepository.findAllByUserOrderByCreatedAtDesc(loginUser);
-
+        log.info("===============session,performance,venue entity를 불러오면 안됨================");
         return orderList.stream().map(OrderListResponseDto :: new).toList();
     }
 

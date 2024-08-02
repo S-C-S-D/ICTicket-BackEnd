@@ -12,7 +12,12 @@ public interface OrderRepository extends JpaRepository<Order, Long>, SeatReposit
 
     Integer countAllByUser(User user);
 
-    @Query("select o from Order o join fetch o.session join fetch o.session.performance " +
-            "join fetch o.session.performance.venue where o.user = :loginUser")
+    @Query("select o from Order o " +
+            "join fetch o.session " +
+            "join fetch o.session.performance " +
+            "join fetch o.session.performance.venue " +
+            "where o.user = :loginUser " +
+            "order by o.createdAt desc"
+    )
     List<Order> findAllByUserOrderByCreatedAtDesc(@Param("loginUser") User loginUser);
 }

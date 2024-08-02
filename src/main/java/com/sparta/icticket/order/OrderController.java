@@ -10,12 +10,13 @@ import com.sparta.icticket.common.security.UserDetailsImpl;
 import com.sparta.icticket.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j(topic = "OrderController")
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
@@ -46,6 +47,7 @@ public class OrderController {
     public ResponseEntity<ResponseDataDto<List<OrderListResponseDto>>> getOrders(
             @PathVariable Long userId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         List<OrderListResponseDto> responseDto = orderService.getOrders(userId, userDetails.getUser());
+        log.info("===============session,performance,venue entity를 불러오면 안됨================");
         return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.ORDER_GET_INFOS_SUCCESS, responseDto));
     }
 
