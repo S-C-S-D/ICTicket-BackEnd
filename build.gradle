@@ -51,6 +51,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	// redisson
 	implementation 'org.redisson:redisson-spring-boot-starter:3.27.1'
+	//Apple 의 M1, M2, M3 칩은 ARM 기반 아키텍처를 사용하며 이로인해 일부 네이티브 라이브러리가 호환되지 않거나 누락될 수 있다.
+	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.104.Final:osx-aarch_64'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'

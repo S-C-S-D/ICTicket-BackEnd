@@ -23,3 +23,5 @@ server:
 redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
+    autoconfigure:
+      exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration

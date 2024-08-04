@@ -29,8 +29,8 @@ Content-Type: application/json
   "venueId": 1,
   "genreType" : "MUSICAL",
   "ageGroup" : "ALL",
-  "runTime" : 180,
-  "imageUrl" : "asljdkfhliqwuefkzjxbcvmnasd",
+  "runTime" : 100,
+  "imageUrl" : "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010432_p.gif&w=3840&q=75",
   "openAt" : "2024-07-24-18:00",
   "startAt" : "2024-07-26",
   "endAt" : "2024-08-06"
