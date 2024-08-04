@@ -648,7 +648,7 @@ public class CreateDummyData {
         System.out.println(viewCounts.length);
         GenreType[] genreValues = GenreType.values(); //0~19 , 20~39 ...
         LocalDate today = LocalDate.now();
-        LocalDateTime todayTime = today.atTime(LocalTime.of(19, 0, 0));
+        LocalDateTime todayTime = today.atTime(LocalTime.of(15, 0, 0));
         AgeGroup ageGroup = AgeGroup.ALL;
         Integer runTime = 100;
 

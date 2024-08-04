@@ -9,6 +9,7 @@ import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import com.sparta.icticket.seat.dto.SeatCountResponseDto;
+import com.sparta.icticket.seat.dto.SeatInfoResponseDto;
 import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
 import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
 import com.sparta.icticket.session.Session;
@@ -50,6 +51,26 @@ public class SeatService {
         Integer restSeatCount = seatRepository.countBySessionAndSeatStatus(findSession, SeatStatus.NOT_RESERVED);
 
         return new SeatCountResponseDto(totalSeatCount, restSeatCount);
+    }
+
+    /**
+     * 세션별 좌석 상세 조회
+     * @param performanceId
+     * @param sessionId
+     * @return
+     */
+    public List<SeatInfoResponseDto> getSeats(Long performanceId, Long sessionId) {
+        Performance findPerformance = checkPerformance(performanceId);
+        Session findSession = checkSession(sessionId);
+
+        // 세션이 해당 공연의 세션이 아닐 때 예외
+        if(!findPerformance.equals(findSession.getPerformance())) {
+            throw new CustomException(ErrorType.NOT_FOUND_SESSION);
+        }
+
+        List<Seat> seatList = seatRepository.findAllBySessionId(sessionId);
+
+        return seatList.stream().map(SeatInfoResponseDto::new).toList();
     }
 
     /**

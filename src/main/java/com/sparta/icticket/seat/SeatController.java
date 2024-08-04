@@ -3,6 +3,7 @@ package com.sparta.icticket.seat;
 import com.sparta.icticket.common.dto.ResponseDataDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.seat.dto.SeatCountResponseDto;
+import com.sparta.icticket.seat.dto.SeatInfoResponseDto;
 import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
 import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,6 +34,20 @@ public class SeatController {
         SeatCountResponseDto responseDto = seatService.getSeatCount(performanceId, sessionId);
         return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.SESSION_GET_SEAT_INFOS_SUCCESS, responseDto));
     }
+
+    /**
+     * 세션별 좌석 상세 조회 기능
+     * @param performanceId
+     * @param sessionId
+     * @return
+     */
+    @GetMapping("/performances/{performanceId}/sessions/{sessionId}/seats")
+    public ResponseEntity<ResponseDataDto<List<SeatInfoResponseDto>>> getSeats(
+            @PathVariable Long performanceId, @PathVariable Long sessionId) {
+        List<SeatInfoResponseDto> responseDto = seatService.getSeats(performanceId, sessionId);
+        return ResponseEntity.ok(new ResponseDataDto<>(SuccessStatus.SESSION_GET_SEAT_INFOS_SUCCESS, responseDto));
+    }
+
 
     /**
      * 좌석 선택 완료 기능
