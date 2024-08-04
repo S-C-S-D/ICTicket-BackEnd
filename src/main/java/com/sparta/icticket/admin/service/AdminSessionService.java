@@ -63,11 +63,11 @@ public class AdminSessionService {
      * @param updateSessionRequestDto
      */
     public void updateSession(Long performanceId, Long sessionId, UpdateSessionRequestDto updateSessionRequestDto) {
-        log.info("=============performance와 함께 session 이 불러와짐 ==============");
+        log.info("=============session과 함께 performance가 불러와짐 ==============");
         Session session = validateSession(performanceId, sessionId);
-        log.info("=============여기사이에 session 관련 쿼리가 없어야함==============");
+        log.info("=============여기사이에 performance 관련 쿼리가 없어야함==============");
         session.checkDate(updateSessionRequestDto.getDate());
-        log.info("=============여기사이에 session 관련 쿼리가 없어야함==============");
+        log.info("=============여기사이에 performance 관련 쿼리가 없어야함==============");
         checkSameSession(sessionId, session, updateSessionRequestDto);
         // 이름을 수정하는 경우
         checkValidSessionName(session, updateSessionRequestDto);
