@@ -22,15 +22,13 @@ public class BannerController {
 
     /**
      * 배너 타입별 배너 조회(10개)
-     * @param bannerType
+     * @param bannerType 배너 타입
      * @return
      */
     @GetMapping
     public ResponseEntity<ResponseDataDto<List<BannerResponseDto>>> getBannersByType(
             @RequestParam(value = "bannerType") BannerType bannerType){
-
         List<BannerResponseDto> responseDtoList = bannerService.getBannersByType(bannerType);
-
         return ResponseEntity.ok().body(new ResponseDataDto<>(SuccessStatus.BANNER_GET_SUCCESS, responseDtoList));
     }
 }

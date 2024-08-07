@@ -22,9 +22,9 @@ public class PerformanceService {
     private final PerformanceRepository performanceRepository;
 
     /**
-     * 단일 공연 조회
-     * @param performanceId
-     * @return
+     * 낙관적 락을 적용한 단일 공연 조회
+     * @param performanceId 공연 id
+     * @return 공연 정보
      */
     public PerformanceDetailResponseDto getPerformanceWithRetries(Long performanceId) {
         int retryCount = 0;
@@ -45,9 +45,9 @@ public class PerformanceService {
     }
 
     /**
-     * ViewCount를 올리는 메서드
-     * @param performanceId
-     * @return
+     * 단일 공연을 조회하면서 조회수 증가
+     * @param performanceId 공연 id
+     * @return 조회된 공연 객체
      */
     public Performance getPerformance(Long performanceId) {
         Performance performance = performanceRepository.findById(performanceId).orElseThrow(() ->
@@ -60,10 +60,10 @@ public class PerformanceService {
 
     /**
      * 장르별 랭킹 공연 조회
-     * @param genre
-     * @param page
-     * @param size
-     * @return
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 페이지 정보 리스트
      */
     public List<PerformanceDetailResponseDto> getGenreRankPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -74,9 +74,9 @@ public class PerformanceService {
 
     /**
      * 오늘 오픈 공연 조회
-     * @param page
-     * @param size
-     * @return
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 공연 정보 리스트
      */
     public List<PerformanceDetailResponseDto> getTodayOpenPerformances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -88,10 +88,10 @@ public class PerformanceService {
 
     /**
      * 할인 중인 공연 조회
-     * @param genre
-     * @param page
-     * @param size
-     * @return
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 공연과 할인 정보를 담은 리스트
      */
     public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -103,10 +103,10 @@ public class PerformanceService {
 
     /**
      * 곧 오픈할 공연 조회
-     * @param genre
-     * @param page
-     * @param size
-     * @return
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 공연 정보 리스트
      */
     public List<PerformanceDetailResponseDto> getWillBeOpenedPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size); // Pageable 정의 추가
@@ -116,9 +116,9 @@ public class PerformanceService {
 
     /**
      * 전체 랭킹 조회
-     * @param page
-     * @param size
-     * @return
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 공연 정보 리스트
      */
     public List<PerformanceDetailResponseDto> getRankAllPerformances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -129,9 +129,9 @@ public class PerformanceService {
 
     /**
      * 추천 공연 조회 (장르별로 1위, 2위 티켓들)
-     * @param page
-     * @param size
-     * @return
+     * @param page 페이지 번호
+     * @param size 페이지 크기
+     * @return 공연 정보 리스트
      */
     public List<PerformanceDetailResponseDto> getRecommendPerformances(int page, int size){
         Pageable pageable = PageRequest.of(page, size);

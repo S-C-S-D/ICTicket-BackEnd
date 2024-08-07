@@ -15,12 +15,11 @@ public class BannerService {
 
     /**
      * 배너 타입별 배너 조회(10개)
-     * @param bannerType
-     * @return
+     * @param bannerType 배너 타입
+     * @return 배너 리스트
      */
     public List<BannerResponseDto> getBannersByType(BannerType bannerType) {
         List<Banner> bannerList = bannerRepository.findTop10ByBannerTypeOrderByPositionDesc(bannerType);
-
         return bannerList.stream().map(BannerResponseDto::new).toList();
     }
 }
