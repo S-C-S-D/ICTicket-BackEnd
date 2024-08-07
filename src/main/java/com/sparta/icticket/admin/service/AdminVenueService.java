@@ -17,45 +17,33 @@ public class AdminVenueService {
 
     private final VenueRepository venueRepository;
 
-    //생성
-    public void createVenue(VenueRequestDto venueRequestDto, User loginUser) {
-        // 사용자 권한 검사
-        if (!isAdmin(loginUser)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
-
+    /**
+     * 공연장 생성
+     * @param venueRequestDto
+     */
+    public void createVenue(VenueRequestDto venueRequestDto) {
         Venue venue = new Venue(venueRequestDto);
         venueRepository.save(venue);
     }
 
-    //수정
+    /**
+     * 공연장 수정
+     * @param venueId
+     * @param venueRequestDto
+     */
     @Transactional
-    public void updateVenue(Long venueId, VenueRequestDto venueRequestDto, User loginUser) {
-        // 사용자 권한 검사
-        if (!isAdmin(loginUser)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
+    public void updateVenue(Long venueId, VenueRequestDto venueRequestDto) {
         Venue venue = venueRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));
         venue.updateVenue(venueRequestDto);
     }
 
-    //삭제
-    public void deleteVenue(Long venueId, User loginUser) {
-        // 사용자 권한 검사
-        if (!isAdmin(loginUser)) {
-            // 권한이 없는 경우, 에러 응답 반환
-            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
+    /**
+     * 공연장 삭제
+     * @param venueId
+     */
+    public void deleteVenue(Long venueId) {
         Venue venue = venueRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));
-
         venueRepository.delete(venue);
     }
 
-
-    // 권한 검사 메소드
-    private boolean isAdmin(User user) {
-        return UserRole.ADMIN.equals(user.getUserRole());
-    }
 }

@@ -23,37 +23,41 @@ public class AdminVenueController {
         this.venueAdminService = venueAdminService;
     }
 
-    //공연장 생성
+    /**
+     * 공연장 생성
+     * @param venueRequestDto
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createVenue(
-            @Valid @RequestBody VenueRequestDto venueRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User loginUser = userDetails.getUser();
-        // 권한이 있는 경우, 공연장 생성 처리
-        venueAdminService.createVenue(venueRequestDto, loginUser);
+            @Valid @RequestBody VenueRequestDto venueRequestDto) {
+        venueAdminService.createVenue(venueRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_CREATE_SUCCESS));
     }
 
-    //공연장 수정
+    /**
+     * 공연장 수정
+     * @param venueId
+     * @param venueRequestDto
+     * @return
+     */
     @PatchMapping("/{venueId}")
     public ResponseEntity<ResponseMessageDto> updateVenue(
             @PathVariable Long venueId,
-            @Valid @RequestBody VenueRequestDto venueRequestDto,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User loginUser = userDetails.getUser();
-        // 권한이 있는 경우, 공연장 수정
-        venueAdminService.updateVenue(venueId, venueRequestDto, loginUser);
+            @Valid @RequestBody VenueRequestDto venueRequestDto) {
+        venueAdminService.updateVenue(venueId, venueRequestDto);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_UPDATE_SUCCESS));
     }
 
-    //공연장 삭제
+    /**
+     * 공연장 삭제
+     * @param venueId
+     * @return
+     */
     @DeleteMapping("/{venueId}")
     public ResponseEntity<ResponseMessageDto> deleteVenue(
-            @PathVariable Long venueId,
-            @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User loginUser = userDetails.getUser();
-        // 권한이 있는 경우, 공연장 삭제
-        venueAdminService.deleteVenue(venueId, loginUser);
+            @PathVariable Long venueId) {
+        venueAdminService.deleteVenue(venueId);
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.VENUE_DELETE_SUCCESS));
     }
 }

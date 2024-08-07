@@ -24,7 +24,6 @@ public class AdminBannerService {
         if(byPosition.isPresent()){
             throw new CustomException(ErrorType.ALREADY_EXISTS_BANNER_POSITION);
         }
-
         Banner banner = new Banner(requestDto);
         bannerRepository.save(banner);
     }
@@ -37,7 +36,6 @@ public class AdminBannerService {
     public void deleteBanner(Long bannerId) {
         Banner banner = bannerRepository.findById(bannerId).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_BANNER));
-
         bannerRepository.delete(banner);
     }
 }

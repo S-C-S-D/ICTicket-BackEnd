@@ -24,9 +24,7 @@ public class AdminBannerController {
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createBanners(
             @Valid @RequestBody BannerRequestDto requestDto) {
-
         adminBannerService.createBanners(requestDto);
-
         return ResponseEntity.ok().body(new ResponseMessageDto(SuccessStatus.BANNER_CREATE_SUCCESS));
     }
 
@@ -38,9 +36,7 @@ public class AdminBannerController {
     @DeleteMapping("/{bannerId}")
     public ResponseEntity<ResponseMessageDto> deleteBanner(
             @PathVariable Long bannerId){
-
         adminBannerService.deleteBanner(bannerId);
-
         return ResponseEntity.ok().body(new ResponseMessageDto(SuccessStatus.BANNER_DELETE_SUCCESS));
     }
 }
