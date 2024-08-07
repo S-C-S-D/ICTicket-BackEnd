@@ -1,7 +1,6 @@
 package com.sparta.icticket.performance;
 
 import com.sparta.icticket.common.dto.ResponseDataDto;
-import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.SuccessStatus;
 import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
@@ -10,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.ResponseCache;
 import java.util.List;
 
 @RestController
@@ -22,7 +20,7 @@ public class PerformanceController {
 
     /**
      * 단일 공연 조회
-     * @param performanceId
+     * @param performanceId 공연 id
      * @return
      */
     @GetMapping("/{performanceId}")
@@ -35,9 +33,9 @@ public class PerformanceController {
 
     /**
      * 장르별 공연 랭킹 조회
-     * @param genre
-     * @param page
-     * @param size
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/ranking")
@@ -53,8 +51,8 @@ public class PerformanceController {
 
     /**
      * 오늘 오픈 공연 조회
-     * @param page
-     * @param size
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/today-open")
@@ -69,9 +67,9 @@ public class PerformanceController {
 
     /**
      * 할인 중인 공연 조회
-     * @param genre
-     * @param page
-     * @param size
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/genre/discount")
@@ -87,9 +85,9 @@ public class PerformanceController {
 
     /**
      * 오픈 예정 공연 조회
-     * @param genre
-     * @param page
-     * @param size
+     * @param genre 장르
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/genre/will-be-opened")
@@ -105,8 +103,8 @@ public class PerformanceController {
 
     /**
      * 전체 공연 랭킹 조회
-     * @param page
-     * @param size
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/rank-all")
@@ -121,8 +119,8 @@ public class PerformanceController {
 
     /**
      * 추천 티켓 조회
-     * @param page
-     * @param size
+     * @param page 페이지 번호
+     * @param size 페이지 크기
      * @return
      */
     @GetMapping("/recommend")
