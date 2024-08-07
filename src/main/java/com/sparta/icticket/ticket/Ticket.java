@@ -27,6 +27,7 @@ public class Ticket extends Timestamped {
     @Column(nullable = false)
     private Integer price;
 
+    // ticket 생성
     public Ticket(Order order, Seat seat, Integer price) {
         this.order = order;
         this.seat = seat;

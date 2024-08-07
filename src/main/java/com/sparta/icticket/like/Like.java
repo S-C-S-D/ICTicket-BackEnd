@@ -25,6 +25,7 @@ public class Like extends Timestamped {
     @JoinColumn(name = "performance_id", nullable = false)
     private Performance performance;
 
+    // like 생성
     public Like(User user, Performance performance) {
         this.user = user;
         this.performance = performance;

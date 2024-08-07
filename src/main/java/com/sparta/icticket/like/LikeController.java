@@ -21,11 +21,9 @@ public class LikeController {
     private final LikeService likeService;
 
     /**
-     * 관심 공연 등록 기능
-     *
+     * 관심 공연 등록
      * @param performanceId
      * @param userDetails
-     * @return
      */
     @PostMapping("/likes")
     public ResponseEntity<ResponseMessageDto> createLike(
@@ -36,11 +34,9 @@ public class LikeController {
     }
 
     /**
-     * 관심 공연 등록 취소 기능
-     *
+     * 관심 공연 취소
      * @param performanceId
      * @param userDetails
-     * @return
      */
     @DeleteMapping("/likes/{likesId}")
     public ResponseEntity<ResponseMessageDto> deleteLike(
@@ -52,10 +48,8 @@ public class LikeController {
     }
 
     /**
-     * 관심 개수 조회 기능
-     *
+     * 관심 개수 조회
      * @param performanceId
-     * @return
      */
     @GetMapping("/likes-count")
     public ResponseEntity<ResponseDataDto<Long>> getLikesCount(
@@ -65,11 +59,9 @@ public class LikeController {
     }
 
     /**
-     * 관심 공연 등록 여부 조회 기능
-     *
+     * 단일 공연 좋아요 여부
      * @param performanceId
      * @param userDetails
-     * @return
      */
     @GetMapping("/likes")
     public ResponseEntity<ResponseDataDto<IsLikeResponseDto>> getLike(
