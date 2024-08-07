@@ -19,10 +19,9 @@ public class AdminSeatController {
     private final AdminSeatService adminSeatService;
 
     /**
-     * 좌석 생성 기능
+     * 좌석 생성
      * @param sessionId
      * @param requestDto
-     * @return
      */
     @PostMapping("/seats")
     public ResponseEntity<ResponseMessageDto> createSeat(
@@ -33,10 +32,9 @@ public class AdminSeatController {
     }
 
     /**
-     * 좌석 삭제 기능
+     * 좌석 삭제
      * @param sessionId
      * @param seatId
-     * @return
      */
     @DeleteMapping("/seats/{seatId}")
     public ResponseEntity<ResponseMessageDto> deleteSeat(

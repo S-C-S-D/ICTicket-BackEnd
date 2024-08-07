@@ -35,6 +35,7 @@ public class Sales extends Timestamped {
     @Column(nullable = false)
     private LocalDateTime endAt;
 
+    // 할인 객체 생성
     public Sales(Performance performance, SalesAddRequestDto requestDto) {
         this.performance = performance;
         this.discountRate = requestDto.getDiscountRate();
@@ -42,6 +43,7 @@ public class Sales extends Timestamped {
         this.endAt = requestDto.getEndAt();
     }
 
+    // 할인 적용 수정
     public void updateSales(SalesUpdateRequestDto requestDto) {
         this.discountRate = requestDto.getDiscountRate();
         this.startAt = requestDto.getStartAt();
