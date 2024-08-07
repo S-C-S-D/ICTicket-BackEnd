@@ -22,7 +22,7 @@ public class BannerController {
 
     /**
      * 배너 타입별 배너 조회(10개)
-     * @param bannerType
+     * @param bannerType 배너 타입
      * @return
      */
     @GetMapping

@@ -18,7 +18,7 @@ public class AdminBannerController {
 
     /**
      * 배너 등록
-     * @param requestDto
+     * @param requestDto 배너 등록 정보
      * @return
      */
     @PostMapping
@@ -30,7 +30,7 @@ public class AdminBannerController {
 
     /**
      * 배너 삭제
-     * @param bannerId
+     * @param bannerId 배너 id
      * @return
      */
     @DeleteMapping("/{bannerId}")

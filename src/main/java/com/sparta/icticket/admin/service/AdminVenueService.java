@@ -19,7 +19,7 @@ public class AdminVenueService {
 
     /**
      * 공연장 생성
-     * @param venueRequestDto
+     * @param venueRequestDto 공연장 등록 정보
      */
     public void createVenue(VenueRequestDto venueRequestDto) {
         Venue venue = new Venue(venueRequestDto);
@@ -28,8 +28,8 @@ public class AdminVenueService {
 
     /**
      * 공연장 수정
-     * @param venueId
-     * @param venueRequestDto
+     * @param venueId 공연장 id
+     * @param venueRequestDto 공연장 수정 정보
      */
     @Transactional
     public void updateVenue(Long venueId, VenueRequestDto venueRequestDto) {
@@ -39,7 +39,7 @@ public class AdminVenueService {
 
     /**
      * 공연장 삭제
-     * @param venueId
+     * @param venueId 공연장 id
      */
     public void deleteVenue(Long venueId) {
         Venue venue = venueRepository.findById(venueId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_VENUE));

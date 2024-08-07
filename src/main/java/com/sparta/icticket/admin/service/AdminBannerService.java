@@ -17,7 +17,7 @@ public class AdminBannerService {
 
     /**
      * 배너 등록
-     * @param requestDto
+     * @param requestDto 배너 등록 정보
      */
     public void createBanners(BannerRequestDto requestDto) {
         Optional<Banner> byPosition = bannerRepository.findByPosition(requestDto.getPosition());
@@ -31,7 +31,7 @@ public class AdminBannerService {
 
     /**
      * 배너 삭제
-     * @param bannerId
+     * @param bannerId 배너 id
      */
     public void deleteBanner(Long bannerId) {
         Banner banner = bannerRepository.findById(bannerId).orElseThrow(

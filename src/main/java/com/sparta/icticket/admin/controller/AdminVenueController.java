@@ -25,7 +25,7 @@ public class AdminVenueController {
 
     /**
      * 공연장 생성
-     * @param venueRequestDto
+     * @param venueRequestDto 공연장 등록 정보
      * @return
      */
     @PostMapping
@@ -37,8 +37,8 @@ public class AdminVenueController {
 
     /**
      * 공연장 수정
-     * @param venueId
-     * @param venueRequestDto
+     * @param venueId 공연장 id
+     * @param venueRequestDto 공연장 수정 정보
      * @return
      */
     @PatchMapping("/{venueId}")
@@ -51,7 +51,7 @@ public class AdminVenueController {
 
     /**
      * 공연장 삭제
-     * @param venueId
+     * @param venueId 공연장 id
      * @return
      */
     @DeleteMapping("/{venueId}")
