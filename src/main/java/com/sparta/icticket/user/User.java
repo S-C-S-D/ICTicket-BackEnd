@@ -1,8 +1,10 @@
 package com.sparta.icticket.user;
 
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.enums.UserStatus;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.user.dto.UserProfileRequestDto;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import jakarta.persistence.*;
@@ -48,6 +50,7 @@ public class User extends Timestamped {
     @Column(columnDefinition = "Text")
     private String refreshToken;
 
+    // user 생성
     public User(UserSignupRequestDto userSignupRequestDto, String encodedPassword) {
         this.email = userSignupRequestDto.getEmail();
         this.password = encodedPassword;
@@ -79,18 +82,34 @@ public class User extends Timestamped {
         return this.refreshToken != null && this.refreshToken.equals(refreshToken);
     }
 
+    // user 상태를 DEACTIVE로 변경
     public void updateResignUser() {
         this.refreshToken = null;
         this.userStatus = UserStatus.DEACTIVATE;
     }
 
+    // user profile 변경
     public void updateUserProfile(UserProfileRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.address = requestDto.getAddress();
     }
 
+    // user의 resfreshToken을 null로 변경
     public void removeRefreshToken() {
         this.refreshToken = null;
+    }
+
+    // user의 user_status 확인
+    public void checkNicknameByUserStatus() {
+        if(this.userStatus.equals(UserStatus.ACTIVATE)) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_NICKNAME);
+        }
+    }
+
+    public void checkUser(Long userId) {
+        if(!this.id.equals(userId)) {
+            throw new CustomException(ErrorType.CAN_NOT_LOAD_ORDER_HISTORY);
+        }
     }
 }

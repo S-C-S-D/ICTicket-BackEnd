@@ -38,6 +38,7 @@ public class Order extends Timestamped {
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
+    // order 생성
     public Order(User user, Session session, String orderNumber, Integer ticketCount, Integer totalPrice) {
         this.user = user;
         this.session = session;

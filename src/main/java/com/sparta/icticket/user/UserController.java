@@ -31,9 +31,8 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 회원 가입 기능
+     * 회원 가입
      * @param requestDto
-     * @return
      */
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createUser(
@@ -44,9 +43,8 @@ public class UserController {
 
 
     /**
-     * [테스트용]어드민 회원 가입 기능
+     * [테스트용]어드민 회원 가입
      * @param requestDto
-     * @return
      */
     @PostMapping("/admin")
     public ResponseEntity<ResponseMessageDto> createAdminUser(
@@ -70,10 +68,9 @@ public class UserController {
     }
 
     /**
-     * 회원 탈퇴 기능
+     * 회원 탈퇴
      * @param requestDto
      * @param userDetails
-     * @return
      */
     @PatchMapping
     public ResponseEntity<ResponseMessageDto> updateUser(
@@ -85,10 +82,9 @@ public class UserController {
     }
 
     /**
-     * 프로필 수정 기능
+     * 프로필 수정
      * @param requestDto
      * @param userDetails
-     * @return
      */
     @PatchMapping("/profile")
     public ResponseEntity<ResponseMessageDto> updateProfile(
@@ -99,9 +95,8 @@ public class UserController {
     }
 
     /**
-     * 프로필 조회 기능
+     * 프로필 조회
      * @param userDetails
-     * @return
      */
     @GetMapping("/profile")
     public ResponseEntity<ResponseDataDto<UserProfileResponseDto>> getProfile(
