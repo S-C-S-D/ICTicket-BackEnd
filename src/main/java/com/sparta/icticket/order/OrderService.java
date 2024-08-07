@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -118,24 +117,18 @@ public class OrderService {
      */
     @Transactional
     public void deleteOrder(Long orderId, User loginUser) {
-        Order order = validateOrder(orderId);
+        Order order = findOrder(orderId);
 
-        boolean isLoggedInUser = order.getUser().getId().equals(loginUser.getId());
-        if (!isLoggedInUser) {
-            throw new CustomException(ErrorType.NOT_YOUR_ORDER);
-        }
+        order.checkUser(loginUser);
 
-        boolean isAlreadyCancled = order.getOrderStatus().equals(OrderStatus.CANCEL);
-        if (isAlreadyCancled) {
-            throw new CustomException(ErrorType.ALREADY_CANCELED_ORDER);
-        }
 
+        order.checkCanceledOrder();
 
         //order 상태변경 후 seat 상태변경 후 ticket 삭제
 
         // (1) Order 상태변경
         order.updateOrderStatusToCancel();
-        List<Ticket> tickets = validateTicket(order);
+        List<Ticket> tickets = findTicket(order);
         // (2) Seat 상태변경,ticket 삭제
         for (Ticket ticket : tickets) {
             ticket.getSeat().updateSeatStatus(SeatStatus.NOT_RESERVED);
@@ -144,13 +137,23 @@ public class OrderService {
 
     }
 
-    private List<Ticket> validateTicket(Order order) {
+    /**
+     * 티켓 찾기
+     * @param order
+     * @description 예매 취소시 order에 연결되어있는 ticket을 찾을때 DB에서 가져온다
+     */
+    private List<Ticket> findTicket(Order order) {
         return ticketRepository.findByOrder(order)
                 .orElseThrow(()->new CustomException(ErrorType.NOT_FOUND_TICKET));
     }
 
 
-    private Order validateOrder(Long orderId) {
+    /**
+     * 주문 찾기
+     * @param orderId
+     * @description 예매 취소시 DB로부터 해당 order를 찾는다
+     */
+    private Order findOrder(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_ORDER));
     }
 

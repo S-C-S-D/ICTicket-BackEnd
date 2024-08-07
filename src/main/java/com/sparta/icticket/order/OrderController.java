@@ -49,6 +49,9 @@ public class OrderController {
 
     /**
      * 예매 취소
+     * @param orderId
+     * @param userDetails
+     * @return
      */
     @PatchMapping("/users/orders/{orderId}")
     public ResponseEntity<ResponseMessageDto> deleteOrder(

@@ -1,7 +1,9 @@
 package com.sparta.icticket.order;
 
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.OrderStatus;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
@@ -50,5 +52,18 @@ public class Order extends Timestamped {
 
     public void updateOrderStatusToCancel() {
         this.orderStatus=OrderStatus.CANCEL;
+    }
+
+    public void checkUser(User loginUser) {
+
+        if (!this.user.getId().equals(loginUser.getId())) {
+            throw new CustomException(ErrorType.NOT_YOUR_ORDER);
+        }
+    }
+
+    public void checkCanceledOrder() {
+        if (this.orderStatus.equals(OrderStatus.CANCEL)) {
+            throw new CustomException(ErrorType.ALREADY_CANCELED_ORDER);
+        }
     }
 }
