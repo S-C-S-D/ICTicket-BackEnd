@@ -60,7 +60,7 @@ public class ConcurrencyTest {
             idList.add(1L);//(random.nextLong(10) + 1L);
             System.out.println("idList = " + idList.get(0));
             SeatReservedRequestDto seatReservedRequestDto = new SeatReservedRequestDto(idList);
-            seatService.reserveSeat(1L, seatReservedRequestDto);
+            seatService.reserveSeat(1L, seatReservedRequestDto, null);
 //            SeatReservedResponseDto seatReservedResponseDto = seatService.redisTest(1L, seatReservedRequestDto);
 //            System.out.println("seatReservedResponseDto = " + seatReservedResponseDto.toString());
         });
