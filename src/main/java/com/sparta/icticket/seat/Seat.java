@@ -1,10 +1,13 @@
 package com.sparta.icticket.seat;
 
+import com.sparta.icticket.common.enums.ErrorType;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
 import com.sparta.icticket.session.Session;
+import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +44,9 @@ public class Seat extends Timestamped {
     @Column(nullable = false)
     private SeatStatus seatStatus;
 
-    private LocalDateTime reservedAt;
+    private LocalDateTime seatSelectedAt;
+
+    private Long userId;
 
     // 좌석 생성
     public Seat(Session session, SeatCreateRequestDto requestDto) {
@@ -53,13 +58,26 @@ public class Seat extends Timestamped {
     }
 
     // seat_status를 PAYING으로 변경, reserved_at을 현재 시간으로 변경
-    public void updateSeatStatusToPaying() {
+    public void updateSeatStatusToPaying(User recentUser) {
         this.seatStatus = SeatStatus.PAYING;
-        this.reservedAt = LocalDateTime.now();
+        this.seatSelectedAt = LocalDateTime.now();
+        this.userId = recentUser.getId();
     }
 
     // seat_status 변경
     public void updateSeatStatus(SeatStatus seatStatus) {
         this.seatStatus = seatStatus;
+    }
+
+    public void checkUser(User loginUser) {
+        if(!this.userId.equals(loginUser.getId())) {
+            throw new CustomException(ErrorType.TIME_OUT);
+        }
+    }
+
+    public void checkSession(Long sessionId) {
+        if(!this.session.getId().equals(sessionId)) {
+            throw new CustomException(ErrorType.NOT_MATCHED_SESSION);
+        }
     }
 }

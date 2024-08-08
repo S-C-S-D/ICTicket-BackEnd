@@ -780,7 +780,7 @@ public class CreateDummyData {
                     seatGrade = seatGrades[3];
                 }
 
-                seatList.add(new Seat(id++, session, price, seatNumber, seatGrade, SeatStatus.NOT_RESERVED, null));
+                seatList.add(new Seat(id++, session, price, seatNumber, seatGrade, SeatStatus.NOT_RESERVED, null, null));
             }
         }
         seatRepository.saveAll(seatList);

@@ -14,6 +14,7 @@ import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
 import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
+import com.sparta.icticket.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,13 +70,13 @@ public class SeatService {
      * @param requestDto
      */
     @DistributedLock(key = "seat")
-    public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto) {
+    public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto, User loginUser) {
+
         Session findSession = getSession(sessionId);
         List<Long> seatIdList = requestDto.getSeatIdList();
         List<String> seatNumberList = new ArrayList<>();
         Integer totalPrice = 0;
         Integer discountRate = 0;
-
 
         List<Seat> seatList = seatRepository.findSeatsByIdList(seatIdList);
 
@@ -84,7 +85,8 @@ public class SeatService {
         }
 
         for(Seat seat : seatList) {
-            seat.updateSeatStatusToPaying();
+            seat.checkSession(sessionId);
+            seat.updateSeatStatusToPaying(loginUser);
             seatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();
         }
