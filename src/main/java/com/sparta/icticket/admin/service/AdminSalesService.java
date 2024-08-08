@@ -24,12 +24,12 @@ public class AdminSalesService {
     private final PerformanceRepository performanceRepository;
 
     /**
-     * 할인 등록
+     * 할인 적용
      * @param performanceId
      * @param requestDto
      */
     public void addSales(Long performanceId, SalesAddRequestDto requestDto) {
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
 
         if(salesRepository.existsByPerformance(findPerformance)) {
             throw new CustomException(ErrorType.ALREADY_EXISTS_SALES);
@@ -43,15 +43,15 @@ public class AdminSalesService {
     }
 
     /**
-     * 할인 수정
+     * 할인 적용 수정
      * @param performanceId
      * @param salesId
      * @param requestDto
      */
     @Transactional
     public void updateSales(Long performanceId, Long salesId, SalesUpdateRequestDto requestDto) {
-        Performance findPerformance = findPerformanceById(performanceId);
-        Sales findSales = checkPerformanceAndSales(salesId, findPerformance);
+        Performance findPerformance = getPerformance(performanceId);
+        Sales findSales = getSales(salesId, findPerformance);
         checkDate(requestDto.getStartAt(), requestDto.getStartAt());
 
         findSales.updateSales(requestDto);
@@ -65,9 +65,9 @@ public class AdminSalesService {
      */
     @Transactional
     public void deleteSales(Long performanceId, Long salesId) {
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
 
-        Sales findSales = checkPerformanceAndSales(salesId, findPerformance);
+        Sales findSales = getSales(salesId, findPerformance);
 
         salesRepository.delete(findSales);
     }
@@ -76,19 +76,19 @@ public class AdminSalesService {
      * 할인 검증
      * @param salesId
      * @param performance
-     * @return
+     * @description 해당 id와 performance를 가진 sales 객체 조회
      */
-    private Sales checkPerformanceAndSales(Long salesId, Performance performance) {
+    private Sales getSales(Long salesId, Performance performance) {
         return salesRepository.findByIdAndPerformance(salesId, performance).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_SALES));
     }
 
     /**
-     * 공연 검증
+     * 공연 조회
      * @param performanceId
-     * @return
+     * @description 해당 id를 가진 performance 객체 조회
      */
-    private Performance findPerformanceById(Long performanceId) {
+    private Performance getPerformance(Long performanceId) {
         return performanceRepository.findById(performanceId).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
@@ -97,6 +97,7 @@ public class AdminSalesService {
      * 할인 날짜 검증
      * @param endAt
      * @param startAt
+     * @description 할인 종료 날짜가 시작 날짜 이후는 아닌지, 할인 시작 날짜가 오늘 이전은 아닌지 검증
      */
     private void checkDate(LocalDateTime endAt, LocalDateTime startAt) {
         if(endAt.isAfter(startAt) || startAt.isBefore(LocalDateTime.now())) {

@@ -27,7 +27,7 @@ public class LikeService {
      */
     public void createLike(Long performanceId, User loginUser) {
 
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
 
         likeRepository.findByUserAndPerformance(loginUser, findPerformance).ifPresent(l ->{
             throw new CustomException(ErrorType.ALREADY_LIKED_PERFORMANCE);});
@@ -38,14 +38,14 @@ public class LikeService {
     }
 
     /**
-     * 관심 공연 등록 삭제
+     * 관심 공연 취소
      * @param performanceId
      * @param likeId
      * @param loginUser
      */
     @Transactional
     public void deleteLike(Long performanceId, Long likeId, User loginUser) {
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
 
         Like findLike = likeRepository.findByIdAndPerformanceAndUser(likeId, findPerformance, loginUser).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_LIKED_PERFORMANCE));
@@ -56,33 +56,31 @@ public class LikeService {
     /**
      * 관심 개수 조회
      * @param performanceId
-     * @return
      */
     public Long getLikesCount(Long performanceId) {
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
 
         return likeRepository.countByPerformance(findPerformance);
     }
 
     /**
-     * 관심 공연 등록 여부 조회
+     * 단일 공연 좋아요 여부
      * @param performanceId
      * @param loginUser
-     * @return
      */
     public IsLikeResponseDto getLike(Long performanceId, User loginUser) {
-        Performance findPerformance = findPerformanceById(performanceId);
+        Performance findPerformance = getPerformance(performanceId);
         Like like = likeRepository.findLikeIdByPerformanceIdAndUserId(performanceId, loginUser.getId()).orElse(null);
         IsLikeResponseDto isLikeResponseDto = new IsLikeResponseDto(like, likeRepository.findByUserAndPerformance(loginUser, findPerformance).isPresent());
         return isLikeResponseDto;
     }
 
     /**
-     * 공연 존재 여부 확인
+     * 공연 조회
      * @param performanceId
-     * @return
+     * @description 해당 id를 가진 performance 객체 조회
      */
-    private Performance findPerformanceById(Long performanceId) {
+    private Performance getPerformance(Long performanceId) {
         return performanceRepository.findById(performanceId).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }

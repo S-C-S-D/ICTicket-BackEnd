@@ -25,10 +25,9 @@ public class SeatController {
     private final SeatService seatService;
 
     /**
-     * 세션별 잔여 좌석 조회 기능
+     * 세션별 잔여 좌석 조회
      * @param performanceId
      * @param sessionId
-     * @return
      */
     @GetMapping("/performances/{performanceId}/sessions/{sessionId}/seat-count")
     public ResponseEntity<ResponseDataDto<SeatCountResponseDto>> getSeatCount(
@@ -38,10 +37,9 @@ public class SeatController {
     }
 
     /**
-     * 세션별 좌석 상세 조회 기능
+     * 세션별 좌석 상세 조회
      * @param performanceId
      * @param sessionId
-     * @return
      */
     @GetMapping("/performances/{performanceId}/sessions/{sessionId}/seats")
     public ResponseEntity<ResponseDataDto<List<SeatInfoResponseDto>>> getSeats(
@@ -52,10 +50,9 @@ public class SeatController {
 
 
     /**
-     * 좌석 선택 완료 기능
+     * 좌석 선택 완료
      * @param sessionId
      * @param requestDto
-     * @return
      */
     @PatchMapping("/sessions/{sessionId}/seats/reserve")
     public ResponseEntity<ResponseDataDto<SeatReservedResponseDto>> reserveSeat(

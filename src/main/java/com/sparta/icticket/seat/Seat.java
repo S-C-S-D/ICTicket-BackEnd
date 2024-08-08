@@ -50,6 +50,7 @@ public class Seat extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
+    // 좌석 생성
     public Seat(Session session, SeatCreateRequestDto requestDto) {
         this.session = session;
         this.price = requestDto.getPrice();
@@ -58,12 +59,15 @@ public class Seat extends Timestamped {
         this.seatStatus = SeatStatus.NOT_RESERVED;
     }
 
+    // seat_status를 PAYING으로 변경, reserved_at을 현재 시간으로 변경
+    public void updateSeatStatusToPaying() {
     public void updateSeatStatusToPaying(User recentUser) {
         this.seatStatus = SeatStatus.PAYING;
         this.seatSelectedAt = LocalDateTime.now();
         this.user = recentUser;
     }
 
+    // seat_status 변경
     public void updateSeatStatus(SeatStatus seatStatus) {
         this.seatStatus = seatStatus;
     }
