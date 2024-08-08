@@ -20,7 +20,13 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    /*댓글 작성*/
+    /**
+     * 댓글 작성
+     * @param performanceId
+     * @param userDetails
+     * @param createCommentRequestDto
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createComment(
             @PathVariable Long performanceId,
@@ -31,7 +37,15 @@ public class CommentController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.COMMENT_CREATE_SUCCESS));
     }
 
-    /*댓글 삭제*/
+
+
+    /**
+     * 댓글 삭제
+     * @param performanceId
+     * @param commentId
+     * @param userDetails
+     * @return
+     */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<ResponseMessageDto> deleteComment(
             @PathVariable @Valid Long performanceId,
@@ -42,7 +56,11 @@ public class CommentController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.COMMENT_DELETE_SUCCESS));
     }
 
-    /* 단일 공연 댓글 조회*/
+    /**
+     * 단일 공연 댓글 조회
+     * @param performanceId
+     * @return
+     */
     @GetMapping
     public ResponseEntity<ResponseDataDto<List<GetCommentResponseDto>>> getComments(@PathVariable @Valid Long performanceId) {
         List<GetCommentResponseDto> commentsResponseDtoList = commentService.getComments(performanceId);

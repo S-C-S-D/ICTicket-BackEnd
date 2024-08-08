@@ -18,7 +18,7 @@ public class AdminPerformanceController {
 
     /**
      * 공연 등록
-     * @param requestDto
+     * @param requestDto 공연 등록에 필요한 정보
      * @return
      */
     @PostMapping
@@ -32,8 +32,8 @@ public class AdminPerformanceController {
 
     /**
      * 공연 수정
-     * @param performanceId
-     * @param requestDto
+     * @param performanceId 공연 id
+     * @param requestDto 공연 수정에 필요한 정보
      * @return
      */
     @PatchMapping("/{performanceId}")
@@ -48,7 +48,7 @@ public class AdminPerformanceController {
 
     /**
      * 공연 삭제
-     * @param performanceId
+     * @param performanceId 공연 id
      * @return
      */
     @DeleteMapping("/{performanceId}")
