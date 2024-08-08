@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -41,7 +42,7 @@ public class Seat extends Timestamped {
     @Column(nullable = false)
     private SeatStatus seatStatus;
 
-    private LocalDateTime reservedAt;
+    private Timestamp reservedAt;
 
     // 좌석 생성
     public Seat(Session session, SeatCreateRequestDto requestDto) {
@@ -55,7 +56,7 @@ public class Seat extends Timestamped {
     // seat_status를 PAYING으로 변경, reserved_at을 현재 시간으로 변경
     public void updateSeatStatusToPaying() {
         this.seatStatus = SeatStatus.PAYING;
-        this.reservedAt = LocalDateTime.now();
+        this.reservedAt = new Timestamp(System.currentTimeMillis());
     }
 
     // seat_status 변경

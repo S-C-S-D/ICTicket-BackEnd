@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,13 +15,13 @@ public class GetSessionsResponseDto {
     private Long id;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private Timestamp date;
 
     @NotBlank
     private String name;
 
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime time;
+    private Timestamp time;
 
     public GetSessionsResponseDto(Session session) {
         this.id = session.getId();

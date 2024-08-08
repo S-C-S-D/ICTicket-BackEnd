@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 @Getter
 public class GetCommentResponseDto {
 
