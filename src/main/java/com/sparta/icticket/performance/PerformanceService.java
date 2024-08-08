@@ -1,10 +1,16 @@
 package com.sparta.icticket.performance;
 
+import com.querydsl.core.Tuple;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.exception.CustomException;
-import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
 import com.sparta.icticket.performance.dto.PerformanceDetailResponseDto;
+import com.sparta.icticket.performance.dto.PerformanceDiscountResponseDto;
+import com.sparta.icticket.performance.dto.PerformanceResponseDto;
+import com.sparta.icticket.sales.Sales;
+import com.sparta.icticket.sales.SalesRepository;
+import com.sparta.icticket.seat.Seat;
+import com.sparta.icticket.seat.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,7 +27,8 @@ import java.util.List;
 @Slf4j
 public class PerformanceService {
     private final PerformanceRepository performanceRepository;
-
+    private final SeatRepository seatRepository;
+    private final SalesRepository salesRepository;
     /**
      * 낙관적 락을 적용한 단일 공연 조회
      * @param performanceId 공연 id
@@ -41,7 +49,13 @@ public class PerformanceService {
             }
         }
 
-        return new PerformanceDetailResponseDto(performance);
+        // 가격 조회
+        List<Seat> seatList = seatRepository.findSeatsPerGradeByPerformanceId(performanceId);
+
+        // 세일 정보 조회
+        Sales sale = salesRepository.findByPerformance(performance).orElse(null);
+
+        return new PerformanceDetailResponseDto(performance, sale, seatList);
     }
 
     /**
@@ -65,11 +79,11 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 페이지 정보 리스트
      */
-    public List<PerformanceDetailResponseDto> getGenreRankPerformances(GenreType genre, int page, int size) {
+    public List<PerformanceResponseDto> getGenreRankPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Performance> genreRankPerformances = performanceRepository.getGenreRankPerformances(genre, pageable);
 
-        return genreRankPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
+        return genreRankPerformances.stream().map(PerformanceResponseDto::new).toList();
     }
 
     /**
@@ -78,12 +92,12 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 공연 정보 리스트
      */
-    public List<PerformanceDetailResponseDto> getTodayOpenPerformances(int page, int size) {
+    public List<PerformanceResponseDto> getTodayOpenPerformances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         List<Performance> performanceList = performanceRepository.getTodayOpenPerformances(pageable);
 
-        return performanceList.stream().map(PerformanceDetailResponseDto::new).toList();
+        return performanceList.stream().map(PerformanceResponseDto::new).toList();
     }
 
     /**
@@ -93,12 +107,23 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 공연과 할인 정보를 담은 리스트
      */
-    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
+    public List<PerformanceDiscountResponseDto> getDiscountPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        List<DiscountPerformanceResponseDto> discountPerformances = performanceRepository.getDiscountPerformances(genre, pageable);
+        List<PerformanceDiscountResponseDto> dtoList = performanceRepository.getDiscountPerformances(genre, pageable);
+        
+        List<Long> performanceIdList = new ArrayList<>();
+        for (PerformanceDiscountResponseDto dto : dtoList) {
+            performanceIdList.add(dto.getId());
+        }
 
-        return discountPerformances;
+        List<Integer> minPriceList = seatRepository.getMinPricesByPerformanceIds(performanceIdList);
+
+        for (int i = 0; i < dtoList.size(); i++) {
+            dtoList.get(i).updatePrice(minPriceList.get(i));
+        }
+
+        return dtoList;
     }
 
     /**
@@ -108,10 +133,10 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 공연 정보 리스트
      */
-    public List<PerformanceDetailResponseDto> getWillBeOpenedPerformances(GenreType genre, int page, int size) {
+    public List<PerformanceResponseDto> getWillBeOpenedPerformances(GenreType genre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size); // Pageable 정의 추가
         List<Performance> willBeOpenedPerformances = performanceRepository.getWillBeOpenedPerformances(genre, pageable); // 올바른 변수 사용
-        return willBeOpenedPerformances.stream().map(PerformanceDetailResponseDto::new).toList(); // 올바른 변수 사용
+        return willBeOpenedPerformances.stream().map(PerformanceResponseDto::new).toList(); // 올바른 변수 사용
     }
 
     /**
@@ -120,10 +145,10 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 공연 정보 리스트
      */
-    public List<PerformanceDetailResponseDto> getRankAllPerformances(int page, int size) {
+    public List<PerformanceResponseDto> getRankAllPerformances(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Performance> getRankAllPerformances = performanceRepository.getRankAllPerformances(pageable);
-        return getRankAllPerformances.stream().map(PerformanceDetailResponseDto::new).toList();
+        return getRankAllPerformances.stream().map(PerformanceResponseDto::new).toList();
     }
 
 
@@ -133,10 +158,10 @@ public class PerformanceService {
      * @param size 페이지 크기
      * @return 공연 정보 리스트
      */
-    public List<PerformanceDetailResponseDto> getRecommendPerformances(int page, int size){
+    public List<PerformanceResponseDto> getRecommendPerformances(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         List<Performance> performances = performanceRepository.getRecommendPerformances(pageable);
 
-        return performances.stream().map(PerformanceDetailResponseDto::new).toList();
+        return performances.stream().map(PerformanceResponseDto::new).toList();
     }
 }

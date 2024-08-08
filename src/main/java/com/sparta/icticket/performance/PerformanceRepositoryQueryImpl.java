@@ -4,7 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.like.QLike;
-import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
+import com.sparta.icticket.performance.dto.PerformanceDiscountResponseDto;
 import com.sparta.icticket.sales.QSales;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -71,13 +71,13 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
      * @description 해당 장르의 공연들 중 할인 중인 공연을 할인률이 높은 순으로 조회
      */
     @Override
-    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
+    public List<PerformanceDiscountResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
         QSales qSales = QSales.sales;
         LocalDateTime now = LocalDateTime.now();
 
         return jpaQueryFactory
-                .select(Projections.constructor(DiscountPerformanceResponseDto.class, qPerformance, qSales))
+                .select(Projections.constructor(PerformanceDiscountResponseDto.class, qPerformance, qSales))
                 .from(qPerformance)
                 .leftJoin(qSales).on(qPerformance.id.eq(qSales.performance.id))
                 .where(
