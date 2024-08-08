@@ -58,7 +58,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // accessToken 생성
+    // refreshToken 생성
     public String createRefreshToken(String userId, UserRole role){
         Date date = new Date();
 

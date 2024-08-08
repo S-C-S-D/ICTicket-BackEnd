@@ -86,8 +86,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
     }
 
-
-
     // 인증 처리
     public void setAuthentication(String username) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
