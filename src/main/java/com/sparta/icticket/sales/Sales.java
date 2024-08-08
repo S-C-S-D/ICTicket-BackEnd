@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -30,10 +30,10 @@ public class Sales extends Timestamped {
     private Integer discountRate;
 
     @Column(nullable = false)
-    private LocalDateTime startAt;
+    private Timestamp startAt;
 
     @Column(nullable = false)
-    private LocalDateTime endAt;
+    private Timestamp endAt;
 
     // 할인 객체 생성
     public Sales(Performance performance, SalesAddRequestDto requestDto) {

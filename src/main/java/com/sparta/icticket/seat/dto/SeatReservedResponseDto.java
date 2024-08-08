@@ -1,10 +1,12 @@
 package com.sparta.icticket.seat.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.session.Session;
 import lombok.Getter;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -13,8 +15,10 @@ import java.util.List;
 public class SeatReservedResponseDto {
     private String title;
     private String imageUrl;
-    private LocalDate sessionDate;
-    private LocalTime sessionTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp sessionDate;
+    @JsonFormat(pattern = "HH:mm")
+    private Timestamp sessionTime;
     private String sessionName;
     private List<String> seatNumberList;
     private Integer totalPrice;

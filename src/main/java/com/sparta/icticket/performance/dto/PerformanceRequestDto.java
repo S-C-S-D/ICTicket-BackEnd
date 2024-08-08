@@ -8,8 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Getter
 public class PerformanceRequestDto {
@@ -34,9 +33,9 @@ public class PerformanceRequestDto {
     private String imageUrl;
 
     @JsonFormat(pattern = "yyyy-MM-dd-HH:mm")
-    private LocalDateTime openAt;
+    private Timestamp openAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startAt;
+    private Timestamp startAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endAt;
+    private Timestamp endAt;
 }

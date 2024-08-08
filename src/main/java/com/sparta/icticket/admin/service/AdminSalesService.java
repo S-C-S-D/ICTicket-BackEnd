@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -99,8 +100,8 @@ public class AdminSalesService {
      * @param startAt
      * @description 할인 종료 날짜가 시작 날짜 이후는 아닌지, 할인 시작 날짜가 오늘 이전은 아닌지 검증
      */
-    private void checkDate(LocalDateTime endAt, LocalDateTime startAt) {
-        if(endAt.isAfter(startAt) || startAt.isBefore(LocalDateTime.now())) {
+    private void checkDate(Timestamp endAt, Timestamp startAt) {
+        if(endAt.after(startAt) || startAt.before(Timestamp.valueOf(LocalDateTime.now()))) {
             throw new CustomException(ErrorType.WRONG_DATE_FORMAT);
         }
     }

@@ -8,6 +8,7 @@ import com.sparta.icticket.sales.Sales;
 import jakarta.persistence.Column;
 import lombok.Getter;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -23,8 +24,8 @@ public class DiscountPerformanceResponseDto {
 
     // 할인 정보
     private Integer discountRate;
-    private LocalDateTime discountStartAt;
-    private LocalDateTime discountEndAt;
+    private Timestamp discountStartAt;
+    private Timestamp discountEndAt;
 
     private String title;
 
@@ -37,11 +38,13 @@ public class DiscountPerformanceResponseDto {
     private Integer runTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd-HH:mm")
-    private LocalDateTime openAt;
+    private Timestamp openAt;
 
-    private LocalDate startAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp startAt;
 
-    private LocalDate endAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp endAt;
 
     private String imageUrl;
 
