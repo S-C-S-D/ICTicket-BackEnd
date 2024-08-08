@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 @Getter
 public class GetCommentResponseDto {
@@ -24,7 +25,7 @@ public class GetCommentResponseDto {
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     public GetCommentResponseDto(Comment comment) {
         this.title= comment.getTitle();
