@@ -6,6 +6,7 @@ import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.performance.Performance;
 import lombok.Getter;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,11 +30,13 @@ public class PerformanceDetailResponseDto {
     private Integer runTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd-HH:mm")
-    private LocalDateTime openAt;
+    private Timestamp openAt;
 
-    private LocalDate startAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp startAt;
 
-    private LocalDate endAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp endAt;
 
     private String imageUrl;
 

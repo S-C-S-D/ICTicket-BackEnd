@@ -10,8 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -45,13 +44,15 @@ public class Performance extends Timestamped {
     private Integer runTime;
 
     @Column(nullable = false)
-    private LocalDateTime openAt;
+    private Timestamp openAt;
 
     @Column(nullable = false)
-    private LocalDate startAt;
+    @Temporal(TemporalType.DATE)
+    private Timestamp startAt;
 
     @Column(nullable = false)
-    private LocalDate endAt;
+    @Temporal(TemporalType.DATE)
+    private Timestamp endAt;
 
     private String imageUrl;
 
