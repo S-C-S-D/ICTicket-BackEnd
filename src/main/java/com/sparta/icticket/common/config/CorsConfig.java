@@ -17,6 +17,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:5500");
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedOrigin("https://icticket.shop");
+        config.addAllowedOrigin("https://www.icticket.shop");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
