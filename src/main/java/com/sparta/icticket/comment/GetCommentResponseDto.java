@@ -20,6 +20,9 @@ public class GetCommentResponseDto {
     private Integer rate;
 
     @NotNull
+    private String description;
+
+    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdAt;
 
@@ -27,6 +30,7 @@ public class GetCommentResponseDto {
         this.title= comment.getTitle();
         this.nickname = comment.getUser().getNickname();
         this.rate = comment.getRate();
+        this.description = comment.getDescription();
         this.createdAt = comment.getCreatedAt();
     }
 }

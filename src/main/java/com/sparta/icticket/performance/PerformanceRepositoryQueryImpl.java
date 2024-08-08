@@ -4,7 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.like.QLike;
-import com.sparta.icticket.performance.dto.DiscountPerformanceResponseDto;
+import com.sparta.icticket.performance.dto.PerformanceDiscountResponseDto;
 import com.sparta.icticket.sales.QSales;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +19,12 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    /**
+     * 장르별 인기순 조회
+     * @param genreType 장르
+     * @param pageable 페이지네이션 정보
+     * @description 해당 장르의 공연들을 인기순으로 조회
+     */
     @Override
     public List<Performance> getGenreRankPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
@@ -36,6 +42,11 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .fetch();
     }
 
+    /**
+     * 오늘 오픈 공연 조회
+     * @param pageable 페이지네이션 정보
+     * @description 오늘 오픈하는 공연들을 오픈 시간이 빠른 순으로 조회
+     */
     @Override
     public List<Performance> getTodayOpenPerformances(Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
@@ -53,14 +64,20 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .fetch();
     }
 
+    /**
+     * 할인 중인 공연 조회
+     * @param genreType 장르
+     * @param pageable 페이지네이션 정보
+     * @description 해당 장르의 공연들 중 할인 중인 공연을 할인률이 높은 순으로 조회
+     */
     @Override
-    public List<DiscountPerformanceResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
+    public List<PerformanceDiscountResponseDto> getDiscountPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
         QSales qSales = QSales.sales;
         LocalDateTime now = LocalDateTime.now();
 
         return jpaQueryFactory
-                .select(Projections.constructor(DiscountPerformanceResponseDto.class, qPerformance, qSales))
+                .select(Projections.constructor(PerformanceDiscountResponseDto.class, qPerformance, qSales))
                 .from(qPerformance)
                 .leftJoin(qSales).on(qPerformance.id.eq(qSales.performance.id))
                 .where(
@@ -74,6 +91,12 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .fetch();
     }
 
+    /**
+     * 오픈 예정인 공연 조회
+     * @param genreType 장르
+     * @param pageable 페이지네이션 정보
+     * @description 해당 장르의 공연 중 오늘 오픈되는 공연들을 오픈 시간이 빠른 순으로 조회
+     */
     @Override
     public List<Performance> getWillBeOpenedPerformances(GenreType genreType, Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
@@ -91,6 +114,11 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .fetch();
     }
 
+    /**
+     * 전체 공연 랭킹 조회
+     * @param pageable 페이지네이션 정보
+     * @description 전체 공연들을 인기순(좋아요+조회수)으로 조회
+     */
     @Override
     public List<Performance> getRankAllPerformances(Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;
@@ -108,6 +136,11 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                 .fetch();
     }
 
+    /**
+     * 장르별 추천 공연 조회
+     * @param pageable 페이지네이션 정보
+     * @description 장르별 인기순 1,2위 공연들을 조회
+     */
     @Override
     public List<Performance> getRecommendPerformances(Pageable pageable) {
         QPerformance qPerformance = QPerformance.performance;

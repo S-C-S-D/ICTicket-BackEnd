@@ -11,7 +11,6 @@ import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import com.sparta.icticket.seat.Seat;
-import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
 import com.sparta.icticket.ticket.Ticket;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,23 +34,19 @@ public class OrderService {
     private final SalesRepository salesRepository;
 
     /**
-     * 결제 완료 기능
+     * 결제 완료
      * @param sessionId
      * @param requestDto
      * @param loginUser
-     * @return
      */
     @Transactional
     public OrderCreateResponseDto createOrder(Long sessionId, OrderCreateRequestDto requestDto, User loginUser) {
-
-        LocalDateTime reservedAt = requestDto.getModifiedAtList().get(0);
-
-        if(reservedAt.isBefore(LocalDateTime.now().minusMinutes(10))) {
-            throw new CustomException(ErrorType.TIME_OUT);
-        }
-
-        // 세션 찾기
-        Session findSession = findSessionById(sessionId);
+        //0. 결제하기 버튼을 눌렀을 때, 실행되는 로직입니다.
+        //0. 현재 유저는 좌석 선택 완료 버튼을 누르고, 결제하기 페이지에 있는 상황입니다.
+        //   버튼에는 2가지가 있고, 좌석 선택 완료 버튼 -> 결제 완료 버튼 순으로 진행이 됩니다.
+        //    - 좌석 선택 완료 버튼
+        //    - 결제 완료 버튼
+        Session findSession = getSession(sessionId);
 
         List<String> findSeatNumberList = new ArrayList<>();
         Integer totalPrice = 0;
@@ -60,22 +54,29 @@ public class OrderService {
 
         List<Seat> findSeatList = orderRepository.findSeatById(requestDto.getSeatIdList(), findSession);
 
+        // 일부 좌석이 결제가 가능한 상태가 아니라면 예외처리
         if(findSeatList.size() != requestDto.getSeatIdList().size()) {
             throw new CustomException(ErrorType.NOT_FOUND_SEAT);
         }
 
+        // seat_number 조회, 총 금액 계산, seat_status 변경
         for(Seat seat : findSeatList) {
+            seat.checkUser(loginUser);
+            if(seat.getSeatSelectedAt().isBefore(LocalDateTime.now().minusMinutes(10))) {
+                throw new CustomException(ErrorType.TIME_OUT);
+            }
             findSeatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();
-            seat.updateSeatOrder();
+            seat.updateSeatStatus(SeatStatus.PAYMENT_COMPLETED);
         }
 
         // 할인율 구하기
-        Sales findSales = findSales(findSession.getPerformance());
+        Sales findSales = getSales(findSession.getPerformance());
         if(findSales !=null) {
             discountRate = findSales.getDiscountRate();
         }
 
+        // 할인율을 적용한 총 금액 계산
         totalPrice = (int) (totalPrice - (totalPrice * (discountRate / 100.0)));
 
         // order 생성
@@ -95,12 +96,10 @@ public class OrderService {
      * 예매 내역 조회
      * @param userId
      * @param loginUser
-     * @return
      */
     public List<OrderListResponseDto> getOrders(Long userId, User loginUser) {
-        if(!Objects.equals(userId, loginUser.getId())) {
-            throw new CustomException(ErrorType.CAN_NOT_LOAD_ORDER_HISTORY);
-        }
+
+        loginUser.checkUser(userId);
 
         List<Order> orderList = orderRepository.findAllByUserOrderByCreatedAtDesc(loginUser);
 
@@ -114,45 +113,49 @@ public class OrderService {
      */
     @Transactional
     public void deleteOrder(Long orderId, User loginUser) {
-        Order order = validateOrder(orderId);
+        Order order = findOrder(orderId);
 
-        boolean isLoggedInUser = order.getUser().getId().equals(loginUser.getId());
-        if (!isLoggedInUser) {
-            throw new CustomException(ErrorType.NOT_YOUR_ORDER);
-        }
+        order.checkUser(loginUser);
 
-        boolean isAlreadyCancled = order.getOrderStatus().equals(OrderStatus.CANCEL);
-        if (isAlreadyCancled) {
-            throw new CustomException(ErrorType.ALREADY_CANCELED_ORDER);
-        }
 
+        order.checkCanceledOrder();
 
         //order 상태변경 후 seat 상태변경 후 ticket 삭제
 
         // (1) Order 상태변경
-        order.setOrderStatus(OrderStatus.CANCEL);
-        List<Ticket> tickets = validateTicket(order);
+        order.updateOrderStatusToCancel();
+        List<Ticket> tickets = findTicket(order);
         // (2) Seat 상태변경,ticket 삭제
         for (Ticket ticket : tickets) {
-            ticket.getSeat().setSeatStatus(SeatStatus.NOT_RESERVED);
+            ticket.getSeat().updateSeatStatus(SeatStatus.NOT_RESERVED);
             ticketRepository.delete(ticket);
         }
 
     }
 
-    private List<Ticket> validateTicket(Order order) {
+    /**
+     * 티켓 찾기
+     * @param order
+     * @description 예매 취소시 order에 연결되어있는 ticket을 찾을때 DB에서 가져온다
+     */
+    private List<Ticket> findTicket(Order order) {
         return ticketRepository.findByOrder(order)
                 .orElseThrow(()->new CustomException(ErrorType.NOT_FOUND_TICKET));
     }
 
 
-    private Order validateOrder(Long orderId) {
+    /**
+     * 주문 찾기
+     * @param orderId
+     * @description 예매 취소시 DB로부터 해당 order를 찾는다
+     */
+    private Order findOrder(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_ORDER));
     }
 
     /**
      * 예매 번호 생성
-     * @return
+     * @description 고유문자인 "IC"와 랜덤 숫자열의 조합으로 예매 번호 생성
      */
     private String makeOrderNumber() {
         return "IC" + ((int)(Math.random() * 899999) + 100000);
@@ -162,9 +165,9 @@ public class OrderService {
     /**
      * 세션 검증
      * @param sessionId
-     * @return
+     * @description 해당 id를 가진 session 객체 조회
      */
-    private Session findSessionById(Long sessionId) {
+    private Session getSession(Long sessionId) {
         return sessionRepository.findById(sessionId).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_SESSION));
     }
@@ -172,9 +175,9 @@ public class OrderService {
     /**
      * 할인 검증
      * @param performance
-     * @return
+     * @description 해당 performance를 가진 sales 객체 조회
      */
-    private Sales findSales(Performance performance) {
+    private Sales getSales(Performance performance) {
         return salesRepository.findDiscountRateByPerformance(performance).orElse(null);
     }
 }

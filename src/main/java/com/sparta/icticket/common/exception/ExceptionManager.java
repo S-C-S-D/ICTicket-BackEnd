@@ -1,6 +1,7 @@
 package com.sparta.icticket.common.exception;
 
 import com.sparta.icticket.common.dto.ResponseMessageDto;
+import com.sparta.icticket.common.enums.ErrorType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -9,6 +10,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.format.DateTimeParseException;
 
 import java.io.IOException;
 
@@ -33,7 +36,7 @@ public class ExceptionManager {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) throws IOException {
+    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         e.printStackTrace();
         int i = e.hashCode();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

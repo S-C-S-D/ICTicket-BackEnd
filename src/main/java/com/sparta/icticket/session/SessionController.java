@@ -18,6 +18,11 @@ public class SessionController {
 
     private final SessionService sessionService;
 
+    /**
+     * 세션 조회
+     * @param performanceId
+     * @return
+     */
     @GetMapping("/performances/{performanceId}/sessions")
     public ResponseEntity<ResponseDataDto<List<GetSessionsResponseDto>>> getSessions(
             @PathVariable Long performanceId

@@ -1,8 +1,7 @@
 package com.sparta.icticket.admin.service;
 
-import com.sparta.icticket.admin.seat.dto.SeatCreateRequestDto;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.enums.ErrorType;
-import com.sparta.icticket.common.enums.UserRole;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
@@ -23,9 +22,8 @@ public class AdminSeatService {
      * 좌석 생성
      * @param sessionId
      * @param requestDto
-     * @param loginUser
      */
-    public void createSeat(Long sessionId, SeatCreateRequestDto requestDto, User loginUser) {
+    public void createSeat(Long sessionId, SeatCreateRequestDto requestDto) {
 
         Session findSession = findSession(sessionId);
 
@@ -42,13 +40,11 @@ public class AdminSeatService {
      * 좌석 삭제
      * @param sessionId
      * @param seatId
-     * @param loginUser
      */
-    public void deleteSeat(Long sessionId, Long seatId, User loginUser) {
+    public void deleteSeat(Long sessionId, Long seatId) {
 
         Session findSession = findSession(sessionId);
 
-        // 해당 아이디를 가진 좌석이 없으면 예외
         Seat findSeat = seatRepository.findByIdAndSession(seatId, findSession).orElseThrow(() ->
                 new CustomException(ErrorType.NOT_FOUND_SEAT));
 
@@ -57,9 +53,9 @@ public class AdminSeatService {
     }
 
     /**
-     * 세션 검증
+     * 세션 조회
      * @param sessionId
-     * @return
+     * @description 해당 id를 가진 session 객체 조회
      */
     private Session findSession(Long sessionId) {
         return sessionRepository.findById(sessionId).orElseThrow(() ->

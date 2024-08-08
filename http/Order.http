@@ -5,7 +5,8 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "seatIdList":  [1]
+  "seatIdList":  [5, 6],
+  "modifiedAt" : "2024-08-14-20:29"
 }
 
 ### 예매 내역 조회

@@ -1,7 +1,7 @@
 package com.sparta.icticket.admin.controller;
 
-import com.sparta.icticket.admin.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.admin.sales.dto.SalesUpdateRequestDto;
+import com.sparta.icticket.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.admin.service.AdminSalesService;
 import com.sparta.icticket.common.dto.ResponseMessageDto;
 import com.sparta.icticket.common.enums.SuccessStatus;
@@ -20,10 +20,9 @@ public class AdminSalesController {
     private final AdminSalesService adminSalesService;
 
     /**
-     * 할인 등록 기능
+     * 할인 적용
      * @param performanceId
      * @param requestDto
-     * @return
      */
     @PostMapping("/{performanceId}/sales")
     public ResponseEntity<ResponseMessageDto> addSales(
@@ -34,11 +33,10 @@ public class AdminSalesController {
     }
 
     /**
-     * 할인 수정 기능
+     * 할인 적용 수정
      * @param performanceId
      * @param salesId
      * @param requestDto
-     * @return
      */
     @PatchMapping("/{performanceId}/sales/{salesId}")
     public ResponseEntity<ResponseMessageDto> updateSales(
@@ -49,10 +47,9 @@ public class AdminSalesController {
     }
 
     /**
-     * 할인 삭제 기능
+     * 할인 삭제
      * @param performanceId
      * @param salesId
-     * @return
      */
     @DeleteMapping("{performanceId}/sales/{salesId}")
     public ResponseEntity<ResponseMessageDto> deleteSales(

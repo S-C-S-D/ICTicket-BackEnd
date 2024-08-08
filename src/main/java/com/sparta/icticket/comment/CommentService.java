@@ -26,7 +26,7 @@ public class CommentService {
      * @param loginUser
      */
     public void createComment(Long performanceId, CreateCommentRequestDto createCommentRequestDto, User loginUser) {
-        Performance performance = validatePerformance(performanceId);
+        Performance performance = findPerformance(performanceId);
         Comment comment = new Comment(createCommentRequestDto,loginUser,performance);
         commentRepository.save(comment);
     }
@@ -38,17 +38,10 @@ public class CommentService {
      * @param loginUser
      */
     public void deleteComment(Long performanceId, Long commentId,User loginUser) {
-        Comment comment = validateComment(commentId);
-
-        boolean isPerformanceValid = comment.getPerformance().getId().equals(performanceId);
-        if (!isPerformanceValid) {
-            throw new CustomException(ErrorType.NOT_FOUND_PERFORMANCE);
-        }
-
-        boolean isCommentByLoggedInUser=comment.getUser().getId().equals(loginUser.getId());
-        if (!isCommentByLoggedInUser) {
-            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
-        }
+        Comment comment = findComment(commentId);
+        
+        comment.checkPerformance(performanceId);
+        comment.checkUser(loginUser);
 
         commentRepository.delete(comment);
 
@@ -60,21 +53,29 @@ public class CommentService {
      * @return
      */
     public List<GetCommentResponseDto> getComments(Long performanceId) {
-        Performance performance = validatePerformance(performanceId);
-        return commentRepository.findByPerformance(performance)
-                .stream().map(GetCommentResponseDto::new).toList();
+        Performance performance = findPerformance(performanceId);
+        List<Comment> comments= commentRepository.findByPerformanceOrderByCreatedAtDesc(performance)
+                .orElseThrow(()-> new CustomException(ErrorType.NOT_FOUND_COMMENT));
+                return comments.stream().map(GetCommentResponseDto::new).toList();
     }
 
-    /*메서드*/
-    private Comment validateComment(Long commentId) {
+    /**
+     * 댓글 찾기
+     * @param commentId
+     * @description 댓글 삭제시 해당 댓글을 DB로부터 가져옴
+     */
+    private Comment findComment(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_COMMENT));
     }
 
-    private Performance validatePerformance(Long performanceId) {
+    /**
+     * 공연 찾기
+     * @param performanceId
+     * @description 댓글 작성과 단일 공연 댓글 조회시 url으로부터 가져온 performanceId를 이용해 performance를 DB로부터 가져옴
+     */
+    private Performance findPerformance(Long performanceId) {
        return performanceRepository.findById(performanceId)
                 .orElseThrow(() -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
     }
-
-
 }

@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Getter
 public class GetSessionsResponseDto {
 
+    private Long id;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
@@ -22,6 +23,7 @@ public class GetSessionsResponseDto {
     private LocalTime time;
 
     public GetSessionsResponseDto(Session session) {
+        this.id = session.getId();
         this.date = session.getSessionDate();
         this.name = session.getSessionName();
         this.time = session.getSessionTime();
