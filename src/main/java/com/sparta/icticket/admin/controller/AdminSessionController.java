@@ -19,7 +19,12 @@ public class AdminSessionController {
 
     private final AdminSessionService adminSessionService;
 
-    /*session 등록*/
+    /**
+     * 세션 등록
+     * @param performanceId
+     * @param createSessionRequestDto
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ResponseMessageDto> createSession(
             @PathVariable Long performanceId,
@@ -29,7 +34,13 @@ public class AdminSessionController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_CREATE_SUCCESS));
     }
 
-    /*session 수정*/
+    /**
+     * 세션 수정
+     * @param performanceId
+     * @param sessionId
+     * @param updateSessionRequestDto
+     * @return
+     */
     @PatchMapping("/{sessionId}")
     public ResponseEntity<ResponseMessageDto> updateSession(
             @PathVariable Long performanceId,
@@ -40,7 +51,12 @@ public class AdminSessionController {
         return ResponseEntity.ok(new ResponseMessageDto(SuccessStatus.SESSION_UPDATE_SUCCESS));
     }
 
-    /*session 삭제*/
+    /**
+     * 세션 삭제
+     * @param performanceId
+     * @param sessionId
+     * @return
+     */
     @DeleteMapping("/{sessionId}")
     public ResponseEntity<ResponseMessageDto> deleteSession(
             @PathVariable Long performanceId,
