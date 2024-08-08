@@ -85,6 +85,7 @@ public class SeatService {
         }
 
         for(Seat seat : seatList) {
+            seat.checkSession(sessionId);
             seat.updateSeatStatusToPaying(loginUser);
             seatNumberList.add(seat.getSeatNumber());
             totalPrice += seat.getPrice();

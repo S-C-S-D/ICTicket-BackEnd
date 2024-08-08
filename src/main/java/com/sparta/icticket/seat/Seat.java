@@ -74,4 +74,10 @@ public class Seat extends Timestamped {
             throw new CustomException(ErrorType.TIME_OUT);
         }
     }
+
+    public void checkSession(Long sessionId) {
+        if(!this.session.getId().equals(sessionId)) {
+            throw new CustomException(ErrorType.NOT_MATCHED_SESSION);
+        }
+    }
 }
