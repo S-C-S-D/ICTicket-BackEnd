@@ -46,9 +46,7 @@ public class Seat extends Timestamped {
 
     private LocalDateTime seatSelectedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
     // 좌석 생성
     public Seat(Session session, SeatCreateRequestDto requestDto) {
@@ -63,7 +61,7 @@ public class Seat extends Timestamped {
     public void updateSeatStatusToPaying(User recentUser) {
         this.seatStatus = SeatStatus.PAYING;
         this.seatSelectedAt = LocalDateTime.now();
-        this.user = recentUser;
+        this.userId = recentUser.getId();
     }
 
     // seat_status 변경
@@ -72,7 +70,7 @@ public class Seat extends Timestamped {
     }
 
     public void checkUser(User loginUser) {
-        if(!this.user.getId().equals(loginUser.getId())) {
+        if(!this.userId.equals(loginUser.getId())) {
             throw new CustomException(ErrorType.TIME_OUT);
         }
     }
