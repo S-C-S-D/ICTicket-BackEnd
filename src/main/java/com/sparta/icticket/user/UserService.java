@@ -70,7 +70,7 @@ public class UserService {
      */
     @Transactional
     public void resignUser(UserResignRequestDto requestDto, User loginUser) {
-        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
+        User findUser = getUserByEmailAndStatus(loginUser.getEmail());
 
         if(!passwordEncoder.matches(requestDto.getPassword(), findUser.getPassword())) {
              throw new CustomException(ErrorType.INVALID_PASSWORD);
@@ -86,7 +86,7 @@ public class UserService {
      */
     @Transactional
     public void updateProfile(UserProfileRequestDto requestDto, User loginUser) {
-        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
+        User findUser = getUserByEmailAndStatus(loginUser.getEmail());
 
         checkDuplicateNickname(requestDto.getNickname());
 
@@ -96,10 +96,9 @@ public class UserService {
     /**
      * 프로필 조회
      * @param loginUser
-     * @return
      */
     public UserProfileResponseDto getProfile(User loginUser) {
-        User findUser = findUserByEmailAndStatus(loginUser.getEmail());
+        User findUser = getUserByEmailAndStatus(loginUser.getEmail());
 
         Integer orderCount = orderRepository.countAllByUser(findUser);
 
@@ -109,6 +108,7 @@ public class UserService {
     /**
      * 이메일 중복 검사
      * @param email
+     * @description 같은 email을 사용하는 user가 있는지 검증
      */
     private void checkDuplicateEmail(String email) {
         userRepository.findByEmail(email).ifPresent(e -> {
@@ -120,24 +120,23 @@ public class UserService {
     /**
      * 닉네임 중복 검사(탈퇴 회원이 사용했던 닉네임은 사용 가능)
      * @param nickname
+     * @description 같은 nickname을 사용하면서 user_status가 ACTIVE인 user가 있는지 검증
      */
     private void checkDuplicateNickname(String nickname) {
 
         if(userRepository.findByNickname(nickname).isPresent()) {
             User findUser = userRepository.findByNickname(nickname).get();
 
-            if (findUser.getUserStatus().equals(UserStatus.ACTIVATE)) {
-                throw new CustomException(ErrorType.ALREADY_EXISTS_NICKNAME);
-            }
+            findUser.checkNicknameByUserStatus();
         }
     }
 
     /**
-     * 유저 권한 확인
+     * user 객체 조회
      * @param email
-     * @return
+     * @description email과 user_status로 user 객체 조회
      */
-    private User findUserByEmailAndStatus(String email) {
+    private User getUserByEmailAndStatus(String email) {
         return userRepository.findByEmailAndUserStatus(email, UserStatus.ACTIVATE).orElseThrow(() ->
                 new CustomException(ErrorType.DEACTIVATE_USER));
     }

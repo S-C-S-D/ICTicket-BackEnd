@@ -44,7 +44,6 @@ public class Session extends Timestamped {
         this.sessionName= createSessionRequestDto.getName();
     }
 
-
     public void update(UpdateSessionRequestDto updateSessionRequestDto) {
         this.sessionDate = updateSessionRequestDto.getDate();
         this.sessionTime = updateSessionRequestDto.getTime();
