@@ -20,8 +20,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -48,10 +50,11 @@ public class OrderService {
         //    - 결제 완료 버튼
 
         // 1.결제하기 버튼을 누르기 전에 좌석 선택 완료 버튼을 눌렀을 때, 버튼 누른 시간을 프론트에 저장했다가, 결제하기 버튼을 눌렀을 때 백앤드에 보내줍니다.
-        LocalDateTime reservedAt = requestDto.getModifiedAt();
-
+        Timestamp reservedAt = requestDto.getModifiedAt();
         // 2.프론트에서 보내준 좌석 선택완료 버튼을 클릭한 시간이 현재 시간과 10분 이상 차이가 나면, 결제가 되지 않고 예외처리로 넘어갑니다.
-        if(reservedAt.isBefore(LocalDateTime.now().minusMinutes(10))) {
+        LocalDateTime beforeTenMinute = LocalDateTime.now().minusMinutes(10);
+        Timestamp beforeTenMinuteIntoTimestamp = Timestamp.valueOf(beforeTenMinute);
+        if(reservedAt.before(beforeTenMinuteIntoTimestamp)) {
             throw new CustomException(ErrorType.TIME_OUT);
         }
         Session findSession = getSession(sessionId);

@@ -1,10 +1,12 @@
 package com.sparta.icticket.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.OrderStatus;
 import com.sparta.icticket.order.Order;
 import lombok.Getter;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,15 +15,17 @@ public class OrderListResponseDto {
     private Long performanceId;
     private Long orderId;
     private String imageUrl;
-    private LocalDate orderDate;
+    private Timestamp orderDate;
     private GenreType genreType;
     private String title;
-    private LocalDate startAt;
-    private LocalDate endAt;
+    private Timestamp startAt;
+    private Timestamp endAt;
     private String address;
     private String orderNumber;
-    private LocalDate sessionDate;
-    private LocalTime sessionTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp sessionDate;
+    @JsonFormat(pattern = "HH:mm")
+    private Timestamp sessionTime;
     private Integer ticketCount;
     private OrderStatus orderStatus;
 
@@ -30,7 +34,7 @@ public class OrderListResponseDto {
         this.orderId = order.getId();
 
         this.imageUrl = order.getSession().getPerformance().getImageUrl();
-        this.orderDate = order.getCreatedAt().toLocalDate();
+        this.orderDate = order.getCreatedAt();
 
         this.genreType = order.getSession().getPerformance().getGenreType();
         this.title = order.getSession().getPerformance().getTitle();
