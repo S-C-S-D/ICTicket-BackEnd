@@ -1,6 +1,8 @@
 package com.sparta.icticket.comment;
 
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.common.enums.ErrorType;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
@@ -39,5 +41,17 @@ public class Comment extends Timestamped {
         this.title = createCommentRequestDto.getTitle();
         this.description = createCommentRequestDto.getDescription();
         this.rate= createCommentRequestDto.getRate();
+    }
+
+    public void checkPerformance(Long performanceId) {
+        if (!this.performance.getId().equals(performanceId)) {
+            throw new CustomException(ErrorType.NOT_FOUND_PERFORMANCE);
+        }
+    }
+
+    public void checkUser(User loginUser) {
+        if (!this.user.getId().equals(loginUser.getId())) {
+            throw new CustomException(ErrorType.NOT_AVAILABLE_PERMISSION);
+        }
     }
 }

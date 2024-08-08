@@ -22,11 +22,10 @@ public class OrderController {
     private final OrderService orderService;
 
     /**
-     * 결제 완료 기능 구현
+     * 결제 완료
      * @param sessionId
      * @param requestDto
      * @param userDetails
-     * @return
      */
     @PostMapping("/sessions/{sessionId}/orders")
     public ResponseEntity<ResponseDataDto<OrderCreateResponseDto>> createOrder(
@@ -37,10 +36,9 @@ public class OrderController {
     }
 
     /**
-     * 예매 내역 조회 기능
+     * 예매 내역 조회
      * @param userId
      * @param userDetails
-     * @return
      */
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<ResponseDataDto<List<OrderListResponseDto>>> getOrders(
@@ -51,6 +49,9 @@ public class OrderController {
 
     /**
      * 예매 취소
+     * @param orderId
+     * @param userDetails
+     * @return
      */
     @PatchMapping("/users/orders/{orderId}")
     public ResponseEntity<ResponseMessageDto> deleteOrder(

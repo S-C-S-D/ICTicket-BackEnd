@@ -5,7 +5,6 @@ import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.performance.dto.PerformanceRequestDto;
-import com.sparta.icticket.user.User;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,7 @@ public class AdminPerformanceService {
 
     /**
      * 공연 등록
-     * @param requestDto
+     * @param requestDto 공연 등록에 필요한 정보
      */
     public void createPerformance(PerformanceRequestDto requestDto) {
         // 공연장 존재 확인
@@ -37,8 +36,8 @@ public class AdminPerformanceService {
 
     /**
      * 공연 수정
-     * @param performanceId
-     * @param requestDto
+     * @param performanceId 공연 id
+     * @param requestDto 공연 수정에 필요한 정보
      */
     @Transactional
     public void updatePerformance(Long performanceId, PerformanceRequestDto requestDto) {
@@ -55,7 +54,7 @@ public class AdminPerformanceService {
 
     /**
      * 공연 삭제
-     * @param performanceId
+     * @param performanceId 공연 id
      */
     public void deletePerformance(Long performanceId) {
         Performance performance = findPerformanceById(performanceId);
@@ -63,9 +62,12 @@ public class AdminPerformanceService {
         performanceRepository.delete(performance);
     }
 
-
+    /**
+     * 날짜, 시간 확인
+     * @param requestDto 공연 정보
+     * @description 공연 등록 및 수정시 날짜 및 시간이 유효한지 확인
+     */
     private void checkDateTime(PerformanceRequestDto requestDto){
-        // TODO: 날짜의 포멧이 다른 경우에는 필터단계에서 걸러버리기 떄문에 예외처리 따로 봐야함.
         LocalDateTime now = LocalDateTime.now();
 
         // 오픈 일이 현재보다 과거인 경우
@@ -84,6 +86,11 @@ public class AdminPerformanceService {
         }
     }
 
+    /**
+     * 공연 id로 조회
+     * @param performanceId 공연 id
+     * @description 해당 공연이 존재하지 않으면 예외처리, 존재하면 반환
+     */
     private Performance findPerformanceById(Long performanceId){
         return performanceRepository.findById(performanceId).orElseThrow(
                 () -> new CustomException(ErrorType.NOT_FOUND_PERFORMANCE));
