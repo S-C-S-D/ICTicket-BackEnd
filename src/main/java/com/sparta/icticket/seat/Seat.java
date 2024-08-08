@@ -60,7 +60,6 @@ public class Seat extends Timestamped {
     }
 
     // seat_status를 PAYING으로 변경, reserved_at을 현재 시간으로 변경
-    public void updateSeatStatusToPaying() {
     public void updateSeatStatusToPaying(User recentUser) {
         this.seatStatus = SeatStatus.PAYING;
         this.seatSelectedAt = LocalDateTime.now();

@@ -70,16 +70,13 @@ public class SeatService {
      * @param requestDto
      */
     @DistributedLock(key = "seat")
-    public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto) {
-        Session findSession = getSession(sessionId);
     public SeatReservedResponseDto reserveSeat(Long sessionId, SeatReservedRequestDto requestDto, User loginUser) {
 
-        Session findSession = checkSession(sessionId);
+        Session findSession = getSession(sessionId);
         List<Long> seatIdList = requestDto.getSeatIdList();
         List<String> seatNumberList = new ArrayList<>();
         Integer totalPrice = 0;
         Integer discountRate = 0;
-
 
         List<Seat> seatList = seatRepository.findSeatsByIdList(seatIdList);
 
