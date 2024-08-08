@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -29,10 +30,12 @@ public class Session extends Timestamped {
     private Performance performance;
 
     @Column(nullable = false)
-    private LocalDate sessionDate;
+    @Temporal(TemporalType.DATE)
+    private Timestamp sessionDate;
 
     @Column(nullable = false)
-    private LocalTime sessionTime;
+    @Temporal(TemporalType.TIME)
+    private Timestamp sessionTime;
 
     @Column(nullable = false)
     private String sessionName;
