@@ -38,8 +38,9 @@ jobs:
     - name: make test
       run: |
          cd ./src/main/resources
-         touch ./application.properties
-         echo "${{ secrets.PROPERTIES }}" > ./application.properties
+         mkdir properties
+         touch ./properties/env.properties
+         echo "${{ secrets.PROPERTIES }}" > ./properties/env.properties
       shell: bash
 
     
