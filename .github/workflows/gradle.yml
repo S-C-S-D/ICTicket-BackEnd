@@ -12,8 +12,6 @@ name: CD with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   
   # 실제 실행될 내용들을 정의합니다.
 jobs:
