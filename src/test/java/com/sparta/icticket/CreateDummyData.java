@@ -885,36 +885,49 @@ public class CreateDummyData {
         when(mock1.getLinkUrl()).thenReturn("performances/97");
         when(mock1.getBannerType()).thenReturn(BannerType.MAIN);
         when(mock1.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75");
+        when(mock1.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock1.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
 
         BannerRequestDto mock2 = mock(BannerRequestDto.class);
         when(mock2.getPosition()).thenReturn(2);
         when(mock2.getLinkUrl()).thenReturn("performances/22");
         when(mock2.getBannerType()).thenReturn(BannerType.MAIN);
         when(mock2.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75");
+        when(mock2.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock2.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
 
         BannerRequestDto mock3 = mock(BannerRequestDto.class);
         when(mock3.getPosition()).thenReturn(3);
         when(mock3.getLinkUrl()).thenReturn("performances/83");
         when(mock3.getBannerType()).thenReturn(BannerType.MAIN);
         when(mock3.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75");
+        when(mock3.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock3.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
 
         BannerRequestDto mock4 = mock(BannerRequestDto.class);
         when(mock4.getPosition()).thenReturn(4);
         when(mock4.getLinkUrl()).thenReturn("performances/106");
         when(mock4.getBannerType()).thenReturn(BannerType.MAIN);
         when(mock4.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75");
+        when(mock4.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock4.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
 
         BannerRequestDto mock5 = mock(BannerRequestDto.class);
         when(mock5.getPosition()).thenReturn(1);
         when(mock5.getLinkUrl()).thenReturn("performances/22");
         when(mock5.getBannerType()).thenReturn(BannerType.MIDDLE);
         when(mock5.getBannerImageUrl()).thenReturn("https://ifh.cc/g/o4YLd9.png");
+        when(mock5.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock5.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
 
         BannerRequestDto mock6 = mock(BannerRequestDto.class);
         when(mock6.getPosition()).thenReturn(1);
         when(mock6.getLinkUrl()).thenReturn("performances/37");
         when(mock6.getBannerType()).thenReturn(BannerType.BOTTOM);
         when(mock6.getBannerImageUrl()).thenReturn("https://ifh.cc/g/7G5ywD.png");
+        when(mock6.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock6.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
 
         bannerList.add(new Banner(mock1));
         bannerList.add(new Banner(mock2));
