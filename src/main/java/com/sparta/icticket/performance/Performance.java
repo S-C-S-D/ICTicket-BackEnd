@@ -86,6 +86,22 @@ public class Performance extends Timestamped {
         this.imageUrl = requestDto.getImageUrl();
     }
 
+    public Performance(Long id, Venue venue, String title, String description, GenreType genreType, AgeGroup ageGroup, Integer runTime, LocalDateTime openAt, LocalDate startAt, LocalDate endAt, String imageUrl, Long viewCount, Long version) {
+        this.id = id;
+        this.venue = venue;
+        this.title = title;
+        this.description = description;
+        this.genreType = genreType;
+        this.ageGroup = ageGroup;
+        this.runTime = runTime;
+        this.openAt = openAt;
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.imageUrl = imageUrl;
+        this.viewCount = viewCount;
+        this.version = version;
+    }
+
     public void addViewCount() {
         this.viewCount++;
     }
