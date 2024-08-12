@@ -22,10 +22,12 @@ RefreshToken: {{RefreshToken}}
 Content-Type: application/json
 
 {
-  "position" : 1,
+  "position" : 13,
   "linkUrl" : "https://github.com/S-C-S-D/ICTicket",
-  "bannerType": "MAIN",
-  "bannerImageUrl": "https://github.com/S-C-S-D/ICTicket"
+  "bannerType": "MIDDLE",
+  "bannerImageUrl": "https://github.com/S-C-S-D/ICTicket",
+  "startAt": "2024-08-08-18:00",
+  "endAt": "2024-08-29-18:00"
 }
 
 
@@ -35,7 +37,7 @@ GET http://localhost:8080/banners?bannerType=MAIN
 
 
 ### 배너 삭제
-DELETE http://localhost:8080/admin/banners/1
+DELETE http://localhost:8080/admin/banners/12
 Authorization: {{Authorization}}
 RefreshToken: {{RefreshToken}}
 Content-Type: application/json
