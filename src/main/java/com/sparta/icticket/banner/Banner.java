@@ -4,13 +4,11 @@ import com.sparta.icticket.banner.dto.BannerRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.BannerType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "banners")
 public class Banner extends Timestamped {

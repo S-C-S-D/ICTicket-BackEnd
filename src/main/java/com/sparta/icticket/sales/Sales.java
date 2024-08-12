@@ -1,11 +1,10 @@
 package com.sparta.icticket.sales;
 
-import com.sparta.icticket.sales.dto.SalesAddRequestDto;
-import com.sparta.icticket.sales.dto.SalesUpdateRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.performance.Performance;
+import com.sparta.icticket.sales.dto.SalesAddRequestDto;
+import com.sparta.icticket.sales.dto.SalesUpdateRequestDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "sales")
 public class Sales extends Timestamped {
 

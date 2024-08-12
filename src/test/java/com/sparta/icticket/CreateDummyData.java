@@ -16,10 +16,12 @@ import com.sparta.icticket.user.UserRepository;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +35,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -60,11 +64,23 @@ public class CreateDummyData {
     @Transactional()
     @Rollback(value = false)
     void createVenueDummyData() {
-        Venue venue = new Venue(1L, "서울숲씨어터", "서울특별시 성동구 서울숲2길 32-14", 80L);
-        Venue venue1 = new Venue(2L, "수원월드컵경기장 주경기장", "경기 수원시 팔달구 월드컵로 310", 80L);
+        VenueRequestDto mock1 = Mockito.mock(VenueRequestDto.class);
 
-        venueRepository.save(venue);
+        when(mock1.getVenueName()).thenReturn("서울숲씨어터");
+        when(mock1.getLocation()).thenReturn("서울특별시 성동구 서울숲2길 32-14");
+        when(mock1.getTotalSeatCount()).thenReturn(80L);
+
+        VenueRequestDto mock2 = Mockito.mock(VenueRequestDto.class);
+
+        when(mock2.getVenueName()).thenReturn("수원월드컵경기장 주경기장");
+        when(mock2.getLocation()).thenReturn("경기 수원시 팔달구 월드컵로 310");
+        when(mock2.getTotalSeatCount()).thenReturn(80L);
+
+        Venue venue1 = new Venue(mock1);
+        Venue venue2 = new Venue(mock2);
+
         venueRepository.save(venue1);
+        venueRepository.save(venue2);
     }
 
     @Test
@@ -648,7 +664,7 @@ public class CreateDummyData {
         System.out.println(viewCounts.length);
         GenreType[] genreValues = GenreType.values(); //0~19 , 20~39 ...
         LocalDate today = LocalDate.now();
-        LocalDateTime todayTime = today.atTime(LocalTime.of(9, 0, 0));
+        LocalDateTime todayTime = today.atTime(LocalTime.of(12, 0, 0));
         AgeGroup ageGroup = AgeGroup.ALL;
         Integer runTime = 100;
 
@@ -669,6 +685,10 @@ public class CreateDummyData {
             Venue venue = ((i / 20) % 2 == 0) ? venue1 : venue2;
             GenreType genreType = genreValues[i / 20];
             Long id = Long.valueOf((long) i) + 1L;
+
+
+
+
             performanceList.add(new Performance(id, venue, title, description, genreType, ageGroup, runTime, openAt, startAt, endAt, imageUrl, viewCount, 0L));
 
         }

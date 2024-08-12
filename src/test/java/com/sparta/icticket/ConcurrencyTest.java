@@ -1,17 +1,16 @@
 package com.sparta.icticket;
 
 
-import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.performance.PerformanceService;
 import com.sparta.icticket.seat.SeatRepository;
 import com.sparta.icticket.seat.SeatService;
 import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
-import com.sparta.icticket.seat.dto.SeatReservedResponseDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -20,8 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ConcurrencyTest {
@@ -59,8 +59,10 @@ public class ConcurrencyTest {
             List<Long> idList = new ArrayList<>();
             idList.add(1L);//(random.nextLong(10) + 1L);
             System.out.println("idList = " + idList.get(0));
-            SeatReservedRequestDto seatReservedRequestDto = new SeatReservedRequestDto(idList);
-            seatService.reserveSeat(1L, seatReservedRequestDto, null);
+            SeatReservedRequestDto mock = Mockito.mock(SeatReservedRequestDto.class);
+            when(mock.getSeatIdList()).thenReturn(idList);
+
+            seatService.reserveSeat(1L, mock, null);
 //            SeatReservedResponseDto seatReservedResponseDto = seatService.redisTest(1L, seatReservedRequestDto);
 //            System.out.println("seatReservedResponseDto = " + seatReservedResponseDto.toString());
         });
@@ -75,7 +77,8 @@ public class ConcurrencyTest {
             List<Long> idList = new ArrayList<>();
             idList.add(1L);
             System.out.println("idList = " + idList.get(0));
-            SeatReservedRequestDto seatReservedRequestDto = new SeatReservedRequestDto(idList);
+            SeatReservedRequestDto mock = Mockito.mock(SeatReservedRequestDto.class);
+            when(mock.getSeatIdList()).thenReturn(idList);
 //            SeatReservedResponseDto seatReservedResponseDto = seatService.redisTest(1L, seatReservedRequestDto);
 //            System.out.println("seatReservedResponseDto = " + seatReservedResponseDto.toString());
         });
