@@ -192,27 +192,27 @@ public class CreateDummyData {
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F22%2F22001006_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F21%2F21013249_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24004660_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010538_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010432_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24009872_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010203_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010160_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008528_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008445_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24006714_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010300_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24009876_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010346_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F22%2F22001159_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24002802_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F23%2F23005704_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24000171_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F22%2F22014277_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24007536_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24007909_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24009442_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24001202_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010358_p.gif&w=3840&q=75"
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240702113349_23017234.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008308_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240719115251_24009968.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2406%2F240621033249_24008199.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24009903_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2406%2F240617042447_24008151.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240719102350_24010200.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24000981_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24000982_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2406%2F240624013859_24009018.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24009645_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24011332_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240712115758_24009691.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010957_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2406%2F240613013431_24003697.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24007256_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008868_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008784_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24011435_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008121_p.gif&w=3840&q=75"
+
         };
 
         String[] titles = {
@@ -336,26 +336,26 @@ public class CreateDummyData {
                 "연극 〈2호선세입자〉 : 지하철 생존 코미디",
                 "뮤직드라마 〈불편한 편의점〉 - 부산",
                 "연극 〈이방인〉",
-                "2024 수아레콘서트 - 김태우와 하고 싶은 말 (08.28)",
-                "손병호＆최지연과 함께하는 8월 여민락콘서트 -지금 뛰다NOWJUMP -세종시",
-                "2024 아트 포레스트 페스티벌 ART FOR;REST FESTIVAL",
-                "2024 장윤정 라이브 콘서트 - 대구",
-                "2024 TREASURE RELAY TOUR ［REBOOT］ FINAL IN SEOUL",
-                "2024 CassCool Festival",
-                "올리비아 로드리고 첫 내한공연",
-                "2024 유채훈 단독 콘서트 〈Sfumato〉",
-                "NELL CLUB CONCERT 2024 ‘Our Eutopia’",
-                "대구 - 2024 THE HYPER DAY (더하이퍼데이)",
-                "연극〈늘근도둑이야기〉",
-                "뮤직드라마 〈불편한 편의점〉 - 올웨이즈씨어터",
-                "행오버",
-                "［서울 대학로］연극 라면",
-                "연극 한뼘사이",
-                "〈바스커빌 : 셜록홈즈 미스터리〉 Chapter2",
-                "연극 〈이기동 체육관〉 - 앵콜",
-                "경기도극단 레퍼토리시즌 〈매달린 집〉 - 수원",
-                "대학로 청소년연극 〈사춘기메들리〉",
-                "연극 〈‘고도를 기다리며’를 기다리며〉"
+                "문화릴레이티켓",
+                "2024 오페라 투란도트 아레나 디 베로나 오리지널",
+                "[SIDance2024] 서울 세계 무용 축제",
+                "제21회 대구국제오페라축제",
+                "정명훈 ＆ 라 페니체 오케스트라",
+                "르노 카퓌송 with 스위스 로잔챔버오케스트라 내한 공연",
+                "차이코프스키를 위하여",
+                "국립오페라단 〈탄호이저〉",
+                "국립오페라단 〈서부의 아가씨〉",
+                "콘서트오페라 〈카르멘〉",
+                "서커스 발레 〈백조의 호수〉",
+                "조성진과 친구들",
+                "콘체르토 마라톤 프로젝트 - 선우예권의 라흐마니노프 피아노 협주곡",
+                "손열음 피아노 리사이틀",
+                "고잉홈프로젝트",
+                "양인모 ＆ 베를린 바로크 솔리스텐",
+                "마리아 조앙 피레스 피아노 리사이틀",
+                "마리아 조앙 피레스 피아노 리사이틀",
+                "마티아스 괴르네 ＆ 마리아 조앙 피레스",
+                "클라라 주미 강 바이올린 리사이틀〉"
         };
         String[] descriptions = {
                 "김태우가 전하는 감동의 메시지와 함께하는 수아레콘서트. 진솔한 이야기와 음악이 함께합니다.",
@@ -478,26 +478,26 @@ public class CreateDummyData {
                 "혁오와 선셋 롤러코스터가 함께하는 AAA 투어, 두 밴드의 매력적인 음악을 만끽하세요.",
                 "팝스타 코난 그레이의 내한공연, 그의 히트곡을 라이브로 즐길 수 있는 기회.",
                 "2024 HAVE A NICE TRIP, 다양한 아티스트들과 함께하는 여행 같은 음악 축제.",
-                "김태우가 전하는 감동의 메시지와 함께하는 수아레콘서트. 진솔한 이야기와 음악이 함께합니다.",
-                "손병호와 최지연이 함께하는 여민락 콘서트, 세종시에서 펼쳐지는 특별한 무대입니다.",
-                "자연 속에서 즐기는 예술 축제, 아트 포레스트 페스티벌에서 다양한 공연과 전시를 만나보세요.",
-                "트로트 여왕 장윤정의 라이브 콘서트, 대구에서 열리는 그녀의 명곡들을 라이브로 즐겨보세요.",
-                "아이돌 그룹 TREASURE의 리레이 투어 마지막 공연, 서울에서 펼쳐지는 대단원의 막을 함께하세요.",
-                "시원한 맥주와 함께 즐기는 CassCool Festival, 다양한 음악 공연과 이벤트가 기다리고 있습니다.",
-                "세계적인 팝스타 올리비아 로드리고의 첫 내한공연, 그녀의 감성적인 음악을 라이브로 만나보세요.",
-                "유채훈의 단독 콘서트 'Sfumato', 그의 깊은 음악 세계를 느낄 수 있는 무대입니다.",
-                "밴드 넬의 클럽 콘서트, 'Our Eutopia'에서 넬의 독특한 음악과 분위기를 경험해보세요.",
-                "대구에서 열리는 'THE HYPER DAY' 페스티벌, 다양한 음악 장르와 함께하는 하루입니다.",
-                "김태우가 전하는 감동의 메시지와 함께하는 수아레콘서트. 진솔한 이야기와 음악이 함께합니다.",
-                "손병호와 최지연이 함께하는 여민락 콘서트, 세종시에서 펼쳐지는 특별한 무대입니다.",
-                "자연 속에서 즐기는 예술 축제, 아트 포레스트 페스티벌에서 다양한 공연과 전시를 만나보세요.",
-                "트로트 여왕 장윤정의 라이브 콘서트, 대구에서 열리는 그녀의 명곡들을 라이브로 즐겨보세요.",
-                "아이돌 그룹 TREASURE의 리레이 투어 마지막 공연, 서울에서 펼쳐지는 대단원의 막을 함께하세요.",
-                "시원한 맥주와 함께 즐기는 CassCool Festival, 다양한 음악 공연과 이벤트가 기다리고 있습니다.",
-                "세계적인 팝스타 올리비아 로드리고의 첫 내한공연, 그녀의 감성적인 음악을 라이브로 만나보세요.",
-                "유채훈의 단독 콘서트 'Sfumato', 그의 깊은 음악 세계를 느낄 수 있는 무대입니다.",
-                "밴드 넬의 클럽 콘서트, 'Our Eutopia'에서 넬의 독특한 음악과 분위기를 경험해보세요.",
-                "대구에서 열리는 'THE HYPER DAY' 페스티벌, 다양한 음악 장르와 함께하는 하루입니다."
+                "이탈리아 베로나의 아레나 디 베로나에서 공연되는 푸치니의 오페라 '투란도트'. 아름다운 무대와 웅장한 오케스트라 연주로 관객을 사로잡습니다.",
+                "다양한 국적과 장르의 무용단이 참여하는 서울 세계 무용 축제. 현대 무용부터 전통 무용까지 다양한 공연이 펼쳐집니다.",
+                "대구에서 열리는 국제 오페라 축제로, 세계적인 오페라 작품들이 공연됩니다. 오페라 애호가들에게는 놓칠 수 없는 축제입니다.",
+                "세계적인 지휘자 정명훈과 이탈리아의 라 페니체 오케스트라가 함께하는 특별한 공연. 클래식 음악의 정수를 느낄 수 있습니다.",
+                "프랑스 바이올리니스트 르노 카퓌송과 스위스 로잔챔버오케스트라의 내한 공연. 섬세하고 감동적인 연주를 선사합니다.",
+                "차이코프스키의 명작들을 연주하는 콘서트. 그의 서정적이고 감동적인 음악 세계를 만끽할 수 있습니다.",
+                "리하르트 바그너의 오페라 '탄호이저'를 국립오페라단이 선보입니다. 사랑과 구원의 이야기가 웅장하게 펼쳐집니다.",
+                "푸치니의 오페라 '서부의 아가씨'를 국립오페라단이 공연합니다. 서부 시대를 배경으로 한 드라마틱한 이야기가 감동을 줍니다.",
+                "비제의 오페라 '카르멘'을 콘서트 형식으로 감상할 수 있는 공연. 열정적이고 매력적인 카르멘의 이야기가 음악과 함께 펼쳐집니다.",
+                "차이코프스키의 '백조의 호수'를 서커스와 발레가 결합된 형태로 새롭게 선보입니다. 화려한 무대와 안무가 인상적입니다.",
+                "세계적인 피아니스트 조성진이 그의 음악적 동료들과 함께하는 특별한 공연. 다양한 협연과 솔로 연주를 감상할 수 있습니다.",
+                "피아니스트 선우예권이 라흐마니노프의 피아노 협주곡 전곡을 연주하는 콘서트. 그의 뛰어난 테크닉과 감성이 돋보입니다.",
+                "손열음 피아니스트의 솔로 리사이틀. 그녀의 섬세하고 깊이 있는 연주를 통해 다양한 피아노 작품을 감상할 수 있습니다.",
+                "고향과 집으로 돌아가는 여정을 테마로 한 음악 프로젝트. 다양한 아티스트들이 참여하여 감동적인 무대를 선사합니다.",
+                "바이올리니스트 양인모와 베를린 바로크 솔리스텐의 협연. 바로크 음악의 아름다움을 깊이 있게 표현합니다.",
+                "세계적인 피아니스트 마리아 조앙 피레스의 솔로 리사이틀. 그녀의 따뜻하고 섬세한 연주를 통해 클래식 피아노 작품을 감상할 수 있습니다.",
+                "바리톤 마티아스 괴르네와 피아니스트 마리아 조앙 피레스의 듀오 공연. 두 아티스트의 완벽한 호흡이 돋보입니다.",
+                "바이올리니스트 클라라 주미 강의 솔로 리사이틀. 그녀의 다채로운 음색과 탁월한 테크닉을 경험할 수 있습니다.",
+                "세계적인 바이올리니스트 레이 첸의 내한 공연. 그의 열정적이고 카리스마 넘치는 연주를 감상할 수 있습니다."
+
         };
         Long[] viewCounts = {
                 259L,
@@ -648,7 +648,7 @@ public class CreateDummyData {
         System.out.println(viewCounts.length);
         GenreType[] genreValues = GenreType.values(); //0~19 , 20~39 ...
         LocalDate today = LocalDate.now();
-        LocalDateTime todayTime = today.atTime(LocalTime.of(14, 0, 0));
+        LocalDateTime todayTime = today.atTime(LocalTime.of(9, 0, 0));
         AgeGroup ageGroup = AgeGroup.ALL;
         Integer runTime = 100;
 
@@ -837,14 +837,12 @@ public class CreateDummyData {
     @Rollback(value = false)
     void createBannerDummyData(){
         List<Banner> bannerList = new ArrayList<>();
-        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75"));
-        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75"));
-        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75"));
-        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75"));
-        bannerList.add(new Banner(5L, 1, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/DG5q0N.png"));
-        bannerList.add(new Banner(6L, 2, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/Bc5XCX.png"));
-        bannerList.add(new Banner(7L, 1, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/dHgYbn.png"));
-        bannerList.add(new Banner(8L, 2, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/0vo3Tm.png"));
+        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
         bannerRepository.saveAll(bannerList);
     }
 }
