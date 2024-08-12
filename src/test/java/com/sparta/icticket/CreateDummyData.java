@@ -648,7 +648,7 @@ public class CreateDummyData {
         System.out.println(viewCounts.length);
         GenreType[] genreValues = GenreType.values(); //0~19 , 20~39 ...
         LocalDate today = LocalDate.now();
-        LocalDateTime todayTime = today.atTime(LocalTime.of(14, 0, 0));
+        LocalDateTime todayTime = today.atTime(LocalTime.of(9, 0, 0));
         AgeGroup ageGroup = AgeGroup.ALL;
         Integer runTime = 100;
 
@@ -841,10 +841,8 @@ public class CreateDummyData {
         bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75"));
         bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75"));
         bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75"));
-        bannerList.add(new Banner(5L, 1, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/DG5q0N.png"));
-        bannerList.add(new Banner(6L, 2, "performances/106", BannerType.MIDDLE, "https://ifh.cc/g/Bc5XCX.png"));
-        bannerList.add(new Banner(7L, 1, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/dHgYbn.png"));
-        bannerList.add(new Banner(8L, 2, "performances/106", BannerType.BOTTOM, "https://ifh.cc/g/0vo3Tm.png"));
+        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png"));
+        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png"));
         bannerRepository.saveAll(bannerList);
     }
 }
