@@ -19,7 +19,7 @@ public class BannerService {
      * @return 배너 리스트
      */
     public List<BannerResponseDto> getBannersByType(BannerType bannerType) {
-        List<Banner> bannerList = bannerRepository.findTop10ByBannerTypeOrderByPositionDesc(bannerType);
+        List<Banner> bannerList = bannerRepository.findTop10Banner(bannerType);
         return bannerList.stream().map(BannerResponseDto::new).toList();
     }
 }

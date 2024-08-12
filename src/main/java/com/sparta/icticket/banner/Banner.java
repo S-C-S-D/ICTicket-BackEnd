@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -29,10 +31,18 @@ public class Banner extends Timestamped {
     @Column(nullable = false)
     private String bannerImageUrl;
 
+    @Column(nullable = false)
+    private LocalDateTime startAt;
+
+    @Column(nullable = false)
+    private LocalDateTime endAt;
+
     public Banner(BannerRequestDto requestDto) {
         this.position = requestDto.getPosition();
         this.linkUrl = requestDto.getLinkUrl();
         this.bannerType = requestDto.getBannerType();
         this.bannerImageUrl = requestDto.getBannerImageUrl();
+        this.startAt = requestDto.getStartAt();
+        this.endAt = requestDto.getEndAt();
     }
 }

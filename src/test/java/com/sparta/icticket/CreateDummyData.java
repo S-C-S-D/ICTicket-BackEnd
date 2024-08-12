@@ -234,7 +234,7 @@ public class CreateDummyData {
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008868_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008784_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24011435_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008121_p.gif&w=3840&q=75"
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008121_p.gif&w=3840&q=75",
 
         };
 
@@ -521,7 +521,6 @@ public class CreateDummyData {
                 "바이올리니스트 클라라 주미 강의 솔로 리사이틀. 그녀의 다채로운 음색과 탁월한 테크닉을 경험할 수 있습니다.",
                 "세계적인 바이올리니스트 레이 첸의 내한 공연. 그의 열정적이고 카리스마 넘치는 연주를 감상할 수 있습니다.",
                 "일본 출신 피아니스트 스미노 하야토의 솔로 리사이틀. 그의 섬세하고 정교한 연주를 통해 다양한 피아노 작품을 만나볼 수 있습니다."
-
         };
         Long[] viewCounts = {
                 259L,

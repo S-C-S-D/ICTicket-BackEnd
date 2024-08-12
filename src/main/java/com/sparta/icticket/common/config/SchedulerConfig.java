@@ -16,7 +16,7 @@ public class SchedulerConfig {
     private final SeatRepository seatRepository;
 
     @Transactional
-//    @Scheduled(cron = "0 0/5 * * * ?") 필요 시 해제
+    @Scheduled(cron = "0 0/5 * * * ?") //필요 시 해제
     public void scheduled() {
         seatRepository.findSeatsBySeatStatus();
     }
