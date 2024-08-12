@@ -58,7 +58,7 @@ public class PerformanceRepositoryQueryImpl implements PerformanceRepositoryQuer
                         qPerformance.openAt.year().eq(now.getYear())
                                 .and(qPerformance.openAt.month().eq(now.getMonth().getValue()))
                                 .and(qPerformance.openAt.dayOfMonth().eq(now.getDayOfMonth())))
-                .orderBy(qPerformance.openAt.asc())
+                .orderBy(qPerformance.openAt.asc(), qPerformance.viewCount.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

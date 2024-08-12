@@ -192,6 +192,7 @@ public class CreateDummyData {
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F22%2F22001006_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F21%2F21013249_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24004660_p.gif&w=3840&q=75",
+                "https://tickets.interpark.com/contents/_next/image?url=https%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24010538_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240702113349_23017234.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008308_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FGMain%2FClas%2F2407%2F240719115251_24009968.gif&w=3840&q=75",
@@ -211,7 +212,7 @@ public class CreateDummyData {
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008868_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008784_p.gif&w=3840&q=75",
                 "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24011435_p.gif&w=3840&q=75",
-                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008121_p.gif&w=3840&q=75"
+                "https://tickets.interpark.com/contents/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FPlay%2Fimage%2Flarge%2F24%2F24008121_p.gif&w=3840&q=75",
 
         };
 
@@ -478,6 +479,7 @@ public class CreateDummyData {
                 "혁오와 선셋 롤러코스터가 함께하는 AAA 투어, 두 밴드의 매력적인 음악을 만끽하세요.",
                 "팝스타 코난 그레이의 내한공연, 그의 히트곡을 라이브로 즐길 수 있는 기회.",
                 "2024 HAVE A NICE TRIP, 다양한 아티스트들과 함께하는 여행 같은 음악 축제.",
+                "2024 HAVE A NICE TRIP, 다양한 아티스트들과 함께하는 여행 같은 음악 축제.",
                 "이탈리아 베로나의 아레나 디 베로나에서 공연되는 푸치니의 오페라 '투란도트'. 아름다운 무대와 웅장한 오케스트라 연주로 관객을 사로잡습니다.",
                 "다양한 국적과 장르의 무용단이 참여하는 서울 세계 무용 축제. 현대 무용부터 전통 무용까지 다양한 공연이 펼쳐집니다.",
                 "대구에서 열리는 국제 오페라 축제로, 세계적인 오페라 작품들이 공연됩니다. 오페라 애호가들에게는 놓칠 수 없는 축제입니다.",
@@ -496,7 +498,8 @@ public class CreateDummyData {
                 "세계적인 피아니스트 마리아 조앙 피레스의 솔로 리사이틀. 그녀의 따뜻하고 섬세한 연주를 통해 클래식 피아노 작품을 감상할 수 있습니다.",
                 "바리톤 마티아스 괴르네와 피아니스트 마리아 조앙 피레스의 듀오 공연. 두 아티스트의 완벽한 호흡이 돋보입니다.",
                 "바이올리니스트 클라라 주미 강의 솔로 리사이틀. 그녀의 다채로운 음색과 탁월한 테크닉을 경험할 수 있습니다.",
-                "세계적인 바이올리니스트 레이 첸의 내한 공연. 그의 열정적이고 카리스마 넘치는 연주를 감상할 수 있습니다."
+                "세계적인 바이올리니스트 레이 첸의 내한 공연. 그의 열정적이고 카리스마 넘치는 연주를 감상할 수 있습니다.",
+
 
         };
         Long[] viewCounts = {
@@ -837,12 +840,12 @@ public class CreateDummyData {
     @Rollback(value = false)
     void createBannerDummyData(){
         List<Banner> bannerList = new ArrayList<>();
-        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
         bannerRepository.saveAll(bannerList);
     }
 }
