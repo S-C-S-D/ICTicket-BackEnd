@@ -837,12 +837,12 @@ public class CreateDummyData {
     @Rollback(value = false)
     void createBannerDummyData(){
         List<Banner> bannerList = new ArrayList<>();
-        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75"));
-        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75"));
-        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75"));
-        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75"));
-        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png"));
-        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png"));
+        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
+        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png", LocalDateTime.now(), LocalDateTime.now().plusYears(1)));
         bannerRepository.saveAll(bannerList);
     }
 }
