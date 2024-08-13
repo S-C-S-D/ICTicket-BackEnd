@@ -2,14 +2,20 @@ package com.sparta.icticket.seat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sparta.icticket.seat.dto.SeatReservedRequestDto;
+import com.sparta.icticket.common.enums.SeatGrade;
+import com.sparta.icticket.performance.Performance;
+import com.sparta.icticket.seat.dto.*;
+import com.sparta.icticket.session.Session;
+import com.sparta.icticket.user.User;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
@@ -23,6 +29,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -43,6 +50,9 @@ class SeatControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    @MockBean
+    private SeatService seatService;
+
     @BeforeEach
     public void setup() {
         objectMapper.registerModule(new JavaTimeModule());
@@ -56,21 +66,50 @@ class SeatControllerTest {
     @Test
     void getSeatCount() throws Exception {
 
-        // when-then
-        mockMvc.perform(get("/performances/1/sessions/1/seat-count"))
+        // given
+        Integer totalSeatCount = 2;
+        Integer restSeatCount = 1;
+        SeatCountResponseDto result = new SeatCountResponseDto(totalSeatCount, restSeatCount);
+
+        given(seatService.getSeatCount(1L, 1L)).willReturn(result);
+
+        // when
+        mockMvc.perform(get("/performances/{performanceId}/sessions/{sessionId}/seat-count", 1L, 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(result))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+        Assertions.assertEquals(result.getRestSeatCount(), 1);
     }
 
     @Test
     @WithMockUser(username = "user1", roles = "USER")
     void getSeats() throws Exception {
 
+        // given
+        SeatCreateRequestDto mock = Mockito.mock(SeatCreateRequestDto.class);
+
+        when(mock.getPrice()).thenReturn(10000);
+        when(mock.getSeatNumber()).thenReturn("1");
+        when(mock.getSeatGrade()).thenReturn(SeatGrade.A);
+
+        Seat seat = new Seat(new Session(), mock);
+        SeatInfoResponseDto result = new SeatInfoResponseDto(seat);
+
+        List<SeatInfoResponseDto> list = new ArrayList<>();
+
+        list.add(result);
+        given(seatService.getSeats(1L, 1L)).willReturn(list);
+
         // when-then
         mockMvc.perform(get("/performances/1/sessions/1/seats")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+        Assertions.assertEquals(list.get(0).getPrice(), 10000);
     }
 
     @Test
@@ -82,8 +121,14 @@ class SeatControllerTest {
 
         List<Long> list = new ArrayList<>();
         list.add(1L);
-        list.add(2L);
         when(mock.getSeatIdList()).thenReturn(list);
+
+        List<String> seatNumberList = new ArrayList<>();
+        seatNumberList.add("1");
+
+        SeatReservedResponseDto result = new SeatReservedResponseDto(new Performance(), new Session(), seatNumberList, 10000, 30);
+
+        given(seatService.reserveSeat(1L, mock, new User())).willReturn(result);
 
         // when-then
         mockMvc.perform(patch("/sessions/1/seats/reserve")
@@ -91,5 +136,7 @@ class SeatControllerTest {
                         .content(objectMapper.writeValueAsString(mock)))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+        Assertions.assertEquals(result.getDiscountRate(), 30);
     }
 }
