@@ -59,19 +59,18 @@ class AdminPerformanceControllerTest {
         //given
         PerformanceRequestDto mock = Mockito.mock(PerformanceRequestDto.class);
 
-        //when
         when(mock.getVenueId()).thenReturn(1L);
         when(mock.getTitle()).thenReturn("타이틀입니다.");
         when(mock.getGenreType()).thenReturn(GenreType.CONCERT);
         when(mock.getRunTime()).thenReturn(100);
         when(mock.getAgeGroup()).thenReturn(AgeGroup.ALL);
         when(mock.getDescription()).thenReturn("설명입니다.");
-        when(mock.getOpenAt()).thenReturn(LocalDateTime.parse("2024-08-12T20:10:00"));
+        when(mock.getOpenAt()).thenReturn(LocalDateTime.parse("2024-08-13T20:10:00"));
         when(mock.getEndAt()).thenReturn(LocalDate.parse("2024-08-15"));
         when(mock.getStartAt()).thenReturn(LocalDate.parse("2024-08-15"));
         when(mock.getImageUrl()).thenReturn("asdfqwer");
 
-        //then
+        //when then
         mockMvc.perform(post("/admin/performances")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mock)))
