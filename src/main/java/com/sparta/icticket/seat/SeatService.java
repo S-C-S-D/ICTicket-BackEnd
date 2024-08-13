@@ -28,7 +28,6 @@ import java.util.List;
 public class SeatService {
 
     private final SeatRepository seatRepository;
-    private final PerformanceRepository performanceRepository;
     private final SessionRepository sessionRepository;
     private final SalesRepository salesRepository;
 
