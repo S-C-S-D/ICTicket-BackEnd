@@ -2,24 +2,31 @@ package com.sparta.icticket;
 
 import com.sparta.icticket.banner.Banner;
 import com.sparta.icticket.banner.BannerRepository;
+import com.sparta.icticket.banner.dto.BannerRequestDto;
 import com.sparta.icticket.common.enums.*;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.performance.PerformanceRepository;
+import com.sparta.icticket.performance.dto.PerformanceRequestDto;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
+import com.sparta.icticket.sales.dto.SalesAddRequestDto;
 import com.sparta.icticket.seat.Seat;
 import com.sparta.icticket.seat.SeatRepository;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
 import com.sparta.icticket.user.User;
 import com.sparta.icticket.user.UserRepository;
 import com.sparta.icticket.user.dto.UserSignupRequestDto;
 import com.sparta.icticket.venue.Venue;
 import com.sparta.icticket.venue.VenueRepository;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +40,9 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -60,11 +70,23 @@ public class CreateDummyData {
     @Transactional()
     @Rollback(value = false)
     void createVenueDummyData() {
-        Venue venue = new Venue(1L, "서울숲씨어터", "서울특별시 성동구 서울숲2길 32-14", 80L);
-        Venue venue1 = new Venue(2L, "수원월드컵경기장 주경기장", "경기 수원시 팔달구 월드컵로 310", 80L);
+        VenueRequestDto mock1 = Mockito.mock(VenueRequestDto.class);
 
-        venueRepository.save(venue);
+        when(mock1.getVenueName()).thenReturn("서울숲씨어터");
+        when(mock1.getLocation()).thenReturn("서울특별시 성동구 서울숲2길 32-14");
+        when(mock1.getTotalSeatCount()).thenReturn(80L);
+
+        VenueRequestDto mock2 = Mockito.mock(VenueRequestDto.class);
+
+        when(mock2.getVenueName()).thenReturn("수원월드컵경기장 주경기장");
+        when(mock2.getLocation()).thenReturn("경기 수원시 팔달구 월드컵로 310");
+        when(mock2.getTotalSeatCount()).thenReturn(80L);
+
+        Venue venue1 = new Venue(mock1);
+        Venue venue2 = new Venue(mock2);
+
         venueRepository.save(venue1);
+        venueRepository.save(venue2);
     }
 
     @Test
@@ -479,7 +501,6 @@ public class CreateDummyData {
                 "혁오와 선셋 롤러코스터가 함께하는 AAA 투어, 두 밴드의 매력적인 음악을 만끽하세요.",
                 "팝스타 코난 그레이의 내한공연, 그의 히트곡을 라이브로 즐길 수 있는 기회.",
                 "2024 HAVE A NICE TRIP, 다양한 아티스트들과 함께하는 여행 같은 음악 축제.",
-                "2024 HAVE A NICE TRIP, 다양한 아티스트들과 함께하는 여행 같은 음악 축제.",
                 "이탈리아 베로나의 아레나 디 베로나에서 공연되는 푸치니의 오페라 '투란도트'. 아름다운 무대와 웅장한 오케스트라 연주로 관객을 사로잡습니다.",
                 "다양한 국적과 장르의 무용단이 참여하는 서울 세계 무용 축제. 현대 무용부터 전통 무용까지 다양한 공연이 펼쳐집니다.",
                 "대구에서 열리는 국제 오페라 축제로, 세계적인 오페라 작품들이 공연됩니다. 오페라 애호가들에게는 놓칠 수 없는 축제입니다.",
@@ -499,8 +520,7 @@ public class CreateDummyData {
                 "바리톤 마티아스 괴르네와 피아니스트 마리아 조앙 피레스의 듀오 공연. 두 아티스트의 완벽한 호흡이 돋보입니다.",
                 "바이올리니스트 클라라 주미 강의 솔로 리사이틀. 그녀의 다채로운 음색과 탁월한 테크닉을 경험할 수 있습니다.",
                 "세계적인 바이올리니스트 레이 첸의 내한 공연. 그의 열정적이고 카리스마 넘치는 연주를 감상할 수 있습니다.",
-
-
+                "일본 출신 피아니스트 스미노 하야토의 솔로 리사이틀. 그의 섬세하고 정교한 연주를 통해 다양한 피아노 작품을 만나볼 수 있습니다."
         };
         Long[] viewCounts = {
                 259L,
@@ -651,7 +671,7 @@ public class CreateDummyData {
         System.out.println(viewCounts.length);
         GenreType[] genreValues = GenreType.values(); //0~19 , 20~39 ...
         LocalDate today = LocalDate.now();
-        LocalDateTime todayTime = today.atTime(LocalTime.of(9, 0, 0));
+        LocalDateTime todayTime = today.atTime(LocalTime.of(12, 0, 0));
         AgeGroup ageGroup = AgeGroup.ALL;
         Integer runTime = 100;
 
@@ -671,7 +691,8 @@ public class CreateDummyData {
 
             Venue venue = ((i / 20) % 2 == 0) ? venue1 : venue2;
             GenreType genreType = genreValues[i / 20];
-            Long id = Long.valueOf((long) i) + 1L;
+            Long id = (long) i + 1L;
+
             performanceList.add(new Performance(id, venue, title, description, genreType, ageGroup, runTime, openAt, startAt, endAt, imageUrl, viewCount, 0L));
 
         }
@@ -688,7 +709,7 @@ public class CreateDummyData {
         List<Long> performanceIdList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             for (int j = 1; j < 11; j++) {
-                performanceIdList.add(Long.valueOf(20 * i + j));
+                performanceIdList.add((long) (20 * i + j));
             }
         }
 
@@ -702,15 +723,18 @@ public class CreateDummyData {
                 default -> 40;
             };
 
-            Long id = Long.valueOf(i + 1);
-
             // 오픈날짜로부터 하루만 세일, saleEndDate 수정하면 늘릴 수 있음
             LocalDate saleStartDate = performanceList.get(i).getOpenAt().toLocalDate();
             LocalDateTime saleStartDateTime = saleStartDate.atTime(LocalTime.of(12, 0, 0));
             LocalDate saleEndDate = saleStartDate.plusDays(1);
             LocalDateTime saleEndDateTime = saleEndDate.atTime(LocalTime.of(12, 0, 0));
 
-            Sales sales = new Sales(id, performanceList.get(i), discountRate, saleStartDateTime, saleEndDateTime);
+            SalesAddRequestDto mock = mock(SalesAddRequestDto.class);
+            when(mock.getDiscountRate()).thenReturn(discountRate);
+            when(mock.getStartAt()).thenReturn(saleStartDateTime);
+            when(mock.getEndAt()).thenReturn(saleEndDateTime);
+
+            Sales sales = new Sales(performanceList.get(i), mock);
             salesRepository.save(sales);
         }
     }
@@ -736,9 +760,20 @@ public class CreateDummyData {
                 LocalTime sessionTime1 = LocalTime.of(12, 0, 0);
                 LocalTime sessionTime2 = LocalTime.of(18, 0, 0);
 
+                CreateSessionRequestDto mock1 = mock(CreateSessionRequestDto.class);
+                when(mock1.getDate()).thenReturn(sessionDate);
+                when(mock1.getName()).thenReturn("A");
+                when(mock1.getTime()).thenReturn(sessionTime1);
+
+                CreateSessionRequestDto mock2 = mock(CreateSessionRequestDto.class);
+                when(mock2.getDate()).thenReturn(sessionDate);
+                when(mock2.getName()).thenReturn("B");
+                when(mock2.getTime()).thenReturn(sessionTime2);
+
+
                 // 공연별로, 하루에 세션 2개씩 생성
-                Session aSession = new Session(id++, performance, sessionDate, sessionTime1, "A");
-                Session bSession = new Session(id++, performance, sessionDate, sessionTime2, "B");
+                Session aSession = new Session(performance, mock1);
+                Session bSession = new Session(performance, mock2);
                 sessionList.add(aSession);
                 sessionList.add(bSession);
             }
@@ -748,7 +783,7 @@ public class CreateDummyData {
 
 
     @Test
-    @Order(5)
+    @Order(10)
     @Transactional()
     @Rollback(value = false)
     void createSeatDummyData() {
@@ -783,7 +818,12 @@ public class CreateDummyData {
                     seatGrade = seatGrades[3];
                 }
 
-                seatList.add(new Seat(id++, session, price, seatNumber, seatGrade, SeatStatus.NOT_RESERVED, null, null));
+                SeatCreateRequestDto mock = mock(SeatCreateRequestDto.class);
+                when(mock.getSeatNumber()).thenReturn(seatNumber);
+                when(mock.getPrice()).thenReturn(price);
+                when(mock.getSeatGrade()).thenReturn(seatGrade);
+
+                seatList.add(new Seat(session, mock));
             }
         }
         seatRepository.saveAll(seatList);
@@ -804,30 +844,29 @@ public class CreateDummyData {
 
         // admin 3명
         for (int i = 1; i <= 3; i++) {
-            UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    admin + i + "@gmail.com",
-                    "qwer1234",
-                    admin + i,
-                    admin + i,
-                    "010-0000-0000",
-                    "서울특별시 강남구 테헤란로44길 8"
-            );
+            UserSignupRequestDto mock = mock(UserSignupRequestDto.class);
+            when(mock.getEmail()).thenReturn(admin + i + "@gmail.com");
+            when(mock.getPassword()).thenReturn("qwer1234");
+            when(mock.getName()).thenReturn(admin + i);
+            when(mock.getNickname()).thenReturn(admin + i);
+            when(mock.getPhoneNumber()).thenReturn("010-0000-0000");
+            when(mock.getAddress()).thenReturn("서울특별시 강남구 테헤란로44길 8");
 
-            userList.add(new User(userSignupRequestDto, encodedPassword, UserRole.ADMIN));
+            userList.add(new User(mock, encodedPassword, UserRole.ADMIN));
+
         }
 
-        // user 7명
-        for (int i = 1; i <= 7; i++) {
-            UserSignupRequestDto userSignupRequestDto = new UserSignupRequestDto(
-                    userStr + i + "@gmail.com",
-                    "qwer1234",
-                    userStr + i,
-                    userStr + i,
-                    "010-0000-0000",
-                    "서울특별시 강남구 테헤란로44길 8"
-            );
+        // user 100명
+        for (int i = 1; i <= 100; i++) {
+            UserSignupRequestDto mock = mock(UserSignupRequestDto.class);
+            when(mock.getEmail()).thenReturn(userStr + i + "@gmail.com");
+            when(mock.getPassword()).thenReturn("qwer1234");
+            when(mock.getName()).thenReturn(userStr + i);
+            when(mock.getNickname()).thenReturn(userStr + i);
+            when(mock.getPhoneNumber()).thenReturn("010-0000-0000");
+            when(mock.getAddress()).thenReturn("서울특별시 강남구 테헤란로44길 8");
 
-            userList.add(new User(userSignupRequestDto, encodedPassword, UserRole.USER));
+            userList.add(new User(mock, encodedPassword, UserRole.USER));
 
         }
         userRepository.saveAll(userList);
@@ -840,12 +879,63 @@ public class CreateDummyData {
     @Rollback(value = false)
     void createBannerDummyData(){
         List<Banner> bannerList = new ArrayList<>();
-        bannerList.add(new Banner(1L, 1, "performances/97", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(2L, 2, "performances/22", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(3L, 3, "performances/83", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(4L, 4, "performances/106", BannerType.MAIN, "https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(5L, 1, "performances/22", BannerType.MIDDLE, "https://ifh.cc/g/o4YLd9.png", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
-        bannerList.add(new Banner(6L, 1, "performances/37", BannerType.BOTTOM, "https://ifh.cc/g/7G5ywD.png", LocalDateTime.now().minusDays(1), LocalDateTime.now().plusYears(1)));
+
+        BannerRequestDto mock1 = mock(BannerRequestDto.class);
+        when(mock1.getPosition()).thenReturn(1);
+        when(mock1.getLinkUrl()).thenReturn("performances/97");
+        when(mock1.getBannerType()).thenReturn(BannerType.MAIN);
+        when(mock1.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2407%2F240710051215_16007528.gif&w=1920&q=75");
+        when(mock1.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock1.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+
+        BannerRequestDto mock2 = mock(BannerRequestDto.class);
+        when(mock2.getPosition()).thenReturn(2);
+        when(mock2.getLinkUrl()).thenReturn("performances/22");
+        when(mock2.getBannerType()).thenReturn(BannerType.MAIN);
+        when(mock2.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610015204_24007345.gif&w=3840&q=75");
+        when(mock2.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock2.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+        BannerRequestDto mock3 = mock(BannerRequestDto.class);
+        when(mock3.getPosition()).thenReturn(3);
+        when(mock3.getLinkUrl()).thenReturn("performances/83");
+        when(mock3.getBannerType()).thenReturn(BannerType.MAIN);
+        when(mock3.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240617041354_24002890.gif&w=3840&q=75");
+        when(mock3.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock3.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+        BannerRequestDto mock4 = mock(BannerRequestDto.class);
+        when(mock4.getPosition()).thenReturn(4);
+        when(mock4.getLinkUrl()).thenReturn("performances/106");
+        when(mock4.getBannerType()).thenReturn(BannerType.MAIN);
+        when(mock4.getBannerImageUrl()).thenReturn("https://tickets.interpark.com/_next/image?url=http%3A%2F%2Fticketimage.interpark.com%2FTCMS3.0%2FNMain%2FBbannerPC%2F2406%2F240610094556_16007528.gif&w=3840&q=75");
+        when(mock4.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock4.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+        BannerRequestDto mock5 = mock(BannerRequestDto.class);
+        when(mock5.getPosition()).thenReturn(1);
+        when(mock5.getLinkUrl()).thenReturn("performances/22");
+        when(mock5.getBannerType()).thenReturn(BannerType.MIDDLE);
+        when(mock5.getBannerImageUrl()).thenReturn("https://ifh.cc/g/o4YLd9.png");
+        when(mock5.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock5.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+        BannerRequestDto mock6 = mock(BannerRequestDto.class);
+        when(mock6.getPosition()).thenReturn(1);
+        when(mock6.getLinkUrl()).thenReturn("performances/37");
+        when(mock6.getBannerType()).thenReturn(BannerType.BOTTOM);
+        when(mock6.getBannerImageUrl()).thenReturn("https://ifh.cc/g/7G5ywD.png");
+        when(mock6.getStartAt()).thenReturn(LocalDateTime.now().minusDays(1));
+        when(mock6.getEndAt()).thenReturn(LocalDateTime.now().plusYears(1));
+
+        bannerList.add(new Banner(mock1));
+        bannerList.add(new Banner(mock2));
+        bannerList.add(new Banner(mock3));
+        bannerList.add(new Banner(mock4));
+        bannerList.add(new Banner(mock5));
+        bannerList.add(new Banner(mock6));
+
         bannerRepository.saveAll(bannerList);
     }
 }

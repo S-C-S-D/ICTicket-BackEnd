@@ -1,15 +1,14 @@
 package com.sparta.icticket.seat;
 
-import com.sparta.icticket.common.enums.ErrorType;
-import com.sparta.icticket.common.exception.CustomException;
-import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
+import com.sparta.icticket.common.exception.CustomException;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +17,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "seats")
 public class Seat extends Timestamped {

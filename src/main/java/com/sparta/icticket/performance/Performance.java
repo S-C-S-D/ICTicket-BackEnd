@@ -6,7 +6,6 @@ import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.performance.dto.PerformanceRequestDto;
 import com.sparta.icticket.venue.Venue;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "performances")
 public class Performance extends Timestamped {
     @Id
@@ -86,6 +84,22 @@ public class Performance extends Timestamped {
         this.startAt = requestDto.getStartAt();
         this.endAt = requestDto.getEndAt();
         this.imageUrl = requestDto.getImageUrl();
+    }
+
+    public Performance(Long id, Venue venue, String title, String description, GenreType genreType, AgeGroup ageGroup, Integer runTime, LocalDateTime openAt, LocalDate startAt, LocalDate endAt, String imageUrl, Long viewCount, Long version) {
+        this.id = id;
+        this.venue = venue;
+        this.title = title;
+        this.description = description;
+        this.genreType = genreType;
+        this.ageGroup = ageGroup;
+        this.runTime = runTime;
+        this.openAt = openAt;
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.imageUrl = imageUrl;
+        this.viewCount = viewCount;
+        this.version = version;
     }
 
     public void addViewCount() {

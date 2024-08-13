@@ -1,16 +1,12 @@
 package com.sparta.icticket.venue;
 
-import com.sparta.icticket.venue.dto.VenueRequestDto;
 import com.sparta.icticket.common.Timestamped;
+import com.sparta.icticket.venue.dto.VenueRequestDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "venues")
 public class Venue extends Timestamped {
     @Id
@@ -30,6 +26,9 @@ public class Venue extends Timestamped {
         this.venueName = venueRequestDto.getVenueName();
         this.location = venueRequestDto.getLocation();
         this.totalSeatCount = venueRequestDto.getTotalSeatCount();
+    }
+
+    public Venue() {
     }
 
     public void updateVenue(VenueRequestDto venueRequestDto) {

@@ -1,23 +1,19 @@
 package com.sparta.icticket.session;
 
-import com.sparta.icticket.session.dto.CreateSessionRequestDto;
-import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import com.sparta.icticket.common.Timestamped;
 import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
+import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "sessions")
 public class Session extends Timestamped {
     @Id
@@ -41,13 +37,16 @@ public class Session extends Timestamped {
         this.performance = performance;
         this.sessionDate = createSessionRequestDto.getDate();
         this.sessionTime = createSessionRequestDto.getTime();
-        this.sessionName= createSessionRequestDto.getName();
+        this.sessionName = createSessionRequestDto.getName();
+    }
+
+    public Session() {
     }
 
     public void update(UpdateSessionRequestDto updateSessionRequestDto) {
         this.sessionDate = updateSessionRequestDto.getDate();
         this.sessionTime = updateSessionRequestDto.getTime();
-        this.sessionName= updateSessionRequestDto.getName();
+        this.sessionName = updateSessionRequestDto.getName();
     }
 
     // 해당 공연기간에서 벗어난 날짜를 입력했을때 예외처리
