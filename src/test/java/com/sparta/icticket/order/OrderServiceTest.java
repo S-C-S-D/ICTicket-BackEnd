@@ -1,8 +1,10 @@
 package com.sparta.icticket.order;
 
+import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.GenreType;
 import com.sparta.icticket.common.enums.OrderStatus;
 import com.sparta.icticket.common.enums.SeatStatus;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.order.dto.OrderCreateRequestDto;
 import com.sparta.icticket.order.dto.OrderCreateResponseDto;
 import com.sparta.icticket.order.dto.OrderListResponseDto;
@@ -10,6 +12,8 @@ import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
 import com.sparta.icticket.seat.Seat;
+import com.sparta.icticket.seat.SeatRepository;
+import com.sparta.icticket.seat.dto.SeatCreateRequestDto;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
 import com.sparta.icticket.ticket.Ticket;
@@ -22,6 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -34,6 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -113,6 +119,67 @@ class OrderServiceTest {
         assertEquals("1번지", responseDto.getAddress());
         assertEquals("010-0000-0000", responseDto.getPhoneNumber());
         assertEquals(LocalDate.now(), responseDto.getOrderDate());
+    }
+
+    @Test
+    void creatSeat_NotFoundSeat() {
+
+        // given
+        Seat seat1 = Mockito.mock(Seat.class);
+        List<Seat> seats = new ArrayList<>();
+        seats.add(seat1);
+
+        List<Long> seatIds = new ArrayList<>();
+        seatIds.add(1L);
+        seatIds.add(2L);
+
+        OrderCreateRequestDto requestDto = Mockito.mock(OrderCreateRequestDto.class);
+        when(requestDto.getSeatIdList()).thenReturn(seatIds);
+
+        Session session = Mockito.mock(Session.class);
+        when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
+        when(orderRepository.findSeatById(seatIds, session)).thenReturn(seats);
+
+        User user = Mockito.mock(User.class);
+
+        // when-then
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            orderService.createOrder(1L, requestDto, user);
+        });
+
+        assertEquals(ErrorType.NOT_FOUND_SEAT, exception.getErrorType());
+
+    }
+
+    @Test
+    void creatSeat_TimeOut() {
+
+        // given
+        List<Long> seatIds = new ArrayList<>();
+        seatIds.add(1L);
+        OrderCreateRequestDto requestDto = Mockito.mock(OrderCreateRequestDto.class);
+        when(requestDto.getSeatIdList()).thenReturn(seatIds);
+
+        Session session = Mockito.mock(Session.class);
+        Seat seat = Mockito.mock(Seat.class);
+        List<Seat> seats = new ArrayList<>();
+        seats.add(seat);
+
+        when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
+        User user = Mockito.mock(User.class);
+        doNothing().when(seat).checkUser(user);
+
+        when(orderRepository.findSeatById(seatIds, session)).thenReturn(seats);
+
+        when(seat.getSeatSelectedAt()).thenReturn(LocalDateTime.now().minusMinutes(12));
+
+        // when-then
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            orderService.createOrder(1L, requestDto, user);
+        });
+
+        assertEquals(ErrorType.TIME_OUT, exception.getErrorType());
+
     }
 
     @Test

@@ -1,7 +1,9 @@
 package com.sparta.icticket.seat;
 
+import com.sparta.icticket.common.enums.ErrorType;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
+import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -154,5 +157,33 @@ class SeatServiceTest {
         assertEquals(seatNumberList, responseDto.getSeatNumberList());
         assertEquals(9000, responseDto.getTotalPrice());
         assertEquals(10, responseDto.getDiscountRate());
+    }
+
+    @Test
+    void reserveSeat_AlreadyReservedSeat() {
+
+        // given
+        Session session = Mockito.mock(Session.class);
+        Seat seat = Mockito.mock(Seat.class);
+        List<Long> seatIds = new ArrayList<>();
+        seatIds.add(1L);
+        seatIds.add(2L);
+        List<Seat> seats = new ArrayList<>();
+        seats.add(seat);
+
+        SeatReservedRequestDto requestDto = Mockito.mock(SeatReservedRequestDto.class);
+        when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
+        when(requestDto.getSeatIdList()).thenReturn(seatIds);
+
+        when(seatRepository.findSeatsByIdList(seatIds)).thenReturn(seats);
+
+        User user = Mockito.mock(User.class);
+
+        // when-then
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            seatService.reserveSeat(1L, requestDto, user);
+        });
+
+        assertEquals(ErrorType.ALREADY_RESERVED_SEAT, exception.getErrorType());
     }
 }

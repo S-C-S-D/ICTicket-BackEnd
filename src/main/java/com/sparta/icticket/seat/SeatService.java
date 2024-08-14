@@ -79,7 +79,7 @@ public class SeatService {
 
         List<Seat> seatList = seatRepository.findSeatsByIdList(seatIdList);
 
-        if(seatList.size() < seatIdList.size()) {
+        if(seatList.size() != seatIdList.size()) {
             throw new CustomException(ErrorType.ALREADY_RESERVED_SEAT);
         }
 
