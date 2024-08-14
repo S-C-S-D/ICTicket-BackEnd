@@ -1,9 +1,7 @@
 package com.sparta.icticket.seat;
 
-import com.sparta.icticket.admin.service.AdminSeatService;
 import com.sparta.icticket.common.enums.SeatGrade;
 import com.sparta.icticket.common.enums.SeatStatus;
-import com.sparta.icticket.common.exception.CustomException;
 import com.sparta.icticket.performance.Performance;
 import com.sparta.icticket.sales.Sales;
 import com.sparta.icticket.sales.SalesRepository;
@@ -28,8 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.awaitility.Awaitility.given;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -82,6 +79,7 @@ class SeatServiceTest {
         list.add(seat);
 
         when(seat.getSeatGrade()).thenReturn(SeatGrade.A);
+        when(seat.getPrice()).thenReturn(10000);
         when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
         doNothing().when(session).checkPerformance(any(Long.class));
 
@@ -92,6 +90,7 @@ class SeatServiceTest {
 
         // then
         assertEquals(SeatGrade.A, seatList.get(0).getSeatGrade());
+        assertEquals(10000, seatList.get(0).getPrice());
     }
 
     @Test
@@ -129,6 +128,8 @@ class SeatServiceTest {
         SeatReservedResponseDto responseDto = seatService.reserveSeat(1L, requestDto, user);
 
         // then
-        assertEquals(responseDto.getDiscountRate(), 10);
+        assertEquals(10, responseDto.getDiscountRate());
+        assertEquals(10000, responseDto.getTotalPrice());
+        assertEquals("1", responseDto.getSeatNumberList().get(0));
     }
 }
