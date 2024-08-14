@@ -39,8 +39,9 @@ class AdminSeatServiceTest {
     @InjectMocks
     private AdminSeatService adminSeatService;
 
+    // 같은 등급과 번호를 가진 좌석이 있는 경우 예외 테스트
     @Test
-    public void createSeat() {
+    void createSeat() {
 
         // given
         SeatCreateRequestDto mock = Mockito.mock(SeatCreateRequestDto.class);
@@ -61,7 +62,28 @@ class AdminSeatServiceTest {
     }
 
     @Test
-    public void deleteSeat() {
+    void createSeat_save() {
+
+        // given
+        SeatCreateRequestDto mock = Mockito.mock(SeatCreateRequestDto.class);
+        when(mock.getPrice()).thenReturn(10000);
+        when(mock.getSeatNumber()).thenReturn("1");
+        when(mock.getSeatGrade()).thenReturn(SeatGrade.A);
+        Session session = new Session();
+
+        when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
+        when(seatRepository.existsBySessionAndSeatGradeAndSeatNumber(session, mock.getSeatGrade(), mock.getSeatNumber())).thenReturn(false);
+
+        // when
+        adminSeatService.createSeat(1L, mock);
+
+        // then
+        verify(seatRepository, times(1)).save(any(Seat.class));
+    }
+
+    // 삭제가 이루어지는지 테스트
+    @Test
+    void deleteSeat() {
         // given
         Session session = new Session();
         SeatCreateRequestDto mock = Mockito.mock(SeatCreateRequestDto.class);

@@ -64,6 +64,7 @@ class OrderServiceTest {
     @InjectMocks
     private OrderService orderService;
 
+    // createOrder가 올바른 responseDto를 반환하는지 확인
     @Test
     void createOrder() {
 
@@ -121,6 +122,46 @@ class OrderServiceTest {
         assertEquals(LocalDate.now(), responseDto.getOrderDate());
     }
 
+    // order, ticket의 save가 일어나는지 테스트
+    @Test
+    void createSeat_save() {
+        // given
+        Session session = Mockito.mock(Session.class);
+        when(sessionRepository.findById(any(Long.class))).thenReturn(Optional.of(session));
+
+        Seat seat = Mockito.mock(Seat.class);
+        when(seat.getSeatSelectedAt()).thenReturn(LocalDateTime.now());
+        when(seat.getPrice()).thenReturn(10000);
+        when(seat.getSeatNumber()).thenReturn("1");
+        List<Seat> seats = new ArrayList<>();
+        seats.add(seat);
+
+        OrderCreateRequestDto requestDto = Mockito.mock(OrderCreateRequestDto.class);
+        List<Long> seatIds = new ArrayList<>();
+        seatIds.add(1L);
+        when(requestDto.getSeatIdList()).thenReturn(seatIds);
+        when(orderRepository.findSeatById(seatIds, session)).thenReturn(seats);
+
+        User user = Mockito.mock(User.class);
+        doNothing().when(seat).checkUser(user);
+        doNothing().when(seat).updateSeatStatus(SeatStatus.PAYMENT_COMPLETED);
+
+        Sales sales = Mockito.mock(Sales.class);
+        Performance performance = Mockito.mock(Performance.class);
+        when(salesRepository.findByPerformance(performance)).thenReturn(Optional.of(sales));
+
+        when(sales.getDiscountRate()).thenReturn(10);
+        when(session.getPerformance()).thenReturn(performance);
+
+        // when
+        orderService.createOrder(1L, requestDto, user);
+
+        // then
+        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(ticketRepository, times(1)).save(any(Ticket.class));
+    }
+
+    // 일부 좌석이 결제할 수 없는 경우 예외 테스트
     @Test
     void creatSeat_NotFoundSeat() {
 
@@ -151,6 +192,7 @@ class OrderServiceTest {
 
     }
 
+    // 결제 시간을 초과한 경우 테스트
     @Test
     void creatSeat_TimeOut() {
 
@@ -182,6 +224,7 @@ class OrderServiceTest {
 
     }
 
+    // getOrders가 올바른 responseDto를 반환하는지 테스트
     @Test
     void getOrders() {
 
@@ -239,6 +282,7 @@ class OrderServiceTest {
         assertEquals(OrderStatus.SUCCESS, responseDto.get(0).getOrderStatus());
     }
 
+    // 예매 취소 시, ticket의 delete가 수행되는지 테스트
     @Test
     void deleteOrder() {
 

@@ -54,6 +54,7 @@ class SeatServiceTest {
     @InjectMocks
     private SeatService seatService;
 
+    // getSeatCount가 올바른 responseDto를 반환하는지 테스트
     @Test
     void getSeatCount() {
 
@@ -74,6 +75,7 @@ class SeatServiceTest {
         assertEquals(1, responseDto.getRestSeatCount());
     }
 
+    // getSeats가 올바른 responseDto를 반환하는지 테스트
     @Test
     void getSeats() {
 
@@ -102,6 +104,7 @@ class SeatServiceTest {
         assertEquals(10000, seatList.get(0).getPrice());
     }
 
+    // reserveSeat가 올바른 responseDto를 반환하는지 확인
     @Test
     void reserveSeat() {
 
@@ -159,6 +162,7 @@ class SeatServiceTest {
         assertEquals(10, responseDto.getDiscountRate());
     }
 
+    // 결제 중이건나 결제가 완료된 좌석 선택 시 예외 테스트
     @Test
     void reserveSeat_AlreadyReservedSeat() {
 
