@@ -53,7 +53,35 @@ class LikeServiceTest {
 
     @Test
     void deleteLike() {
+        //given
 
+        Long performanceId=1L;
+        Long likeId=2L;
+
+        User loginUserMock = mock(User.class);
+        Long userId =3L;
+        when(loginUserMock.getId()).thenReturn(userId);
+
+        Performance performanceMock = mock(Performance.class);
+        when(performanceMock.getId()).thenReturn(performanceId);
+
+        when(performanceRepository.findById(performanceId)).thenReturn(Optional.of(performanceMock));
+
+        Like likeMock = mock(Like.class);
+        when(likeMock.getPerformance()).thenReturn(performanceMock);
+        when(likeMock.getId()).thenReturn(likeId);
+        when(likeMock.getUser()).thenReturn(loginUserMock);
+
+        when(likeRepository.findByIdAndPerformanceAndUser(likeId, performanceMock, loginUserMock)).thenReturn(Optional.of(likeMock));
+        //when
+        likeService.deleteLike(performanceId, likeId, loginUserMock);
+        //then
+        ArgumentCaptor<Like> captor = ArgumentCaptor.forClass(Like.class);
+        verify(likeRepository).delete(captor.capture());
+        Like deletedLike = captor.getValue();
+        assertEquals(performanceId, deletedLike.getPerformance().getId());
+        assertEquals(likeId, deletedLike.getId());
+        assertEquals(userId,deletedLike.getUser().getId());
     }
 
     @Test
