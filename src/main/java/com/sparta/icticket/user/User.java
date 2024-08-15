@@ -101,8 +101,8 @@ public class User extends Timestamped {
     }
 
     // user의 user_status 확인
-    public void checkNicknameByUserStatus() {
-        if(this.userStatus.equals(UserStatus.ACTIVATE)) {
+    public void checkNicknameByUserStatus(User user) {
+        if(this.userStatus.equals(UserStatus.ACTIVATE) && !(this.equals(user))) {
             throw new CustomException(ErrorType.ALREADY_EXISTS_NICKNAME);
         }
     }

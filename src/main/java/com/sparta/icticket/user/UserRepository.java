@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     // 해당 nickname을 가진 user 객체 조회
-    Optional<User> findByNickname(String nickname);
+    User findByNickname(String nickname);
 
     // 해당 email과 user_status를 가진 user 객체 조회
     Optional<User> findByEmailAndUserStatus(String email, UserStatus userStatus);
