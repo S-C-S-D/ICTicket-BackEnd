@@ -100,5 +100,17 @@ class AdminSessionServiceTest {
 
     @Test
     void deleteSession() {
+        //given
+        Long performanceId=1L;
+        Long sessionId=1L;
+
+        Session sessionMock = mock(Session.class);
+        when(sessionMock.getId()).thenReturn(sessionId);
+
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(sessionMock));
+        //when
+        adminSessionService.deleteSession(performanceId, sessionId);
+        //then
+        verify(sessionRepository).deleteById(sessionId);
     }
 }
