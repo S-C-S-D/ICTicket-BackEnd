@@ -6,6 +6,7 @@ import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -28,7 +29,26 @@ class LikeServiceTest {
 
     @Test
     void createLike() {
+        //given
+        Long performanceId =1L;
 
+        User loginUser = mock(User.class);
+
+        Performance performanceMock = mock(Performance.class);
+        when(performanceMock.getId()).thenReturn(performanceId);
+
+        when(performanceRepository.findById(performanceId)).thenReturn(Optional.of(performanceMock));
+
+        when(likeRepository.findByUserAndPerformance(loginUser, performanceMock)).thenReturn(Optional.empty());
+        //when
+        likeService.createLike(performanceId, loginUser);
+        //then
+        ArgumentCaptor<Like> captor = ArgumentCaptor.forClass(Like.class);
+        verify(likeRepository).save(captor.capture());
+        Like savedLike = captor.getValue();
+
+        assertEquals(loginUser.getId(), savedLike.getUser().getId());
+        assertEquals(performanceMock.getId(), savedLike.getPerformance().getId());
     }
 
     @Test
