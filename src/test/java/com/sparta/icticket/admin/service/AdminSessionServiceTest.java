@@ -6,6 +6,7 @@ import com.sparta.icticket.performance.PerformanceRepository;
 import com.sparta.icticket.session.Session;
 import com.sparta.icticket.session.SessionRepository;
 import com.sparta.icticket.session.dto.CreateSessionRequestDto;
+import com.sparta.icticket.session.dto.UpdateSessionRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -67,6 +68,34 @@ class AdminSessionServiceTest {
 
     @Test
     void updateSession() {
+        //given
+        Long performanceId = 1L;
+
+        Long sessionId =1L;
+
+        UpdateSessionRequestDto requestDtoMock = mock(UpdateSessionRequestDto.class);
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        when(requestDtoMock.getDate()).thenReturn(date);
+        when(requestDtoMock.getName()).thenReturn("A");
+        when(requestDtoMock.getTime()).thenReturn(time);
+
+        Performance performanceMock = mock(Performance.class);
+        when(performanceMock.getId()).thenReturn(performanceId);
+        when(performanceMock.getStartAt()).thenReturn(LocalDate.now().minusDays(1));
+        when(performanceMock.getEndAt()).thenReturn(LocalDate.now().plusDays(1));
+
+
+        Session sessionMock = mock(Session.class);
+        when(sessionMock.getPerformance()).thenReturn(performanceMock);
+        when(sessionMock.getId()).thenReturn(sessionId);
+
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(sessionMock));
+        //when
+        adminSessionService.updateSession(performanceId,sessionId,requestDtoMock);
+        //then
+        verify(sessionMock).checkDate(requestDtoMock.getDate());
+        verify(sessionMock).update(requestDtoMock);
     }
 
     @Test
