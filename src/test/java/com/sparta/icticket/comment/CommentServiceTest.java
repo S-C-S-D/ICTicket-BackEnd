@@ -63,9 +63,25 @@ class CommentServiceTest {
 
     @Test
     void deleteComment() {
+        //given
+        Long performanceId = 1L;
+
+        Long commentId = 1L;
+
+        User loginUserMock = mock(User.class);
+
+        Comment commentMock = mock(Comment.class);
+
+        when(commentRepository.findById(commentId)).thenReturn(Optional.of(commentMock));
+        //when
+        commentService.deleteComment(performanceId,commentId,loginUserMock);
+        //then
+        verify(commentRepository).delete(commentMock);
     }
+    // + checkPerformance,checkUser
 
     @Test
     void getComments() {
+
     }
 }
