@@ -30,7 +30,10 @@ public class UserService {
      */
     public void createUser(UserSignupRequestDto requestDto) {
         checkDuplicateEmail(requestDto.getEmail());
-        checkDuplicateNickname(requestDto.getNickname());
+
+        if(checkDuplicateNickname(requestDto.getNickname()) != null) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_NICKNAME);
+        }
 
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
@@ -45,7 +48,10 @@ public class UserService {
      */
     public void createAdminUser(UserSignupRequestDto requestDto) {
         checkDuplicateEmail(requestDto.getEmail());
-        checkDuplicateNickname(requestDto.getNickname());
+
+        if(checkDuplicateNickname(requestDto.getNickname()) != null) {
+            throw new CustomException(ErrorType.ALREADY_EXISTS_NICKNAME);
+        }
 
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
@@ -88,7 +94,10 @@ public class UserService {
     public void updateProfile(UserProfileRequestDto requestDto, User loginUser) {
         User findUser = getUserByEmailAndStatus(loginUser.getEmail());
 
-        checkDuplicateNickname(requestDto.getNickname());
+        User findUserByNickname = checkDuplicateNickname(requestDto.getNickname());
+        if(findUserByNickname != null) {
+            findUserByNickname.checkNicknameByUserStatus(findUser);
+        }
 
         findUser.updateUserProfile(requestDto);
     }
@@ -118,17 +127,12 @@ public class UserService {
     }
 
     /**
-     * 닉네임 중복 검사(탈퇴 회원이 사용했던 닉네임은 사용 가능)
+     * 닉네임 중복 사용자 조회
      * @param nickname
-     * @description 같은 nickname을 사용하면서 user_status가 ACTIVE인 user가 있는지 검증
+     * @description 같은 nickname을 사용하는 user 조회
      */
-    private void checkDuplicateNickname(String nickname) {
-
-        if(userRepository.findByNickname(nickname).isPresent()) {
-            User findUser = userRepository.findByNickname(nickname).get();
-
-            findUser.checkNicknameByUserStatus();
-        }
+    private User checkDuplicateNickname(String nickname) {
+        return userRepository.findByNickname(nickname);
     }
 
     /**

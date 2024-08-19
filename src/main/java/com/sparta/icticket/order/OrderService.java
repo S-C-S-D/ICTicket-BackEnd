@@ -178,6 +178,6 @@ public class OrderService {
      * @description 해당 performance를 가진 sales 객체 조회
      */
     private Sales getSales(Performance performance) {
-        return salesRepository.findDiscountRateByPerformance(performance).orElse(null);
+        return salesRepository.findByPerformance(performance).orElse(null);
     }
 }

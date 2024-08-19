@@ -28,7 +28,6 @@ import java.util.List;
 public class SeatService {
 
     private final SeatRepository seatRepository;
-    private final PerformanceRepository performanceRepository;
     private final SessionRepository sessionRepository;
     private final SalesRepository salesRepository;
 
@@ -80,7 +79,7 @@ public class SeatService {
 
         List<Seat> seatList = seatRepository.findSeatsByIdList(seatIdList);
 
-        if(seatList.size() < seatIdList.size()) {
+        if(seatList.size() != seatIdList.size()) {
             throw new CustomException(ErrorType.ALREADY_RESERVED_SEAT);
         }
 

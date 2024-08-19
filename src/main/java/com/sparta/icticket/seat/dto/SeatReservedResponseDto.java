@@ -27,7 +27,7 @@ public class SeatReservedResponseDto {
         this.sessionTime = session.getSessionTime();
         this.sessionName = session.getSessionName();
         this.seatNumberList = seatNumberList;
-        this.totalPrice = totalPrice - (totalPrice * (discountRate / 100));
+        this.totalPrice = (int) (totalPrice - (totalPrice * (discountRate / 100.0)));
         this.discountRate = discountRate;
     }
 }
